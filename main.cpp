@@ -112,6 +112,13 @@ int main()
     << glGetString ( GL_VERSION ) << std::endl
     << glGetString ( GL_SHADING_LANGUAGE_VERSION ) << std::endl;
 
+    // - Registramos los callbacks que responderán a los eventos principales
+    glfwSetWindowRefreshCallback ( window, window_refresh_callback );
+    glfwSetFramebufferSizeCallback ( window, framebuffer_size_callback );
+    glfwSetKeyCallback ( window, key_callback );
+    glfwSetMouseButtonCallback ( window, mouse_button_callback );
+    glfwSetScrollCallback ( window, scroll_callback );
+
     // - Establecemos un gris medio como color con el que se borrará el frame buffer.
     // No tiene por qué ejecutarse en cada paso por el ciclo de eventos.
     glClearColor ( 0.6, 0.6, 0.6, 1.0 );
@@ -120,18 +127,11 @@ int main()
     // No tiene por qué ejecutarse en cada paso por el ciclo de eventos.
     glEnable ( GL_DEPTH_TEST );
 
-    // - Ciclo de eventos de la aplicación. La condición de parada es que la ventana principal deba cerrarse. Por ejemplo, si el usuario pulsa el botón de cerrar la ventana (X).
+    // - Ciclo de eventos de la aplicación. La condición de parada es que la ventana principal deba cerrarse, por ejemplo, si el usuario pulsa el  botón de cerrar la ventana (X).
     while ( !glfwWindowShouldClose ( window ) )
     {
-        // - Borra los buffers (color y profundidad)
-        glClear ( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
-
-        // - GLFW usa un doble buffer para que no haya parpadeo.
-        // Esta orden intercambia el buffer back (en el que se ha estado dibujando) por el que se mostraba hasta ahora (front).
-        glfwSwapBuffers ( window );
-
-        // - Obtiene y organiza los eventos pendientes, tales como pulsaciones de
-        // teclas o de ratón, etc. Siempre al final de cada iteración del ciclo de eventos y después de glfwSwapBuffers(window);
+        // - Obtiene y organiza los eventos pendientes, tales como pulsaciones de teclas o de ratón, etc.
+        // Siempre al final de cada iteración del ciclo de eventos y después de glfwSwapBuffers ( window );
         glfwPollEvents ();
     }
 
