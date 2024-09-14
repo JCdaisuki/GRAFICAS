@@ -1,4 +1,7 @@
 #include <iostream>
+#include <cstdlib>
+#include <ctime>
+
 // IMPORTANTE: El include de GLAD debe estar siempre ANTES de el de GLFW
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -50,17 +53,40 @@ void mouse_button_callback ( GLFWwindow *window, int button, int action, int mod
     }
 }
 
+// - Función auxiliar que devuelve un número aleatorio en el rango [0, 1]
+float RandomNumber01 ()
+{
+    // Genera un valor aleatorio empleando rand()
+    // Para asegurar que se encuentre en el rango [0,1] dividimos entre RAND_MAX
+    return static_cast<float>(std::rand()) / RAND_MAX;
+}
+
 // - Esta función callback será llamada cada vez que se mueva la rueda del ratón sobre el área de dibujo OpenGL.
 void scroll_callback ( GLFWwindow *window, double xoffset, double yoffset )
 {
     std::cout << "Movida la rueda del raton " << xoffset
     << " Unidades en horizontal y " << yoffset
     << " unidades en vertical" << std::endl;
+
+    float r = RandomNumber01();
+    float g = RandomNumber01();
+    float b = RandomNumber01();
+
+    std::cout << " - Cambiado el color a (" << r << ", " << g << ", " << b << ", 1.0)" << std::endl;
+
+    //Cambia el color del fondo a uno generado aleatoriamente
+    glClearColor ( r, g, b, 1.0 );
+
+    // Limpia el buffer de color para aplicar el nuevo color de fondo
+    glClear(GL_COLOR_BUFFER_BIT);
 }
 
 int main()
 {
     std::cout << "Starting Application PAG - Prueba 01" << std::endl;
+
+    //Establecemos una semilla para la aleatoriedad de rand() basada en la hora actual
+    std::srand(static_cast<unsigned int>(std::time(0)));
 
     // - Este callback hay que registrarlo ANTES de llamar a glfwInit
     glfwSetErrorCallback ( (GLFWerrorfun) error_callback );
@@ -107,10 +133,11 @@ int main()
     }
 
     // - Interrogamos a OpenGL para que nos informe de las propiedades del contexto 3D construido.
-    std::cout << glGetString ( GL_RENDERER ) << std::endl
-    << glGetString ( GL_VENDOR ) << std::endl
-    << glGetString ( GL_VERSION ) << std::endl
-    << glGetString ( GL_SHADING_LANGUAGE_VERSION ) << std::endl;
+    std::cout << "Propiedades del Contexto 3d: " << std::endl
+    <<" - Trajeta Grafica: " << glGetString ( GL_RENDERER ) << std::endl
+    <<" - Fabricante de Trajeta Grafica: " << glGetString ( GL_VENDOR ) << std::endl
+    <<" - Version de OpenGL: " << glGetString ( GL_VERSION ) << std::endl
+    <<" - Version de GLSL: " << glGetString ( GL_SHADING_LANGUAGE_VERSION ) << std::endl << std::endl;
 
     // - Registramos los callbacks que responderán a los eventos principales
     glfwSetWindowRefreshCallback ( window, window_refresh_callback );
