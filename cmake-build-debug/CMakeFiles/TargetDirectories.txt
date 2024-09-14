@@ -1,0 +1,3 @@
+C:/Users/JuanC/Music/CURSO_2425/GRAFICAS/cmake-build-debug/CMakeFiles/GRAFICAS.dir
+C:/Users/JuanC/Music/CURSO_2425/GRAFICAS/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/JuanC/Music/CURSO_2425/GRAFICAS/cmake-build-debug/CMakeFiles/rebuild_cache.dir
