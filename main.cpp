@@ -74,11 +74,14 @@ void scroll_callback ( GLFWwindow *window, double xoffset, double yoffset )
 
     std::cout << " - Cambiado el color a (" << r << ", " << g << ", " << b << ", 1.0)" << std::endl;
 
-    //Cambia el color del fondo a uno generado aleatoriamente
+    // Cambia el color del fondo a uno generado aleatoriamente
     glClearColor ( r, g, b, 1.0 );
 
     // Limpia el buffer de color para aplicar el nuevo color de fondo
     glClear(GL_COLOR_BUFFER_BIT);
+
+    // Intercambia el buffer en el que se estaba dibujando por el que se muestra
+    glfwSwapBuffers ( window );
 }
 
 int main()
