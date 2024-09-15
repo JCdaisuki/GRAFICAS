@@ -23,14 +23,14 @@ namespace PAG
             Renderer ()= default;
 
             // - Esta función callback será llamada cuando GLFW produzca algún error
-            static void error_callback ( int errno, const char* desc )
+            static void ErrorGLFW ( int errno, const char* desc )
             {
                 std::string aux (desc);
                 std::cout << "Error de GLFW número " << errno << ": " << aux << std::endl;
             }
 
             // - Esta función callback será llamada cada vez que el área de dibujo OpenGL deba ser redibujada.
-            static void window_refresh_callback ( GLFWwindow *window )
+            static void refrescarVentana ( GLFWwindow *window )
             {
                 glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
                 // - GLFW usa un doble buffer para que no haya parpadeo.
@@ -40,14 +40,14 @@ namespace PAG
             }
 
             // - Esta función callback será llamada cada vez que se cambie el tamaño del área de dibujo OpenGL.
-            static void framebuffer_size_callback ( GLFWwindow *window, int width, int height )
+            static void ModificarTamaño ( GLFWwindow *window, int width, int height )
             {
                 glViewport ( 0, 0, width, height );
                 std::cout << "Resize callback called" << std::endl;
             }
 
             // - Esta función callback será llamada cada vez que se pulse una tecla dirigida al área de dibujo OpenGL.
-            static void key_callback ( GLFWwindow *window, int key, int scancode, int action, int mods )
+            static void TeclaPulsada ( GLFWwindow *window, int key, int scancode, int action, int mods )
             {
                 if ( key == GLFW_KEY_ESCAPE && action == GLFW_PRESS )
                 {
@@ -57,7 +57,7 @@ namespace PAG
             }
 
             // - Esta función callback será llamada cada vez que se pulse algún botón del ratón sobre el área de dibujo OpenGL.
-            static void mouse_button_callback ( GLFWwindow *window, int button, int action, int mods )
+            static void AccionRaton ( GLFWwindow *window, int button, int action, int mods )
             {
                 if ( action == GLFW_PRESS )
                 {
@@ -70,7 +70,7 @@ namespace PAG
             }
 
             // - Esta función callback será llamada cada vez que se mueva la rueda del ratón sobre el área de dibujo OpenGL.
-            static void scroll_callback ( GLFWwindow *window, double xoffset, double yoffset )
+            static void RuedaRaton ( GLFWwindow *window, double xoffset, double yoffset )
             {
                 std::cout << "Movida la rueda del raton " << xoffset
                 << " Unidades en horizontal y " << yoffset
@@ -103,7 +103,7 @@ int main()
     std::srand(static_cast<unsigned int>(std::time(0)));
 
     // - Este callback hay que registrarlo ANTES de llamar a glfwInit
-    glfwSetErrorCallback ( (GLFWerrorfun) PAG::Renderer::error_callback );
+    glfwSetErrorCallback ( (GLFWerrorfun) PAG::Renderer::ErrorGLFW );
 
     // - Inicializa GLFW. Es un proceso que sólo debe realizarse una vez en la aplicación
     if ( glfwInit () != GLFW_TRUE )
@@ -154,11 +154,11 @@ int main()
     <<" - Version de GLSL: " << glGetString ( GL_SHADING_LANGUAGE_VERSION ) << std::endl << std::endl;
 
     // - Registramos los callbacks que responderán a los eventos principales
-    glfwSetWindowRefreshCallback ( window, PAG::Renderer::window_refresh_callback );
-    glfwSetFramebufferSizeCallback ( window, PAG::Renderer::framebuffer_size_callback );
-    glfwSetKeyCallback ( window, PAG::Renderer::key_callback );
-    glfwSetMouseButtonCallback ( window, PAG::Renderer::mouse_button_callback );
-    glfwSetScrollCallback ( window, PAG::Renderer::scroll_callback );
+    glfwSetWindowRefreshCallback ( window, PAG::Renderer::refrescarVentana );
+    glfwSetFramebufferSizeCallback ( window, PAG::Renderer::ModificarTamaño );
+    glfwSetKeyCallback ( window, PAG::Renderer::TeclaPulsada );
+    glfwSetMouseButtonCallback ( window, PAG::Renderer::AccionRaton );
+    glfwSetScrollCallback ( window, PAG::Renderer::RuedaRaton );
 
     // - Establecemos un gris medio como color con el que se borrará el frame buffer.
     // No tiene por qué ejecutarse en cada paso por el ciclo de eventos.
