@@ -12,7 +12,7 @@ namespace PAG
     {
         private:
             // - Función auxiliar que devuelve un número aleatorio en el rango [0, 1]
-            float RandomNumber01 ()
+            static float RandomNumber01 ()
             {
                 // Genera un valor aleatorio empleando rand()
                 // Para asegurar que se encuentre en el rango [0,1] dividimos entre RAND_MAX
@@ -20,17 +20,17 @@ namespace PAG
             }
 
         public:
-            Renderer (){};
+            Renderer ()= default;
 
             // - Esta función callback será llamada cuando GLFW produzca algún error
-            void error_callback ( int errno, const char* desc )
+            static void error_callback ( int errno, const char* desc )
             {
                 std::string aux (desc);
                 std::cout << "Error de GLFW número " << errno << ": " << aux << std::endl;
             }
 
             // - Esta función callback será llamada cada vez que el área de dibujo OpenGL deba ser redibujada.
-            void window_refresh_callback ( GLFWwindow *window )
+            static void window_refresh_callback ( GLFWwindow *window )
             {
                 glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
                 // - GLFW usa un doble buffer para que no haya parpadeo.
@@ -40,14 +40,14 @@ namespace PAG
             }
 
             // - Esta función callback será llamada cada vez que se cambie el tamaño del área de dibujo OpenGL.
-            void framebuffer_size_callback ( GLFWwindow *window, int width, int height )
+            static void framebuffer_size_callback ( GLFWwindow *window, int width, int height )
             {
                 glViewport ( 0, 0, width, height );
                 std::cout << "Resize callback called" << std::endl;
             }
 
             // - Esta función callback será llamada cada vez que se pulse una tecla dirigida al área de dibujo OpenGL.
-            void key_callback ( GLFWwindow *window, int key, int scancode, int action, int mods )
+            static void key_callback ( GLFWwindow *window, int key, int scancode, int action, int mods )
             {
                 if ( key == GLFW_KEY_ESCAPE && action == GLFW_PRESS )
                 {
@@ -57,7 +57,7 @@ namespace PAG
             }
 
             // - Esta función callback será llamada cada vez que se pulse algún botón del ratón sobre el área de dibujo OpenGL.
-            void mouse_button_callback ( GLFWwindow *window, int button, int action, int mods )
+            static void mouse_button_callback ( GLFWwindow *window, int button, int action, int mods )
             {
                 if ( action == GLFW_PRESS )
                 {
@@ -70,7 +70,7 @@ namespace PAG
             }
 
             // - Esta función callback será llamada cada vez que se mueva la rueda del ratón sobre el área de dibujo OpenGL.
-            void scroll_callback ( GLFWwindow *window, double xoffset, double yoffset )
+            static void scroll_callback ( GLFWwindow *window, double xoffset, double yoffset )
             {
                 std::cout << "Movida la rueda del raton " << xoffset
                 << " Unidades en horizontal y " << yoffset
@@ -102,11 +102,8 @@ int main()
     // Establecemos una semilla para la aleatoriedad de rand() basada en la hora actual
     std::srand(static_cast<unsigned int>(std::time(0)));
 
-    // Creacion de un objeto de la clase Renderer
-    PAG::Renderer renderer;
-
     // - Este callback hay que registrarlo ANTES de llamar a glfwInit
-    glfwSetErrorCallback ( (GLFWerrorfun) PAG::Renderer::error_callback() );
+    glfwSetErrorCallback ( (GLFWerrorfun) PAG::Renderer::error_callback );
 
     // - Inicializa GLFW. Es un proceso que sólo debe realizarse una vez en la aplicación
     if ( glfwInit () != GLFW_TRUE )
