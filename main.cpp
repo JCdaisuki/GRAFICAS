@@ -6,93 +6,107 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-// - Esta función callback será llamada cuando GLFW produzca algún error
-void error_callback ( int errno, const char* desc )
+namespace PAG
 {
-    std::string aux (desc);
-    std::cout << "Error de GLFW número " << errno << ": " << aux << std::endl;
-}
-
-// - Esta función callback será llamada cada vez que el área de dibujo OpenGL deba ser redibujada.
-void window_refresh_callback ( GLFWwindow *window )
-{
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    // - GLFW usa un doble buffer para que no haya parpadeo.
-    // Esta orden intercambia el buffer back (que se ha estado dibujando) por el que se mostraba hasta ahora front. Debe ser la última orden de este callback
-    glfwSwapBuffers ( window );
-    std::cout << "Refresh callback called" << std::endl;
-}
-
-// - Esta función callback será llamada cada vez que se cambie el tamaño del área de dibujo OpenGL.
-void framebuffer_size_callback ( GLFWwindow *window, int width, int height )
-{
-    glViewport ( 0, 0, width, height );
-    std::cout << "Resize callback called" << std::endl;
-}
-
-// - Esta función callback será llamada cada vez que se pulse una tecla dirigida al área de dibujo OpenGL.
-void key_callback ( GLFWwindow *window, int key, int scancode, int action, int mods )
-{
-    if ( key == GLFW_KEY_ESCAPE && action == GLFW_PRESS )
+    class Renderer
     {
-        glfwSetWindowShouldClose(window, GLFW_TRUE);
-    }
-    std::cout << "Key callback called" << std::endl;
-}
+        private:
+            // - Función auxiliar que devuelve un número aleatorio en el rango [0, 1]
+            float RandomNumber01 ()
+            {
+                // Genera un valor aleatorio empleando rand()
+                // Para asegurar que se encuentre en el rango [0,1] dividimos entre RAND_MAX
+                return static_cast<float>(std::rand()) / RAND_MAX;
+            }
 
-// - Esta función callback será llamada cada vez que se pulse algún botón del ratón sobre el área de dibujo OpenGL.
-void mouse_button_callback ( GLFWwindow *window, int button, int action, int mods )
-{
-    if ( action == GLFW_PRESS )
-    {
-        std::cout << "Pulsado el boton: " << button << std::endl;
-    }
-    else if ( action == GLFW_RELEASE )
-    {
-        std::cout << "Soltado el boton: " << button << std::endl;
-    }
-}
+        public:
+            Renderer (){};
 
-// - Función auxiliar que devuelve un número aleatorio en el rango [0, 1]
-float RandomNumber01 ()
-{
-    // Genera un valor aleatorio empleando rand()
-    // Para asegurar que se encuentre en el rango [0,1] dividimos entre RAND_MAX
-    return static_cast<float>(std::rand()) / RAND_MAX;
-}
+            // - Esta función callback será llamada cuando GLFW produzca algún error
+            void error_callback ( int errno, const char* desc )
+            {
+                std::string aux (desc);
+                std::cout << "Error de GLFW número " << errno << ": " << aux << std::endl;
+            }
 
-// - Esta función callback será llamada cada vez que se mueva la rueda del ratón sobre el área de dibujo OpenGL.
-void scroll_callback ( GLFWwindow *window, double xoffset, double yoffset )
-{
-    std::cout << "Movida la rueda del raton " << xoffset
-    << " Unidades en horizontal y " << yoffset
-    << " unidades en vertical" << std::endl;
+            // - Esta función callback será llamada cada vez que el área de dibujo OpenGL deba ser redibujada.
+            void window_refresh_callback ( GLFWwindow *window )
+            {
+                glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+                // - GLFW usa un doble buffer para que no haya parpadeo.
+                // Esta orden intercambia el buffer back (que se ha estado dibujando) por el que se mostraba hasta ahora front. Debe ser la última orden de este callback
+                glfwSwapBuffers ( window );
+                std::cout << "Refresh callback called" << std::endl;
+            }
 
-    float r = RandomNumber01();
-    float g = RandomNumber01();
-    float b = RandomNumber01();
+            // - Esta función callback será llamada cada vez que se cambie el tamaño del área de dibujo OpenGL.
+            void framebuffer_size_callback ( GLFWwindow *window, int width, int height )
+            {
+                glViewport ( 0, 0, width, height );
+                std::cout << "Resize callback called" << std::endl;
+            }
 
-    std::cout << " - Cambiado el color a (" << r << ", " << g << ", " << b << ", 1.0)" << std::endl;
+            // - Esta función callback será llamada cada vez que se pulse una tecla dirigida al área de dibujo OpenGL.
+            void key_callback ( GLFWwindow *window, int key, int scancode, int action, int mods )
+            {
+                if ( key == GLFW_KEY_ESCAPE && action == GLFW_PRESS )
+                {
+                    glfwSetWindowShouldClose(window, GLFW_TRUE);
+                }
+                std::cout << "Key callback called" << std::endl;
+            }
 
-    // Cambia el color del fondo a uno generado aleatoriamente
-    glClearColor ( r, g, b, 1.0 );
+            // - Esta función callback será llamada cada vez que se pulse algún botón del ratón sobre el área de dibujo OpenGL.
+            void mouse_button_callback ( GLFWwindow *window, int button, int action, int mods )
+            {
+                if ( action == GLFW_PRESS )
+                {
+                    std::cout << "Pulsado el boton: " << button << std::endl;
+                }
+                else if ( action == GLFW_RELEASE )
+                {
+                    std::cout << "Soltado el boton: " << button << std::endl;
+                }
+            }
 
-    // Limpia el buffer de color para aplicar el nuevo color de fondo
-    glClear(GL_COLOR_BUFFER_BIT);
+            // - Esta función callback será llamada cada vez que se mueva la rueda del ratón sobre el área de dibujo OpenGL.
+            void scroll_callback ( GLFWwindow *window, double xoffset, double yoffset )
+            {
+                std::cout << "Movida la rueda del raton " << xoffset
+                << " Unidades en horizontal y " << yoffset
+                << " unidades en vertical" << std::endl;
 
-    // Intercambia el buffer en el que se estaba dibujando por el que se muestra
-    glfwSwapBuffers ( window );
+                float r = RandomNumber01();
+                float g = RandomNumber01();
+                float b = RandomNumber01();
+
+                std::cout << " - Cambiado el color a (" << r << ", " << g << ", " << b << ", 1.0)" << std::endl;
+
+                // Cambia el color del fondo a uno generado aleatoriamente
+                glClearColor ( r, g, b, 1.0 );
+
+                // Limpia el buffer de color para aplicar el nuevo color de fondo
+                glClear(GL_COLOR_BUFFER_BIT);
+
+                // Intercambia el buffer en el que se estaba dibujando por el que se muestra
+                glfwSwapBuffers ( window );
+
+            }
+    };
 }
 
 int main()
 {
     std::cout << "Starting Application PAG - Prueba 01" << std::endl;
 
-    //Establecemos una semilla para la aleatoriedad de rand() basada en la hora actual
+    // Establecemos una semilla para la aleatoriedad de rand() basada en la hora actual
     std::srand(static_cast<unsigned int>(std::time(0)));
 
+    // Creacion de un objeto de la clase Renderer
+    PAG::Renderer renderer;
+
     // - Este callback hay que registrarlo ANTES de llamar a glfwInit
-    glfwSetErrorCallback ( (GLFWerrorfun) error_callback );
+    glfwSetErrorCallback ( (GLFWerrorfun) PAG::Renderer::error_callback() );
 
     // - Inicializa GLFW. Es un proceso que sólo debe realizarse una vez en la aplicación
     if ( glfwInit () != GLFW_TRUE )
@@ -143,11 +157,11 @@ int main()
     <<" - Version de GLSL: " << glGetString ( GL_SHADING_LANGUAGE_VERSION ) << std::endl << std::endl;
 
     // - Registramos los callbacks que responderán a los eventos principales
-    glfwSetWindowRefreshCallback ( window, window_refresh_callback );
-    glfwSetFramebufferSizeCallback ( window, framebuffer_size_callback );
-    glfwSetKeyCallback ( window, key_callback );
-    glfwSetMouseButtonCallback ( window, mouse_button_callback );
-    glfwSetScrollCallback ( window, scroll_callback );
+    glfwSetWindowRefreshCallback ( window, PAG::Renderer::window_refresh_callback );
+    glfwSetFramebufferSizeCallback ( window, PAG::Renderer::framebuffer_size_callback );
+    glfwSetKeyCallback ( window, PAG::Renderer::key_callback );
+    glfwSetMouseButtonCallback ( window, PAG::Renderer::mouse_button_callback );
+    glfwSetScrollCallback ( window, PAG::Renderer::scroll_callback );
 
     // - Establecemos un gris medio como color con el que se borrará el frame buffer.
     // No tiene por qué ejecutarse en cada paso por el ciclo de eventos.
