@@ -67,7 +67,7 @@ int main()
     <<" - Version de GLSL: " << glGetString ( GL_SHADING_LANGUAGE_VERSION ) << std::endl << std::endl;
 
     // - Registramos los callbacks que responderán a los eventos principales
-    glfwSetWindowRefreshCallback ( window, PAG::Renderer::refrescarVentana );
+    glfwSetWindowRefreshCallback ( window, PAG::Renderer::RefrescarVentana );
     glfwSetFramebufferSizeCallback ( window, PAG::Renderer::ModificarTamaño );
     glfwSetKeyCallback ( window, PAG::Renderer::TeclaPulsada );
     glfwSetMouseButtonCallback ( window, PAG::Renderer::AccionRaton );

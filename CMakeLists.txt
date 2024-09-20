@@ -4,6 +4,7 @@ project(GRAFICAS)
 set(CMAKE_CXX_STANDARD 20)
 
 add_executable(GRAFICAS main.cpp
+        Renderer.cpp
         Renderer.h
 )
 
