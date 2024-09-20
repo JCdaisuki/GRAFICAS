@@ -2,7 +2,6 @@
 #include <cstdlib>
 
 #include <glad/glad.h>
-#include <GLFW/glfw3.h>
 
 #include "Renderer.h"
 
@@ -21,6 +20,14 @@ namespace PAG
         return static_cast<float>(std::rand()) / RAND_MAX;
     }
 
+    void Renderer::RandomColor()
+    {
+        r = RandomNumber01();
+        g = RandomNumber01();
+        b = RandomNumber01();
+        a = RandomNumber01();
+    }
+
     PAG::Renderer* PAG::Renderer::getInstancia ()
     {
         if ( !instancia ) // Lazy initialization: si aún no existe, lo crea
@@ -31,68 +38,39 @@ namespace PAG
         return instancia;
     }
 
-
-    void Renderer::ErrorGLFW ( int errno, const char* desc )
+    void Renderer::InicializarOpenGL()
     {
-        std::string aux (desc);
-        std::cout << "Error de GLFW número " << errno << ": " << aux << std::endl;
+        // - Establecemos un gris medio como color con el que se borrará el frame buffer.
+        glClearColor ( 0.6, 0.6, 0.6, 1.0 );
+        glEnable(GL_DEPTH_TEST);
     }
 
-    void Renderer::RefrescarVentana ( GLFWwindow *window )
+    void Renderer::MostrarPropiedades()
+    {
+        std::cout << "Propiedades del Contexto 3d: " << std::endl
+        <<" - Trajeta Grafica: " << glGetString ( GL_RENDERER ) << std::endl
+        <<" - Fabricante de Trajeta Grafica: " << glGetString ( GL_VENDOR ) << std::endl
+        <<" - Version de OpenGL: " << glGetString ( GL_VERSION ) << std::endl
+        <<" - Version de GLSL: " << glGetString ( GL_SHADING_LANGUAGE_VERSION ) << std::endl << std::endl;
+    }
+
+    void Renderer::RefrescarVentana ()
     {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        // - GLFW usa un doble buffer para que no haya parpadeo.
-        // Esta orden intercambia el buffer back (que se ha estado dibujando) por el que se mostraba hasta ahora front. Debe ser la última orden de este callback
-        glfwSwapBuffers ( window );
-        std::cout << "Refresh callback called" << std::endl;
     }
 
-    void Renderer::ModificarTamaño ( GLFWwindow *window, int width, int height )
+    void Renderer::ModificarTamaño (int width, int height )
     {
         glViewport ( 0, 0, width, height );
-        std::cout << "Resize callback called" << std::endl;
     }
 
-    void Renderer::TeclaPulsada ( GLFWwindow *window, int key, int scancode, int action, int mods )
+    void Renderer::RuedaRaton (double xoffset, double yoffset )
     {
-        if ( key == GLFW_KEY_ESCAPE && action == GLFW_PRESS )
-        {
-            glfwSetWindowShouldClose(window, GLFW_TRUE);
-        }
-        std::cout << "Key callback called" << std::endl;
-    }
-
-    void Renderer::AccionRaton ( GLFWwindow *window, int button, int action, int mods )
-    {
-        if ( action == GLFW_PRESS )
-        {
-            std::cout << "Pulsado el boton: " << button << std::endl;
-        }
-        else if ( action == GLFW_RELEASE )
-        {
-            std::cout << "Soltado el boton: " << button << std::endl;
-        }
-    }
-
-    void Renderer::RuedaRaton ( GLFWwindow *window, double xoffset, double yoffset )
-    {
-        std::cout << "Movida la rueda del raton " << xoffset
-        << " Unidades en horizontal y " << yoffset
-        << " unidades en vertical" << std::endl;
-
-        float r = RandomNumber01();
-        float g = RandomNumber01();
-        float b = RandomNumber01();
-
-        std::cout << " - Cambiado el color a (" << r << ", " << g << ", " << b << ", 1.0)" << std::endl;
-
         // Cambia el color del fondo a uno generado aleatoriamente
-        glClearColor ( r, g, b, 1.0 );
+        RandomColor();
+        glClearColor ( r, g, b, a );
 
         // Limpia el buffer de color para aplicar el nuevo color de fondo
         glClear(GL_COLOR_BUFFER_BIT);
-
-        // Intercambia el buffer en el que se estaba dibujando por el que se muestra
-        glfwSwapBuffers ( window );
     }
 }

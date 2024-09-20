@@ -12,6 +12,70 @@
  * @author Juan Carlos González Martínez
  */
 
+// - Esta función callback será llamada cuando GLFW produzca algún error
+void callbackErrorGLFW ( int errno, const char* desc )
+{
+    std::string aux (desc);
+    std::cout << "Error de GLFW número " << errno << ": " << aux << std::endl;
+}
+
+// - Esta función callback será llamada cada vez que el área de dibujo OpenGL deba ser redibujada.
+void callbackRefrescoVentana ( GLFWwindow* window )
+{
+    PAG::Renderer::getInstancia()->RefrescarVentana();
+
+    // - GLFW usa un doble buffer para que no haya parpadeo.
+    // Esta orden intercambia el buffer back (que se ha estado dibujando) por el que se mostraba hasta ahora front. Debe ser la última orden de este callback
+    // glfwSwapBuffers ( window );
+    // std::cout << "Refresh callback called" << std::endl;
+    glfwSwapBuffers (window);
+
+    std::cout << "Finaliza el callback de refresco" << std::endl;
+}
+
+// - Esta función callback será llamada cada vez que se pulse una tecla dirigida al área de dibujo OpenGL.
+void callbackTeclaPulsada ( GLFWwindow *window, int key, int scancode, int action, int mods )
+{
+    if ( key == GLFW_KEY_ESCAPE && action == GLFW_PRESS )
+    {
+        glfwSetWindowShouldClose(window, GLFW_TRUE);
+    }
+
+    std::cout << "Key callback called" << std::endl;
+}
+
+// - Esta función callback será llamada cada vez que se pulse algún botón del ratón sobre el área de dibujo OpenGL.
+void callbackAccionRaton ( GLFWwindow *window, int button, int action, int mods )
+{
+    if ( action == GLFW_PRESS )
+    {
+        std::cout << "Pulsado el boton: " << button << std::endl;
+    }
+    else if ( action == GLFW_RELEASE )
+    {
+        std::cout << "Soltado el boton: " << button << std::endl;
+    }
+}
+
+void callbackModificarTamaño(GLFWwindow *window, int width, int height )
+{
+    PAG::Renderer::ModificarTamaño(width, height);
+
+    std::cout << "Resize callback called" << std::endl;
+}
+
+void callbackRuedaRaton ( GLFWwindow *window, double xoffset, double yoffset )
+{
+    std::cout << "Movida la rueda del raton " << xoffset
+    << " Unidades en horizontal y " << yoffset
+    << " unidades en vertical" << std::endl;
+
+    PAG::Renderer::RuedaRaton(xoffset, yoffset);
+
+    // Intercambia el buffer en el que se estaba dibujando por el que se muestra
+    glfwSwapBuffers ( window );
+}
+
 int main()
 {
     std::cout << "Starting Application PAG - Prueba 01" << std::endl;
@@ -20,7 +84,7 @@ int main()
     std::srand(static_cast<unsigned int>(std::time(0)));
 
     // - Este callback hay que registrarlo ANTES de llamar a glfwInit
-    glfwSetErrorCallback ( (GLFWerrorfun) PAG::Renderer::ErrorGLFW );
+    glfwSetErrorCallback ( (GLFWerrorfun) callbackErrorGLFW );
 
     // - Inicializa GLFW. Es un proceso que sólo debe realizarse una vez en la aplicación
     if ( glfwInit () != GLFW_TRUE )
@@ -63,27 +127,16 @@ int main()
         return -3;
     }
 
-    // - Interrogamos a OpenGL para que nos informe de las propiedades del contexto 3D construido.
-    std::cout << "Propiedades del Contexto 3d: " << std::endl
-    <<" - Trajeta Grafica: " << glGetString ( GL_RENDERER ) << std::endl
-    <<" - Fabricante de Trajeta Grafica: " << glGetString ( GL_VENDOR ) << std::endl
-    <<" - Version de OpenGL: " << glGetString ( GL_VERSION ) << std::endl
-    <<" - Version de GLSL: " << glGetString ( GL_SHADING_LANGUAGE_VERSION ) << std::endl << std::endl;
+    PAG::Renderer::MostrarPropiedades();
 
     // - Registramos los callbacks que responderán a los eventos principales
-    glfwSetWindowRefreshCallback ( window, PAG::Renderer::RefrescarVentana );
-    glfwSetFramebufferSizeCallback ( window, PAG::Renderer::ModificarTamaño );
-    glfwSetKeyCallback ( window, PAG::Renderer::TeclaPulsada );
-    glfwSetMouseButtonCallback ( window, PAG::Renderer::AccionRaton );
-    glfwSetScrollCallback ( window, PAG::Renderer::RuedaRaton );
+    glfwSetWindowRefreshCallback ( window, callbackRefrescoVentana );
+    glfwSetFramebufferSizeCallback ( window, callbackModificarTamaño);
+    glfwSetKeyCallback ( window, callbackTeclaPulsada );
+    glfwSetMouseButtonCallback ( window, callbackAccionRaton );
+    glfwSetScrollCallback ( window, callbackRuedaRaton );
 
-    // - Establecemos un gris medio como color con el que se borrará el frame buffer.
-    // No tiene por qué ejecutarse en cada paso por el ciclo de eventos.
-    glClearColor ( 0.6, 0.6, 0.6, 1.0 );
-
-    // - Le decimos a OpenGL que tenga en cuenta la profundidad a la hora de dibujar.
-    // No tiene por qué ejecutarse en cada paso por el ciclo de eventos.
-    glEnable ( GL_DEPTH_TEST );
+    PAG::Renderer::InicializarOpenGL();
 
     // - Ciclo de eventos de la aplicación. La condición de parada es que la ventana principal deba cerrarse, por ejemplo, si el usuario pulsa el  botón de cerrar la ventana (X).
     while ( !glfwWindowShouldClose ( window ) )
