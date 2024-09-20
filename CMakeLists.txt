@@ -3,7 +3,9 @@ project(GRAFICAS)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(GRAFICAS main.cpp)
+add_executable(GRAFICAS main.cpp
+        Renderer.h
+)
 
 find_package(glad)
 target_link_libraries(GRAFICAS glad::glad)
