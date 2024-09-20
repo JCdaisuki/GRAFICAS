@@ -8,6 +8,10 @@
 
 #include "Renderer.h"
 
+/**
+ * @author Juan Carlos González Martínez
+ */
+
 int main()
 {
     std::cout << "Starting Application PAG - Prueba 01" << std::endl;

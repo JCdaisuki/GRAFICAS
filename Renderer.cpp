@@ -1,11 +1,16 @@
 #include <iostream>
 #include <cstdlib>
-#include <ctime>
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
 #include "Renderer.h"
+
+/**
+ * @author Juan Carlos González Martínez
+ */
+
+PAG::Renderer* PAG::Renderer::instancia = nullptr;
 
 namespace PAG
 {
@@ -16,14 +21,23 @@ namespace PAG
         return static_cast<float>(std::rand()) / RAND_MAX;
     }
 
-    // - Esta función callback será llamada cuando GLFW produzca algún error
+    PAG::Renderer* PAG::Renderer::getInstancia ()
+    {
+        if ( !instancia ) // Lazy initialization: si aún no existe, lo crea
+        {
+            instancia = new Renderer();
+        }
+
+        return instancia;
+    }
+
+
     void Renderer::ErrorGLFW ( int errno, const char* desc )
     {
         std::string aux (desc);
         std::cout << "Error de GLFW número " << errno << ": " << aux << std::endl;
     }
 
-    // - Esta función callback será llamada cada vez que el área de dibujo OpenGL deba ser redibujada.
     void Renderer::RefrescarVentana ( GLFWwindow *window )
     {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -33,14 +47,12 @@ namespace PAG
         std::cout << "Refresh callback called" << std::endl;
     }
 
-    // - Esta función callback será llamada cada vez que se cambie el tamaño del área de dibujo OpenGL.
     void Renderer::ModificarTamaño ( GLFWwindow *window, int width, int height )
     {
         glViewport ( 0, 0, width, height );
         std::cout << "Resize callback called" << std::endl;
     }
 
-    // - Esta función callback será llamada cada vez que se pulse una tecla dirigida al área de dibujo OpenGL.
     void Renderer::TeclaPulsada ( GLFWwindow *window, int key, int scancode, int action, int mods )
     {
         if ( key == GLFW_KEY_ESCAPE && action == GLFW_PRESS )
@@ -50,7 +62,6 @@ namespace PAG
         std::cout << "Key callback called" << std::endl;
     }
 
-    // - Esta función callback será llamada cada vez que se pulse algún botón del ratón sobre el área de dibujo OpenGL.
     void Renderer::AccionRaton ( GLFWwindow *window, int button, int action, int mods )
     {
         if ( action == GLFW_PRESS )
@@ -63,7 +74,6 @@ namespace PAG
         }
     }
 
-    // - Esta función callback será llamada cada vez que se mueva la rueda del ratón sobre el área de dibujo OpenGL.
     void Renderer::RuedaRaton ( GLFWwindow *window, double xoffset, double yoffset )
     {
         std::cout << "Movida la rueda del raton " << xoffset

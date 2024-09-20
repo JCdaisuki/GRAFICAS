@@ -1,14 +1,22 @@
+/**
+ * @author Juan Carlos González Martínez
+ */
+
 namespace PAG
 {
     class Renderer
     {
         private:
+            // Puntero al único objeto
+            static Renderer* instancia;
+
             // - Función auxiliar que devuelve un número aleatorio en el rango [0, 1]
             static float RandomNumber01 ();
 
         public:
-            Renderer ()= default;
-
+            // - Getter de instancia
+            static Renderer* getInstancia ();
+        
             // - Esta función callback será llamada cuando GLFW produzca algún error
             static void ErrorGLFW ( int errno, const char* desc );
 
