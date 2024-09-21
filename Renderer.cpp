@@ -64,11 +64,14 @@ namespace PAG
         glViewport ( 0, 0, width, height );
     }
 
-    void Renderer::RuedaRaton (double xoffset, double yoffset )
+    void Renderer::RuedaRaton (double xoffset, double yoffset)
     {
-        // Cambia el color del fondo a uno generado aleatoriamente
-        RandomColor();
-        glClearColor ( r, g, b, a );
+        // Debemos emplear la instancia para poder acceder a las funciones y atributos no estáticos.
+        Renderer* instancia = Renderer::getInstancia();
+
+        // Cambia el color de fondo a uno generado aleatoriamente
+        instancia->RandomColor();
+        glClearColor(instancia->r, instancia->g, instancia->b, instancia->a);
 
         // Limpia el buffer de color para aplicar el nuevo color de fondo
         glClear(GL_COLOR_BUFFER_BIT);

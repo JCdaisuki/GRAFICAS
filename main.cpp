@@ -59,7 +59,8 @@ void callbackAccionRaton ( GLFWwindow *window, int button, int action, int mods 
 
 void callbackModificarTamaño(GLFWwindow *window, int width, int height )
 {
-    PAG::Renderer::ModificarTamaño(width, height);
+    PAG::Renderer* instancia = PAG::Renderer::getInstancia();
+    instancia->ModificarTamaño(width, height);
 
     std::cout << "Resize callback called" << std::endl;
 }
@@ -127,7 +128,10 @@ int main()
         return -3;
     }
 
-    PAG::Renderer::MostrarPropiedades();
+    // Declaración de la instancia de Renderer
+    PAG::Renderer* instancia = PAG::Renderer::getInstancia();
+
+    instancia->MostrarPropiedades();
 
     // - Registramos los callbacks que responderán a los eventos principales
     glfwSetWindowRefreshCallback ( window, callbackRefrescoVentana );
@@ -136,7 +140,7 @@ int main()
     glfwSetMouseButtonCallback ( window, callbackAccionRaton );
     glfwSetScrollCallback ( window, callbackRuedaRaton );
 
-    PAG::Renderer::InicializarOpenGL();
+    instancia->InicializarOpenGL();
 
     // - Ciclo de eventos de la aplicación. La condición de parada es que la ventana principal deba cerrarse, por ejemplo, si el usuario pulsa el  botón de cerrar la ventana (X).
     while ( !glfwWindowShouldClose ( window ) )
