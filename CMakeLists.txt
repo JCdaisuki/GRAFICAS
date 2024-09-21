@@ -3,10 +3,9 @@ project(GRAFICAS)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(GRAFICAS main.cpp
-        Renderer.cpp
-        Renderer.h
-)
+file( GLOB IMGUI imgui/*cpp)
+
+add_executable(GRAFICAS main.cpp Renderer.cpp Renderer.h ${IMGUI})
 
 find_package(glad)
 target_link_libraries(GRAFICAS glad::glad)
