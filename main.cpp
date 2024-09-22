@@ -7,6 +7,7 @@
 #include <GLFW/glfw3.h>
 
 #include "Renderer.h"
+#include "GUI.h"
 
 /**
  * @author Juan Carlos González Martínez
@@ -22,7 +23,9 @@ void callbackErrorGLFW ( int errno, const char* desc )
 // - Esta función callback será llamada cada vez que el área de dibujo OpenGL deba ser redibujada.
 void callbackRefrescoVentana ( GLFWwindow* window )
 {
-    PAG::Renderer::getInstancia()->RefrescarVentana();
+    PAG::Renderer::GetInstancia()->RefrescarVentana();
+
+    PAG::GUI::GetInstancia()->RedibujarVentana();
 
     // - GLFW usa un doble buffer para que no haya parpadeo.
     // Esta orden intercambia el buffer back (que se ha estado dibujando) por el que se mostraba hasta ahora front. Debe ser la última orden de este callback
@@ -59,7 +62,7 @@ void callbackAccionRaton ( GLFWwindow *window, int button, int action, int mods 
 
 void callbackModificarTamaño(GLFWwindow *window, int width, int height )
 {
-    PAG::Renderer* instancia = PAG::Renderer::getInstancia();
+    PAG::Renderer* instancia = PAG::Renderer::GetInstancia();
     instancia->ModificarTamaño(width, height);
 
     std::cout << "Resize callback called" << std::endl;
@@ -84,6 +87,15 @@ int main()
     // Establecemos una semilla para la aleatoriedad de rand() basada en la hora actual
     std::srand(static_cast<unsigned int>(std::time(0)));
 
+    // Definimos el puntero para guardar la dirección de la ventana de la aplicación y la creamos
+    GLFWwindow *window;
+
+    // Declaración de la instancia de Renderer
+    PAG::Renderer* instanciaRenderer = PAG::Renderer::GetInstancia();
+
+    // Declaración de la instancia de GUI
+    PAG::GUI* instanciaGUI = PAG::GUI::GetInstancia();
+
     // - Este callback hay que registrarlo ANTES de llamar a glfwInit
     glfwSetErrorCallback ( (GLFWerrorfun) callbackErrorGLFW );
 
@@ -100,9 +112,6 @@ int main()
     glfwWindowHint ( GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE ); // - Esta y las 2
     glfwWindowHint ( GLFW_CONTEXT_VERSION_MAJOR, 4 ); // siguientes activan un contexto
     glfwWindowHint ( GLFW_CONTEXT_VERSION_MINOR, 1 ); // OpenGL Core Profile 4.1.
-
-    // - Definimos el puntero para guardar la dirección de la ventana de la aplicación y la creamos
-    GLFWwindow *window;
 
     // - Tamaño, título de la ventana, en ventana y no en pantalla completa, sin compartir recursos con otras ventanas.
     window = glfwCreateWindow ( 1024, 576, "PAG Introduction", nullptr, nullptr );
@@ -128,10 +137,7 @@ int main()
         return -3;
     }
 
-    // Declaración de la instancia de Renderer
-    PAG::Renderer* instancia = PAG::Renderer::getInstancia();
-
-    instancia->MostrarPropiedades();
+    instanciaRenderer->MostrarPropiedades();
 
     // - Registramos los callbacks que responderán a los eventos principales
     glfwSetWindowRefreshCallback ( window, callbackRefrescoVentana );
@@ -140,7 +146,8 @@ int main()
     glfwSetMouseButtonCallback ( window, callbackAccionRaton );
     glfwSetScrollCallback ( window, callbackRuedaRaton );
 
-    instancia->InicializarOpenGL();
+    instanciaRenderer->InicializarOpenGL();
+    instanciaGUI->InicializarImGui(window);
 
     // - Ciclo de eventos de la aplicación. La condición de parada es que la ventana principal deba cerrarse, por ejemplo, si el usuario pulsa el  botón de cerrar la ventana (X).
     while ( !glfwWindowShouldClose ( window ) )

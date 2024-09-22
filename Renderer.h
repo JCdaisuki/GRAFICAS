@@ -21,7 +21,7 @@ namespace PAG
 
         public:
             // - Getter de instancia
-            static Renderer* getInstancia ();
+            static Renderer* GetInstancia ();
 
             // - Esta función nicializa las opciones de OpenGL
             void InicializarOpenGL();

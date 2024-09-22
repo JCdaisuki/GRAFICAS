@@ -28,7 +28,7 @@ namespace PAG
         a = RandomNumber01();
     }
 
-    PAG::Renderer* PAG::Renderer::getInstancia ()
+    PAG::Renderer* PAG::Renderer::GetInstancia ()
     {
         if ( !instancia ) // Lazy initialization: si aún no existe, lo crea
         {
@@ -67,7 +67,7 @@ namespace PAG
     void Renderer::RuedaRaton (double xoffset, double yoffset)
     {
         // Debemos emplear la instancia para poder acceder a las funciones y atributos no estáticos.
-        Renderer* instancia = Renderer::getInstancia();
+        Renderer* instancia = Renderer::GetInstancia();
 
         // Cambia el color de fondo a uno generado aleatoriamente
         instancia->RandomColor();
