@@ -55,7 +55,7 @@ namespace PAG
             std::string(" - Versión de OpenGL: ") + reinterpret_cast<const char*>(glGetString(GL_VERSION)) + "\n" +
             std::string(" - Versión de GLSL: ") + reinterpret_cast<const char*>(glGetString(GL_SHADING_LANGUAGE_VERSION)) + "\n\n";
 
-        PAG::GUI::GetInstancia()->CrearVentanaMensajes(propiedades);
+        PAG::GUI::GetInstancia()->RedibujarVentanas(propiedades);
     }
 
     void Renderer::RefrescarVentana ()

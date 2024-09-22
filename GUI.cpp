@@ -37,7 +37,7 @@ namespace PAG
         ImGui_ImplOpenGL3_Init ();
     }
 
-    void GUI::RedibujarVentana()
+    void GUI::RedibujarVentanas(std::string mensaje)
     {
         //Se prepara un nuevo frame para OpenGL y GLFW
         ImGui_ImplOpenGL3_NewFrame();
@@ -46,7 +46,7 @@ namespace PAG
         //Inicia un nuevo frame de ImGui que permite agregar controles en la interfaz gráfica.
         ImGui::NewFrame();
 
-        CrearVentanaMensajes(lastMensaje);
+        CrearVentanaMensajes(mensaje);
 
         //Se renderiza en pantalla
         ImGui::Render();
@@ -64,9 +64,16 @@ namespace PAG
             //Escalamos el texto
             ImGui::SetWindowFontScale(1.0f);
 
-            //Agregar texto a la ventana
-            ImGui::Text(mensaje.c_str());
-            lastMensaje = mensaje;
+            if(mensaje != "") //Emplearemos un string vacio para indicar que se quiere mostrar el último mensaje
+            {
+                //Agregar texto a la ventana
+                ImGui::Text(mensaje.c_str());
+                lastMensaje = mensaje;
+            }
+            else
+            {
+                ImGui::Text(lastMensaje.c_str());
+            }
         }
 
         ImGui::End();

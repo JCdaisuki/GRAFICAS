@@ -18,6 +18,9 @@ namespace PAG
             //Último mensaje escrito en la ventana Mensajes
             std::string lastMensaje = "Inicializada la Ventana Mensajes";
 
+            // - Esta función crea nuevas ventanas dentro de la ventana principal
+            void CrearVentanaMensajes(std::string mensaje);
+
     public:
         // - Getter de instancia
         static GUI* GetInstancia ();
@@ -29,9 +32,6 @@ namespace PAG
         void InicializarImGui(GLFWwindow* window);
 
         //- Esta función redibuja la interfaz cada vez que se refresque la imagen
-        void RedibujarVentana();
-
-        // - Esta función crea nuevas ventanas dentro de la ventana principal
-        void CrearVentanaMensajes(std::string mensaje);
+        void RedibujarVentanas(std::string mensaje);
     };
 }
