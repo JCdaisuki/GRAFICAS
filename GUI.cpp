@@ -1,5 +1,4 @@
 #include <iostream>
-#include <cstdlib>
 
 #include "imgui/imgui.h"
 #include "imgui/imgui_impl_glfw.h"
@@ -47,17 +46,17 @@ namespace PAG
         //Inicia un nuevo frame de ImGui que permite agregar controles en la interfaz gráfica.
         ImGui::NewFrame();
 
-        CrearVentanaMensajes(10, 20);
+        CrearVentanaMensajes(lastMensaje);
 
         //Se renderiza en pantalla
         ImGui::Render();
         ImGui_ImplOpenGL3_RenderDrawData ( ImGui::GetDrawData() );
     }
 
-    void GUI::CrearVentanaMensajes(int x, int y)
+    void GUI::CrearVentanaMensajes(std::string mensaje)
     {
         //Establecemos la posición de la ventana
-        ImGui::SetNextWindowPos(ImVec2(x, y), ImGuiCond_Once);
+        ImGui::SetNextWindowPos(ImVec2(mx, my), ImGuiCond_Once);
 
         //Comenzamos una nueva ventana flotante con el título "Mensajes"
         if (ImGui::Begin("Mensajes"))
@@ -66,9 +65,11 @@ namespace PAG
             ImGui::SetWindowFontScale(1.0f);
 
             //Agregar texto a la ventana
-            ImGui::Text("Prueba de texto en ventana.");
+            ImGui::Text(mensaje.c_str());
+            lastMensaje = mensaje;
         }
 
         ImGui::End();
     }
+
 }

@@ -4,6 +4,7 @@
 #include <glad/glad.h>
 
 #include "Renderer.h"
+#include "GUI.h"
 
 /**
  * @author Juan Carlos González Martínez
@@ -47,11 +48,14 @@ namespace PAG
 
     void Renderer::MostrarPropiedades()
     {
-        std::cout << "Propiedades del Contexto 3d: " << std::endl
-        <<" - Trajeta Grafica: " << glGetString ( GL_RENDERER ) << std::endl
-        <<" - Fabricante de Trajeta Grafica: " << glGetString ( GL_VENDOR ) << std::endl
-        <<" - Version de OpenGL: " << glGetString ( GL_VERSION ) << std::endl
-        <<" - Version de GLSL: " << glGetString ( GL_SHADING_LANGUAGE_VERSION ) << std::endl << std::endl;
+        std::string propiedades =
+            "Propiedades del Contexto 3D:\n" +
+            std::string(" - Tarjeta Gráfica: ") + reinterpret_cast<const char*>(glGetString(GL_RENDERER)) + "\n" +
+            std::string(" - Fabricante de Tarjeta Gráfica: ") + reinterpret_cast<const char*>(glGetString(GL_VENDOR)) + "\n" +
+            std::string(" - Versión de OpenGL: ") + reinterpret_cast<const char*>(glGetString(GL_VERSION)) + "\n" +
+            std::string(" - Versión de GLSL: ") + reinterpret_cast<const char*>(glGetString(GL_SHADING_LANGUAGE_VERSION)) + "\n\n";
+
+        PAG::GUI::GetInstancia()->CrearVentanaMensajes(propiedades);
     }
 
     void Renderer::RefrescarVentana ()

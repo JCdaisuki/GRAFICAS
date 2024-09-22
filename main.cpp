@@ -70,9 +70,9 @@ void callbackModificarTamaño(GLFWwindow *window, int width, int height )
 
 void callbackRuedaRaton ( GLFWwindow *window, double xoffset, double yoffset )
 {
-    std::cout << "Movida la rueda del raton " << xoffset
-    << " Unidades en horizontal y " << yoffset
-    << " unidades en vertical" << std::endl;
+    //PAG::GUI::GetInstancia()->AñadirMensaje("Movida la rueda del raton "
+                                            //+ std::to_string(xoffset) + " Unidades en horizontal y "
+                                            //+ std::to_string(yoffset)+ " unidades en vertical");
 
     PAG::Renderer::RuedaRaton(xoffset, yoffset);
 
@@ -82,8 +82,6 @@ void callbackRuedaRaton ( GLFWwindow *window, double xoffset, double yoffset )
 
 int main()
 {
-    std::cout << "Starting Application PAG - Prueba 01" << std::endl;
-
     // Establecemos una semilla para la aleatoriedad de rand() basada en la hora actual
     std::srand(static_cast<unsigned int>(std::time(0)));
 
@@ -95,14 +93,13 @@ int main()
 
     // Declaración de la instancia de GUI
     PAG::GUI* instanciaGUI = PAG::GUI::GetInstancia();
-
     // - Este callback hay que registrarlo ANTES de llamar a glfwInit
     glfwSetErrorCallback ( (GLFWerrorfun) callbackErrorGLFW );
 
     // - Inicializa GLFW. Es un proceso que sólo debe realizarse una vez en la aplicación
     if ( glfwInit () != GLFW_TRUE )
     {
-        std::cout << "Failed to initialize GLFW" << std::endl;
+        PAG::GUI::GetInstancia()->CrearVentanaMensajes("Failed to initialize GLFW");
         return -1;
     }
 
@@ -119,7 +116,7 @@ int main()
     // - Comprobamos si la creación de la ventana ha tenido éxito.
     if ( window == nullptr )
     {
-        std::cout << "Failed to open GLFW window" << std::endl;
+        PAG::GUI::GetInstancia()->CrearVentanaMensajes("Failed to open GLFW window");
         glfwTerminate (); // - Liberamos los recursos que ocupaba GLFW.
         return -2;
     }
@@ -130,14 +127,14 @@ int main()
     // - Ahora inicializamos GLAD.
     if ( !gladLoadGLLoader ( (GLADloadproc) glfwGetProcAddress ) )
     {
-        std::cout << "GLAD initialization failed" << std::endl;
+        PAG::GUI::GetInstancia()->CrearVentanaMensajes("GLAD initialization failed");;
         glfwDestroyWindow ( window ); // - Liberamos los recursos que ocupaba GLFW.
         window = nullptr;
         glfwTerminate ();
         return -3;
     }
 
-    instanciaRenderer->MostrarPropiedades();
+    //instanciaRenderer->MostrarPropiedades();
 
     // - Registramos los callbacks que responderán a los eventos principales
     glfwSetWindowRefreshCallback ( window, callbackRefrescoVentana );
@@ -158,7 +155,7 @@ int main()
     }
 
     // - Una vez terminado el ciclo de eventos, liberar recursos, etc.
-    std::cout << "Finishing application pag prueba" << std::endl;
+    PAG::GUI::GetInstancia()->CrearVentanaMensajes("Finishing application pag prueba");;
 
     glfwDestroyWindow ( window ); // - Cerramos y destruimos la ventana de la aplicación.
     window = nullptr;
