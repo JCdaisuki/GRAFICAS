@@ -55,8 +55,9 @@ namespace PAG
 
     void GUI::CrearVentanaMensajes(std::string mensaje)
     {
-        //Establecemos la posición de la ventana
+        //Establecemos la posición y tamaño de la ventana
         ImGui::SetNextWindowPos(ImVec2(mx, my), ImGuiCond_Once);
+        ImGui::SetNextWindowSize(ImVec2(400, 100), ImGuiCond_Once);
 
         //Comenzamos una nueva ventana flotante con el título "Mensajes"
         if (ImGui::Begin("Mensajes"))
@@ -66,17 +67,12 @@ namespace PAG
 
             if(mensaje != "") //Emplearemos un string vacio para indicar que se quiere mostrar el último mensaje
             {
-                //Agregar texto a la ventana
-                ImGui::Text(mensaje.c_str());
                 lastMensaje = mensaje;
             }
-            else
-            {
-                ImGui::Text(lastMensaje.c_str());
-            }
+
+            ImGui::Text(lastMensaje.c_str());
         }
 
         ImGui::End();
     }
-
 }
