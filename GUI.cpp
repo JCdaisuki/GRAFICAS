@@ -7,6 +7,8 @@
 
 #include "GUI.h"
 
+#include "Renderer.h"
+
 /**
  * @author Juan Carlos González Martínez
  */
@@ -24,6 +26,13 @@ namespace PAG
 
         return instancia;
     }
+
+    float* GUI::GetColorFondo()
+    {
+        return colorFondo;
+    }
+
+
     void GUI::InicializarImGui(GLFWwindow* window)
     {
         //Inicialización de Dear ImGui,
@@ -47,6 +56,7 @@ namespace PAG
         ImGui::NewFrame();
 
         CrearVentanaMensajes(mensaje);
+        CrearVentanaColores();
 
         //Se renderiza en pantalla
         ImGui::Render();
@@ -75,4 +85,39 @@ namespace PAG
 
         ImGui::End();
     }
+
+    void GUI::CrearVentanaColores()
+    {
+        //Establecemos la posición y tamaño de la ventana
+        ImGui::SetNextWindowPos(ImVec2(cx, cy), ImGuiCond_Once);
+        ImGui::SetNextWindowSize(ImVec2(200, 220), ImGuiCond_Once);
+
+        if (ImGui::Begin("Colores"))
+        {
+            // Color picker completo (RGBA) de ImGui
+            ImGui::ColorPicker4("Color:", colorSeleccionado);
+        }
+
+        ImGui::End();
+    }
+
+    bool GUI::CambioColor()
+    {
+        for(int i = 0; i < 4; i++)
+        {
+            //Comprobamos si se ha cambiado de color en ColorPicker
+            if(colorFondo[i] != colorSeleccionado[i])
+            {
+                //Almacenamos el nuevo color seleccionado
+                for(int j = i; j < 4; j++)
+                {
+                    colorFondo[j] = colorSeleccionado[j];
+                }
+
+                return true;
+            }
+        }
+        return false;
+    }
+
 }

@@ -10,15 +10,6 @@ namespace PAG
             // Puntero al único objeto
             static Renderer* instancia;
 
-            // Color de fondo
-            float r, g, b, a;
-
-            // - Función auxiliar que devuelve un número aleatorio en el rango [0, 1]
-            float RandomNumber01 ();
-
-            // - Función auxiliar que genera valores aleatorios para el color de fondo
-            void RandomColor ();
-
         public:
             // - Getter de instancia
             static Renderer* GetInstancia ();
@@ -45,6 +36,6 @@ namespace PAG
             void AccionRaton (int button, int action, int mods );
 
             // - Esta función callback será llamada cada vez que se mueva la rueda del ratón sobre el área de dibujo OpenGL.
-            static void RuedaRaton (double xoffset, double yoffset );
+            static void CambiarColorFondo (float* color);
     };
 }

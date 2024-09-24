@@ -14,21 +14,6 @@ PAG::Renderer* PAG::Renderer::instancia = nullptr;
 
 namespace PAG
 {
-    float Renderer::RandomNumber01 ()
-    {
-        // Genera un valor aleatorio empleando rand()
-        // Para asegurar que se encuentre en el rango [0,1] dividimos entre RAND_MAX
-        return static_cast<float>(std::rand()) / RAND_MAX;
-    }
-
-    void Renderer::RandomColor()
-    {
-        r = RandomNumber01();
-        g = RandomNumber01();
-        b = RandomNumber01();
-        a = RandomNumber01();
-    }
-
     PAG::Renderer* PAG::Renderer::GetInstancia ()
     {
         if ( !instancia ) // Lazy initialization: si aún no existe, lo crea
@@ -68,14 +53,10 @@ namespace PAG
         glViewport ( 0, 0, width, height );
     }
 
-    void Renderer::RuedaRaton (double xoffset, double yoffset)
+    void Renderer::CambiarColorFondo (float* color)
     {
-        // Debemos emplear la instancia para poder acceder a las funciones y atributos no estáticos.
-        Renderer* instancia = Renderer::GetInstancia();
-
-        // Cambia el color de fondo a uno generado aleatoriamente
-        instancia->RandomColor();
-        glClearColor(instancia->r, instancia->g, instancia->b, instancia->a);
+        //Cambia el color de fondo al recibido como parámetro
+        glClearColor(color[0],color[1],color[2],color[3]);
 
         // Limpia el buffer de color para aplicar el nuevo color de fondo
         glClear(GL_COLOR_BUFFER_BIT);

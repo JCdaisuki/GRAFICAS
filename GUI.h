@@ -12,26 +12,36 @@ namespace PAG
             // Puntero al único objeto
             static GUI* instancia;
 
-            //Posicion x e y de la ventana Mensajes
+            //Posicion x e y de las ventanas
             int mx = 10, my = 20;
+            int cx = 420, cy = 20;
+
+            //Color de fondo y color seleccionado en la ventana "Colores"
+            float colorFondo[4] = {0.0, 0.0, 0.0, 0.0};
+            float colorSeleccionado[4] = {0.0, 0.0, 0.0, 0.0};
 
             //Último mensaje escrito en la ventana Mensajes
             std::string lastMensaje = "Inicializada la Ventana Mensajes";
 
-            // - Esta función crea nuevas ventanas dentro de la ventana principal
+            // - Estas funciones crean las ventanas auxiliares dentro de la ventana principal
             void CrearVentanaMensajes(std::string mensaje);
+            void CrearVentanaColores();
 
-    public:
-        // - Getter de instancia
-        static GUI* GetInstancia ();
+        public:
+            // - Getter de instancia
+            static GUI* GetInstancia ();
+            float* GetColorFondo();
 
-        //Setters de las posiciones x e y de la ventana mensajes
-        void SetMesajeX(int newMX){ mx = newMX;}
-        void SetMesajeY(int newMY){ my = newMY;}
+            //Setters de las posiciones x e y de la ventana mensajes
+            void SetMesajeX(int newMX){ mx = newMX;}
+            void SetMesajeY(int newMY){ my = newMY;}
 
-        void InicializarImGui(GLFWwindow* window);
+            void InicializarImGui(GLFWwindow* window);
 
-        //- Esta función redibuja la interfaz cada vez que se refresque la imagen
-        void RedibujarVentanas(std::string mensaje = "");
+            //- Esta función redibuja la interfaz cada vez que se refresque la imagen
+            void RedibujarVentanas(std::string mensaje = "");
+
+            // - Esta función comprueba si se ha seleccionado un nuevo color en la ventana "Colores"
+            bool CambioColor();
     };
 }

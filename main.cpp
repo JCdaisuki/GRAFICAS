@@ -61,6 +61,11 @@ void callbackAccionRaton ( GLFWwindow *window, int button, int action, int mods 
     if ( action == GLFW_PRESS )
     {
         EmitirMensaje(window, "Pulsado el boton");
+
+        if(PAG::GUI::GetInstancia()->CambioColor())
+        {
+            PAG::Renderer::GetInstancia()->CambiarColorFondo(PAG::GUI::GetInstancia()->GetColorFondo());
+        }
     }
     else if ( action == GLFW_RELEASE )
     {
@@ -78,8 +83,6 @@ void callbackModificarTamaño(GLFWwindow *window, int width, int height )
 
 void callbackRuedaRaton ( GLFWwindow *window, double xoffset, double yoffset )
 {
-    PAG::Renderer::RuedaRaton(xoffset, yoffset);
-
     EmitirMensaje(window, "Movida la rueda del raton "
                             + std::to_string(xoffset) + " Unidades en horizontal y "
                             + std::to_string(yoffset)+ " unidades en vertical");
