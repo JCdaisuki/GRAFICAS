@@ -18,7 +18,7 @@ namespace PAG
             void InicializarOpenGL();
 
             // - Esta función informa de las propiedades del contexto 3D construido.
-            void MostrarPropiedades();
+            std::string MostrarPropiedades();
 
             // - Esta función será llamada de manera auxiiar cada vez que el área de dibujo OpenGL deba ser redibujada.
             void Refrescar();

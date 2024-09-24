@@ -31,7 +31,7 @@ namespace PAG
         glEnable(GL_DEPTH_TEST);
     }
 
-    void Renderer::MostrarPropiedades()
+    std::string Renderer::MostrarPropiedades()
     {
         std::string propiedades =
             "Propiedades del Contexto 3D:\n" +
@@ -40,7 +40,7 @@ namespace PAG
             std::string(" - Versión de OpenGL: ") + reinterpret_cast<const char*>(glGetString(GL_VERSION)) + "\n" +
             std::string(" - Versión de GLSL: ") + reinterpret_cast<const char*>(glGetString(GL_SHADING_LANGUAGE_VERSION)) + "\n\n";
 
-        PAG::GUI::GetInstancia()->RedibujarVentanas(propiedades);
+        return propiedades;
     }
 
     void Renderer::RefrescarVentana ()

@@ -142,7 +142,7 @@ int main()
         return -3;
     }
 
-    //instanciaRenderer->MostrarPropiedades();
+    //PAG::GUI::GetInstancia()->RedibujarVentanas(PAG::Renderer::GetInstancia()->MostrarPropiedades()); //Crasheo
 
     // - Registramos los callbacks que responderán a los eventos principales
     glfwSetWindowRefreshCallback ( window, callbackRefrescoVentana );

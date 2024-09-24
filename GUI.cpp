@@ -67,7 +67,7 @@ namespace PAG
     {
         //Establecemos la posición y tamaño de la ventana
         ImGui::SetNextWindowPos(ImVec2(mx, my), ImGuiCond_Once);
-        ImGui::SetNextWindowSize(ImVec2(400, 100), ImGuiCond_Once);
+        ImGui::SetNextWindowSize(ImVec2(600, 100), ImGuiCond_Once);
 
         //Comenzamos una nueva ventana flotante con el título "Mensajes"
         if (ImGui::Begin("Mensajes"))
@@ -92,7 +92,7 @@ namespace PAG
         ImGui::SetNextWindowPos(ImVec2(cx, cy), ImGuiCond_Once);
         ImGui::SetNextWindowSize(ImVec2(200, 220), ImGuiCond_Once);
 
-        if (ImGui::Begin("Colores"))
+        if (ImGui::Begin("Fondo"))
         {
             // Color picker completo (RGBA) de ImGui
             ImGui::ColorPicker4("Color:", colorSeleccionado);

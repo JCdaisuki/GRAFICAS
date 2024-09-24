@@ -14,9 +14,9 @@ namespace PAG
 
             //Posicion x e y de las ventanas
             int mx = 10, my = 20;
-            int cx = 420, cy = 20;
+            int cx = 10, cy = 130;
 
-            //Color de fondo y color seleccionado en la ventana "Colores"
+            //Color de fondo y color seleccionado en la ventana "Fondo"
             float colorFondo[4] = {0.0, 0.0, 0.0, 0.0};
             float colorSeleccionado[4] = {0.0, 0.0, 0.0, 0.0};
 
@@ -33,15 +33,15 @@ namespace PAG
             float* GetColorFondo();
 
             //Setters de las posiciones x e y de la ventana mensajes
-            void SetMesajeX(int newMX){ mx = newMX;}
-            void SetMesajeY(int newMY){ my = newMY;}
+            void SetMensajeX(int newMX){ mx = newMX;}
+            void SetMensajeY(int newMY){ my = newMY;}
 
             void InicializarImGui(GLFWwindow* window);
 
             //- Esta función redibuja la interfaz cada vez que se refresque la imagen
             void RedibujarVentanas(std::string mensaje = "");
 
-            // - Esta función comprueba si se ha seleccionado un nuevo color en la ventana "Colores"
+            // - Esta función comprueba si se ha seleccionado un nuevo color en la ventana "Fondo"
             bool CambioColor();
     };
 }
