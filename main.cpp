@@ -142,8 +142,6 @@ int main()
         return -3;
     }
 
-    //PAG::GUI::GetInstancia()->RedibujarVentanas(PAG::Renderer::GetInstancia()->MostrarPropiedades()); //Crasheo
-
     // - Registramos los callbacks que responderán a los eventos principales
     glfwSetWindowRefreshCallback ( window, callbackRefrescoVentana );
     glfwSetFramebufferSizeCallback ( window, callbackModificarTamaño);
@@ -153,6 +151,8 @@ int main()
 
     instanciaRenderer->InicializarOpenGL();
     instanciaGUI->InicializarImGui(window);
+
+    PAG::GUI::GetInstancia()->RedibujarVentanas(PAG::Renderer::GetInstancia()->MostrarPropiedades());
 
     // - Ciclo de eventos de la aplicación. La condición de parada es que la ventana principal deba cerrarse, por ejemplo, si el usuario pulsa el  botón de cerrar la ventana (X).
     while ( !glfwWindowShouldClose ( window ) )
@@ -165,6 +165,7 @@ int main()
     // - Una vez terminado el ciclo de eventos, liberar recursos, etc.
     EmitirMensaje(window, "Finishing application pag prueba");;
 
+    PAG::GUI::GetInstancia()->FinalizarImGui();
     glfwDestroyWindow ( window ); // - Cerramos y destruimos la ventana de la aplicación.
     window = nullptr;
     glfwTerminate (); // - Liberamos los recursos que ocupaba GLFW.

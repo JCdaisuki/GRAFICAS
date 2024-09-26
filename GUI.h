@@ -14,7 +14,7 @@ namespace PAG
 
             //Posicion x e y de las ventanas
             int mx = 10, my = 20;
-            int cx = 10, cy = 130;
+            int cx = 10, cy = 140;
 
             //Color de fondo y color seleccionado en la ventana "Fondo"
             float colorFondo[4] = {0.0, 0.0, 0.0, 0.0};
@@ -43,5 +43,7 @@ namespace PAG
 
             // - Esta función comprueba si se ha seleccionado un nuevo color en la ventana "Fondo"
             bool CambioColor();
+
+            void FinalizarImGui();
     };
 }

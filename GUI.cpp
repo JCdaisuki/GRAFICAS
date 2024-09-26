@@ -67,7 +67,7 @@ namespace PAG
     {
         //Establecemos la posición y tamaño de la ventana
         ImGui::SetNextWindowPos(ImVec2(mx, my), ImGuiCond_Once);
-        ImGui::SetNextWindowSize(ImVec2(600, 100), ImGuiCond_Once);
+        ImGui::SetNextWindowSize(ImVec2(600, 115), ImGuiCond_Once);
 
         //Comenzamos una nueva ventana flotante con el título "Mensajes"
         if (ImGui::Begin("Mensajes"))
@@ -80,7 +80,7 @@ namespace PAG
                 lastMensaje = mensaje;
             }
 
-            ImGui::Text(lastMensaje.c_str());
+            ImGui::TextUnformatted(lastMensaje.c_str());
         }
 
         ImGui::End();
@@ -120,4 +120,10 @@ namespace PAG
         return false;
     }
 
+    void GUI::FinalizarImGui()
+    {
+        ImGui_ImplOpenGL3_Shutdown();
+        ImGui_ImplGlfw_Shutdown();
+        ImGui::DestroyContext ();
+    }
 }
