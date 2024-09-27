@@ -124,5 +124,35 @@ namespace PAG
             delete instancia;
             instancia = nullptr;
         }
+
+        if ( idVS != 0 )
+        {
+            glDeleteShader ( idVS );
+        }
+
+        if ( idFS != 0 )
+        {
+            glDeleteShader ( idFS );
+        }
+
+        if ( idSP != 0 )
+        {
+            glDeleteProgram ( idSP );
+        }
+
+        if ( idVBO != 0 )
+        {
+            glDeleteBuffers ( 1, &idVBO );
+        }
+
+        if ( idIBO != 0 )
+        {
+            glDeleteBuffers ( 1, &idIBO );
+        }
+
+        if ( idVAO != 0 )
+        {
+            glDeleteVertexArrays ( 1, &idVAO );
+        }
     }
 }
