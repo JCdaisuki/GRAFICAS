@@ -14,9 +14,15 @@
  */
 
 // - Esta función permite emitir mensajes mediante la ventana mensajes de ImGui
-void EmitirMensaje(GLFWwindow *window, std::string mensaje)
+void EmitirMensaje(GLFWwindow *window, std::string mensaje, bool mostrarMensaje = true)
 {
     PAG::Renderer::GetInstancia()->RefrescarVentana();
+
+    if(!mostrarMensaje)
+    {
+        mensaje = "";
+    }
+
     PAG::GUI::GetInstancia()->RedibujarVentanas(mensaje);
 
     // Intercambia el buffer en el que se estaba dibujando por el que se muestra
@@ -52,7 +58,7 @@ void callbackTeclaPulsada ( GLFWwindow *window, int key, int scancode, int actio
         glfwSetWindowShouldClose(window, GLFW_TRUE);
     }
 
-    EmitirMensaje(window, "Key callback called");
+    EmitirMensaje(window, "Key callback called", false);
 }
 
 // - Esta función callback será llamada cada vez que se pulse algún botón del ratón sobre el área de dibujo OpenGL.
@@ -60,7 +66,7 @@ void callbackAccionRaton ( GLFWwindow *window, int button, int action, int mods 
 {
     if ( action == GLFW_PRESS )
     {
-        EmitirMensaje(window, "Pulsado el boton");
+        EmitirMensaje(window, "Pulsado el boton", false);
 
         if(PAG::GUI::GetInstancia()->CambioColor())
         {
@@ -69,7 +75,7 @@ void callbackAccionRaton ( GLFWwindow *window, int button, int action, int mods 
     }
     else if ( action == GLFW_RELEASE )
     {
-        EmitirMensaje(window, "Soltado el boton");
+        EmitirMensaje(window, "Soltado el boton", false);
     }
 }
 
@@ -85,7 +91,7 @@ void callbackRuedaRaton ( GLFWwindow *window, double xoffset, double yoffset )
 {
     EmitirMensaje(window, "Movida la rueda del raton "
                             + std::to_string(xoffset) + " Unidades en horizontal y "
-                            + std::to_string(yoffset)+ " unidades en vertical");
+                            + std::to_string(yoffset)+ " unidades en vertical", false);
 }
 
 int main()

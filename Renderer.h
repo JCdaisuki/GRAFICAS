@@ -10,6 +10,13 @@ namespace PAG
             // Puntero al único objeto
             static Renderer* instancia;
 
+            GLuint idVS = 0; // Identificador del vertex shader
+            GLuint idFS = 0; // Identificador del fragment shader
+            GLuint idSP = 0; // Identificador del shader program
+            GLuint idVAO = 0; // Identificador del vertex array object
+            GLuint idVBO = 0; // Identificador del vertex buffer object
+            GLuint idIBO = 0; // Identificador del index buffer object
+
         public:
             // - Getter de instancia
             static Renderer* GetInstancia ();
@@ -37,6 +44,9 @@ namespace PAG
 
             // - Esta función callback será llamada cada vez que se mueva la rueda del ratón sobre el área de dibujo OpenGL.
             static void CambiarColorFondo (float* color);
+
+            // - Esta función crea, compila y enlaza el shader program
+            void creaShaderProgram();
 
             ~Renderer();
     };
