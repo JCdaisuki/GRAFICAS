@@ -1,3 +1,4 @@
+#include <vector>
 #include <GLFW/glfw3.h>
 
 /**
@@ -20,8 +21,8 @@ namespace PAG
             float colorFondo[4] = {0.0, 0.0, 0.0, 0.0};
             float colorSeleccionado[4] = {0.0, 0.0, 0.0, 0.0};
 
-            //Último mensaje escrito en la ventana Mensajes
-            std::string lastMensaje = "Inicializada la Ventana Mensajes";
+            //Vector de mensajes
+            std::pmr::vector<std::string> mensajes;
 
             // - Estas funciones crean las ventanas auxiliares dentro de la ventana principal
             void CrearVentanaMensajes(std::string mensaje);

@@ -75,12 +75,15 @@ namespace PAG
             //Escalamos el texto
             ImGui::SetWindowFontScale(1.0f);
 
-            if(mensaje != "") //Emplearemos un string vacio para indicar que se quiere mostrar el último mensaje
+            if(mensaje != "") //Emplearemos un string vacio para indicar no hay ningún mensaje nuevo
             {
-                lastMensaje = mensaje;
+                mensajes.push_back(mensaje);
             }
 
-            ImGui::TextUnformatted(lastMensaje.c_str());
+            for(int i = 0; i < mensajes.size(); i++)
+            {
+                ImGui::TextUnformatted(mensajes[i].c_str());
+            }
         }
 
         ImGui::End();
