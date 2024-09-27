@@ -61,4 +61,13 @@ namespace PAG
         // Limpia el buffer de color para aplicar el nuevo color de fondo
         glClear(GL_COLOR_BUFFER_BIT);
     }
+
+    PAG::Renderer::~Renderer()
+    {
+        if (instancia)
+        {
+            delete instancia;
+            instancia = nullptr;
+        }
+    }
 }

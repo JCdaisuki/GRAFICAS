@@ -165,7 +165,6 @@ int main()
     // - Una vez terminado el ciclo de eventos, liberar recursos, etc.
     EmitirMensaje(window, "Finishing application pag prueba");;
 
-    PAG::GUI::GetInstancia()->FinalizarImGui();
     glfwDestroyWindow ( window ); // - Cerramos y destruimos la ventana de la aplicación.
     window = nullptr;
     glfwTerminate (); // - Liberamos los recursos que ocupaba GLFW.

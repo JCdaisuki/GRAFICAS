@@ -45,5 +45,7 @@ namespace PAG
             bool CambioColor();
 
             void FinalizarImGui();
+
+            ~GUI();
     };
 }

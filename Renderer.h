@@ -37,5 +37,7 @@ namespace PAG
 
             // - Esta función callback será llamada cada vez que se mueva la rueda del ratón sobre el área de dibujo OpenGL.
             static void CambiarColorFondo (float* color);
+
+            ~Renderer();
     };
 }

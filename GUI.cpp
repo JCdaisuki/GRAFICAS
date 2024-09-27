@@ -126,4 +126,16 @@ namespace PAG
         ImGui_ImplGlfw_Shutdown();
         ImGui::DestroyContext ();
     }
+
+    PAG::GUI::~GUI()
+    {
+        // Llamamos a FinalizarImGui para liberar los recursos relacionados con ImGui
+        FinalizarImGui();
+
+        if (instancia)
+        {
+            delete instancia;
+            instancia = nullptr;
+        }
+    }
 }
