@@ -130,7 +130,7 @@ namespace PAG
         ImGui::DestroyContext ();
     }
 
-    PAG::GUI::~GUI()
+    GUI::~GUI()
     {
         // Llamamos a FinalizarImGui para liberar los recursos relacionados con ImGui
         FinalizarImGui();

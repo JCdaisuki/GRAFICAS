@@ -4,7 +4,6 @@
 #include <glad/glad.h>
 
 #include "Renderer.h"
-#include "GUI.h"
 
 /**
  * @author Juan Carlos González Martínez
@@ -26,9 +25,9 @@ namespace PAG
 
     void Renderer::InicializarOpenGL()
     {
-        // - Establecemos un gris medio como color con el que se borrará el frame buffer.
-        glClearColor ( 0.6, 0.6, 0.6, 1.0 );
+        glClearColor ( 0.6, 0.6, 0.6, 1.0 ); // - Establecemos un gris medio como color con el que se borrará el frame buffer.
         glEnable(GL_DEPTH_TEST);
+        glEnable ( GL_MULTISAMPLE );
     }
 
     std::string Renderer::MostrarPropiedades()
@@ -46,6 +45,11 @@ namespace PAG
     void Renderer::RefrescarVentana ()
     {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        glPolygonMode ( GL_FRONT_AND_BACK, GL_FILL );
+        glUseProgram ( idSP );
+        glBindVertexArray ( idVAO );
+        glBindBuffer ( GL_ELEMENT_ARRAY_BUFFER, idIBO );
+        glDrawElements ( GL_TRIANGLES, 3, GL_UNSIGNED_INT, nullptr );
     }
 
     void Renderer::ModificarTamaño (int width, int height )
@@ -62,7 +66,7 @@ namespace PAG
         glClear(GL_COLOR_BUFFER_BIT);
     }
 
-    void PAG::Renderer::creaShaderProgram( )
+    void Renderer::CreaShaderProgram( )
     {
         std::string miVertexShader =
             "#version 410\n"
@@ -94,7 +98,26 @@ namespace PAG
         glLinkProgram ( idSP );
     }
 
-    PAG::Renderer::~Renderer()
+    void Renderer::CreaModelo()
+    {
+        GLfloat vertices[] = { -.5, -.5, 0,
+                                .5, -.5, 0,
+                                .0, .5, 0 };
+        GLuint indices[] = { 0, 1, 2 };
+
+        glGenVertexArrays ( 1, &idVAO );
+        glBindVertexArray ( idVAO );glGenBuffers ( 1, &idVBO );
+        glBindBuffer ( GL_ARRAY_BUFFER, idVBO );
+        glBufferData ( GL_ARRAY_BUFFER, 9*sizeof(GLfloat), vertices,
+        GL_STATIC_DRAW );
+        glVertexAttribPointer ( 0, 3, GL_FLOAT, GL_FALSE, 3*sizeof(GLfloat),nullptr );
+        glEnableVertexAttribArray ( 0 );
+        glGenBuffers ( 1, &idIBO );
+        glBindBuffer ( GL_ELEMENT_ARRAY_BUFFER, idIBO );
+        glBufferData ( GL_ELEMENT_ARRAY_BUFFER, 3*sizeof(GLuint), indices, GL_STATIC_DRAW );
+    }
+
+    Renderer::~Renderer()
     {
         if (instancia)
         {

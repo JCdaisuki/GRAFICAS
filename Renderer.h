@@ -46,7 +46,10 @@ namespace PAG
             static void CambiarColorFondo (float* color);
 
             // - Esta función crea, compila y enlaza el shader program
-            void creaShaderProgram();
+            void CreaShaderProgram();
+
+            // - Esta función crea el VAO para el modelo a renderizar
+            void CreaModelo();
 
             ~Renderer();
     };
