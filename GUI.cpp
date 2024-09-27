@@ -95,7 +95,7 @@ namespace PAG
         if (ImGui::Begin("Fondo"))
         {
             // Color picker completo (RGBA) de ImGui
-            ImGui::ColorPicker4("Color:", colorSeleccionado);
+            ImGui::ColorPicker4("Color:", colorSeleccionado, ImGuiColorEditFlags_PickerHueWheel);
         }
 
         ImGui::End();
