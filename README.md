@@ -24,3 +24,25 @@ Dado que su funcionamiento se encuentra dentro de la función que crea las venta
 El funcionamiento de la ventana Fondo es algo más complejo.
 Dado que para seleccionar un nuevo color debemos pulsar con el ratón, emplearemos esto a nuestro favor: Cuando se ejecute el callback de haber pulsado el ratón, se comprobará si ha cambiado el color seleccionado, es decir,
 si se ha pulsado sobre un nuevo color, en caso positivo, se actualizara el fondo.
+
+
+## Practica 3
+
+### Ejercicio VBO Opcional
+Primeramente deberemos modificar los archivos *pag03-vs.glsl* y *pag03-fs.glsl* :
+ - **pag03-vs**: Añadiremos un segundo atributo de los vértices, el color, localizado en el buffer de colores (1); 
+así como una variable de salida que contenga el color y que se mandará al siguiente shader en la cadena, el fragment shader.
+Dentro del main asignaremos el color del vértice a la variable de salida.
+ - **pag03-fs**: Originalmente asignaba un color fijo a cada fragmento, ahora recibe el color de cada fragmento desde el vertex shader.
+
+ 
+#### VBOs no entrelazados
+Comenzaremos almacenando dos vectores distintos, uno para vértices y otro para colores (No entrelazados).
+Por separado generaremos y vincularemos dos VBOs, para posiciones y colores, a partir de los vectores anteriores
+
+#### VBO entrelazado
+Esta vez almacenaremos un único vector que contendrá la información de los vectores y sus respectivos colores.
+Generaremos y vincularemos el VBO, pero para que OpenGL sepa interpretarlo deberemos indicar las posiciones y colores por separado, es decir,
+indicarle que los 3 primeros valores son las posiciones x,y,z seguidos de otros 3 valores que indican los colores r,g,b.
+
+Ambas versiones compartiran la forma en que se utiliza un IBO para referenciar los vértices al dibujar, por lo que no realizaremos cambios en ese aspecto.
