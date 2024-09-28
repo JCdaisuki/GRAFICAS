@@ -27,6 +27,10 @@ si se ha pulsado sobre un nuevo color, en caso positivo, se actualizara el fondo
 
 
 ## Practica 3
+Para el desarrollo de esta practica emplearemos las siguientes funciones en la clase Renderer:
+ - **LoadShader()**: Recibiendo la ruta de un archivo que contiene un tipo de Shader, se encargará de leer las propiedades del shader a partir del archivo y crearlo, almacendo su id como una propiedad de Renderer.
+ - **CreaShaderProgram()**: Empleando los ids de los shaders cargados, crea y configura un programa de Shaders en OpenGL.
+ - **CreaModelo()**: Crea y configura los datos de geometría de un modelo empleando VAOs y VBOs (Con 2 versiones que veremos a continuación).
 
 ### Ejercicio VBO Opcional
 Primeramente deberemos modificar los archivos *pag03-vs.glsl* y *pag03-fs.glsl* :
@@ -47,8 +51,10 @@ indicarle que los 3 primeros valores son las posiciones x,y,z seguidos de otros 
 
 Ambas versiones compartiran la forma en que se utiliza un IBO para referenciar los vértices al dibujar, por lo que no realizaremos cambios en ese aspecto.
 
+
 ### Pregunta
 **Si redimensionas la ventana de la aplicación, verás que el triángulo no permanece igual, sino que se deforma al mismo tiempo que la ventana. ¿A qué crees que se
 debe este comportamiento?**
+
 Los puntos dentro de la ventana se basan en un sistema de coordenadas, donde (0,0) indica el centro de la ventana, al redimensionarse este centro "cambia" de posición.
 Sin embargo, las coordenadas de los vértices del triangulo permanecen constantes, por lo que aunque se redimensione la ventana, el triángulo tratará de mantener sus coordenadas, dandonos el efecto de que varía aunque no sea así.
