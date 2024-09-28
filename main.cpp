@@ -102,11 +102,6 @@ int main()
     // Definimos el puntero para guardar la dirección de la ventana de la aplicación y la creamos
     GLFWwindow *window;
 
-    // Declaración de la instancia de Renderer
-    PAG::Renderer* instanciaRenderer = PAG::Renderer::GetInstancia();
-
-    // Declaración de la instancia de GUI
-    PAG::GUI* instanciaGUI = PAG::GUI::GetInstancia();
     // - Este callback hay que registrarlo ANTES de llamar a glfwInit
     glfwSetErrorCallback ( (GLFWerrorfun) callbackErrorGLFW );
 
@@ -150,18 +145,25 @@ int main()
 
     // - Registramos los callbacks que responderán a los eventos principales
     glfwSetWindowRefreshCallback ( window, callbackRefrescoVentana );
-    glfwSetFramebufferSizeCallback ( window, callbackModificarTamaño);
+    glfwSetFramebufferSizeCallback ( window, callbackModificarTamaño );
     glfwSetKeyCallback ( window, callbackTeclaPulsada );
     glfwSetMouseButtonCallback ( window, callbackAccionRaton );
     glfwSetScrollCallback ( window, callbackRuedaRaton );
 
-    instanciaRenderer->InicializarOpenGL();
-    instanciaGUI->InicializarImGui(window);
+    PAG::Renderer::GetInstancia()->InicializarOpenGL();
+    PAG::GUI::GetInstancia()->InicializarImGui(window);
 
     PAG::GUI::GetInstancia()->RedibujarVentanas(PAG::Renderer::GetInstancia()->MostrarPropiedades());
 
-    PAG::Renderer::GetInstancia()->CreaShaderProgram ();
-    PAG::Renderer::GetInstancia()->CreaModelo ();
+    try
+    {
+        PAG::Renderer::GetInstancia()->CreaShaderProgram ();
+        PAG::Renderer::GetInstancia()->CreaModelo ();
+    }
+    catch (std::exception &e)
+    {
+        EmitirMensaje(window, e.what());
+    }
     
     // - Ciclo de eventos de la aplicación. La condición de parada es que la ventana principal deba cerrarse, por ejemplo, si el usuario pulsa el  botón de cerrar la ventana (X).
     while ( !glfwWindowShouldClose ( window ) )
