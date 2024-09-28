@@ -150,15 +150,20 @@ int main()
     glfwSetMouseButtonCallback ( window, callbackAccionRaton );
     glfwSetScrollCallback ( window, callbackRuedaRaton );
 
+    //Inicialización de programas
     PAG::Renderer::GetInstancia()->InicializarOpenGL();
     PAG::GUI::GetInstancia()->InicializarImGui(window);
 
+    //Mostrar propiedades del contexto 3D
     PAG::GUI::GetInstancia()->RedibujarVentanas(PAG::Renderer::GetInstancia()->MostrarPropiedades());
 
     try
     {
-        PAG::Renderer::GetInstancia()->CreaShaderProgram ();
-        PAG::Renderer::GetInstancia()->CreaModelo ();
+        PAG::Renderer::GetInstancia()->LoadShader("Shaders/pag03-vs.glsl", GL_VERTEX_SHADER);
+        PAG::Renderer::GetInstancia()->LoadShader("Shaders/pag03-fs.glsl", GL_FRAGMENT_SHADER);
+
+        PAG::Renderer::GetInstancia()->CreaShaderProgram();
+        PAG::Renderer::GetInstancia()->CreaModelo();
     }
     catch (std::exception &e)
     {

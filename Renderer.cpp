@@ -1,9 +1,11 @@
 #include <iostream>
-#include <cstdlib>
+#include <fstream>
+#include <sstream>
 
 #include <glad/glad.h>
 
 #include "Renderer.h"
+
 
 /**
  * @author Juan Carlos González Martínez
@@ -66,44 +68,50 @@ namespace PAG
         glClear(GL_COLOR_BUFFER_BIT);
     }
 
-    void Renderer::CreaShaderProgram() //PASAR COMO PARAMETRO EL NOMBRE DEL ARCHIVO A CARGAR
+    void Renderer::LoadShader(std::string rutaFuenteGLSL , GLenum type)
     {
-        std::string miVertexShader =
-            "#version 410\n"
-            "layout (location = 0) in vec3 posicion;\n"
-            "void main ()\n"
-            "{ gl_Position = vec4 ( posicion, 1 );\n"
-            "}\n";
+        //Creamos el objeto Shader
+        int id = glCreateShader(type);
 
-        std::string miFragmentShader =
-            "#version 410\n"
-            "out vec4 colorFragmento;\n"
-            "void main ()\n"
-            "{ colorFragmento = vec4 ( 1.0, .4, .2, 1.0 );\n"
-            "}\n";
-
-        idVS = glCreateShader ( GL_VERTEX_SHADER );
-
-        if(idVS == 0)
+        if(id == 0)
         {
             throw std::runtime_error ("Error al crear Shader");
         }
 
-        const GLchar* fuenteVS = miVertexShader.c_str ();
-        glShaderSource ( idVS, 1, &fuenteVS, nullptr );
-        glCompileShader ( idVS );
-
-        idFS = glCreateShader ( GL_FRAGMENT_SHADER );
-
-        if(idFS == 0)
+        //Asignamos el id del shader a su atributo correspondiente
+        if(type == GL_VERTEX_SHADER)
         {
-            throw std::runtime_error ("Error al crear Shader");
+            idVS = id;
+        }
+        else if (type == GL_FRAGMENT_SHADER)
+        {
+            idFS = id;
         }
 
-        const GLchar* fuenteFS = miFragmentShader.c_str ();
-        glShaderSource ( idFS, 1, &fuenteFS, nullptr );
-        glCompileShader ( idFS );
+        //Tratamos de abrir el archivo que contiene el Shader
+        std::ifstream archivoShader;
+        archivoShader.open(rutaFuenteGLSL);
 
+        if ( !archivoShader.is_open () )
+        {
+            throw std::runtime_error ("Error al abrir el archivo " + rutaFuenteGLSL);
+        }
+
+        //Obtenemos el código fuente del Shader a partir del archivo
+        std::stringstream streamShader;
+        streamShader << archivoShader.rdbuf ();
+        std::string codigoFuenteShader = streamShader.str ();
+
+        //Cerramos el archivo
+        archivoShader.close ();
+
+        const GLchar* fuenteVS = codigoFuenteShader.c_str ();
+        glShaderSource ( id, 1, &fuenteVS, nullptr );
+        glCompileShader ( id );
+    }
+
+    void Renderer::CreaShaderProgram()
+    {
         idSP = glCreateProgram ();
 
         if ( idSP == 0 )
