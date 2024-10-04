@@ -119,6 +119,20 @@ build CMakeFiles/GRAFICAS.dir/GUI.cpp.obj: CXX_COMPILER__GRAFICAS_unscanned_Debu
   OBJECT_DIR = CMakeFiles\GRAFICAS.dir
   OBJECT_FILE_DIR = CMakeFiles\GRAFICAS.dir
 
+build CMakeFiles/GRAFICAS.dir/ShaderProgram.cpp.obj: CXX_COMPILER__GRAFICAS_unscanned_Debug C$:/Users/JuanC/Music/CURSO_2425/GRAFICAS/ShaderProgram.cpp || cmake_object_order_depends_target_GRAFICAS
+  DEP_FILE = CMakeFiles\GRAFICAS.dir\ShaderProgram.cpp.obj.d
+  FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
+  INCLUDES = -isystem C:/Users/JuanC/.conan2/p/b/gladf04f32c5f2434/p/include -isystem C:/Users/JuanC/.conan2/p/b/glfw15a5d86652532/p/include
+  OBJECT_DIR = CMakeFiles\GRAFICAS.dir
+  OBJECT_FILE_DIR = CMakeFiles\GRAFICAS.dir
+
+build CMakeFiles/GRAFICAS.dir/ShaderObject.cpp.obj: CXX_COMPILER__GRAFICAS_unscanned_Debug C$:/Users/JuanC/Music/CURSO_2425/GRAFICAS/ShaderObject.cpp || cmake_object_order_depends_target_GRAFICAS
+  DEP_FILE = CMakeFiles\GRAFICAS.dir\ShaderObject.cpp.obj.d
+  FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
+  INCLUDES = -isystem C:/Users/JuanC/.conan2/p/b/gladf04f32c5f2434/p/include -isystem C:/Users/JuanC/.conan2/p/b/glfw15a5d86652532/p/include
+  OBJECT_DIR = CMakeFiles\GRAFICAS.dir
+  OBJECT_FILE_DIR = CMakeFiles\GRAFICAS.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target GRAFICAS
@@ -127,7 +141,7 @@ build CMakeFiles/GRAFICAS.dir/GUI.cpp.obj: CXX_COMPILER__GRAFICAS_unscanned_Debu
 #############################################
 # Link the executable GRAFICAS.exe
 
-build GRAFICAS.exe: CXX_EXECUTABLE_LINKER__GRAFICAS_Debug CMakeFiles/GRAFICAS.dir/main.cpp.obj CMakeFiles/GRAFICAS.dir/Renderer.cpp.obj CMakeFiles/GRAFICAS.dir/imgui/imgui.cpp.obj CMakeFiles/GRAFICAS.dir/imgui/imgui_demo.cpp.obj CMakeFiles/GRAFICAS.dir/imgui/imgui_draw.cpp.obj CMakeFiles/GRAFICAS.dir/imgui/imgui_impl_glfw.cpp.obj CMakeFiles/GRAFICAS.dir/imgui/imgui_impl_opengl3.cpp.obj CMakeFiles/GRAFICAS.dir/imgui/imgui_tables.cpp.obj CMakeFiles/GRAFICAS.dir/imgui/imgui_widgets.cpp.obj CMakeFiles/GRAFICAS.dir/GUI.cpp.obj | C$:/Users/JuanC/.conan2/p/b/gladf04f32c5f2434/p/lib/libglad.a C$:/Users/JuanC/.conan2/p/b/glfw15a5d86652532/p/lib/libglfw3.a
+build GRAFICAS.exe: CXX_EXECUTABLE_LINKER__GRAFICAS_Debug CMakeFiles/GRAFICAS.dir/main.cpp.obj CMakeFiles/GRAFICAS.dir/Renderer.cpp.obj CMakeFiles/GRAFICAS.dir/imgui/imgui.cpp.obj CMakeFiles/GRAFICAS.dir/imgui/imgui_demo.cpp.obj CMakeFiles/GRAFICAS.dir/imgui/imgui_draw.cpp.obj CMakeFiles/GRAFICAS.dir/imgui/imgui_impl_glfw.cpp.obj CMakeFiles/GRAFICAS.dir/imgui/imgui_impl_opengl3.cpp.obj CMakeFiles/GRAFICAS.dir/imgui/imgui_tables.cpp.obj CMakeFiles/GRAFICAS.dir/imgui/imgui_widgets.cpp.obj CMakeFiles/GRAFICAS.dir/GUI.cpp.obj CMakeFiles/GRAFICAS.dir/ShaderProgram.cpp.obj CMakeFiles/GRAFICAS.dir/ShaderObject.cpp.obj | C$:/Users/JuanC/.conan2/p/b/gladf04f32c5f2434/p/lib/libglad.a C$:/Users/JuanC/.conan2/p/b/glfw15a5d86652532/p/lib/libglfw3.a
   FLAGS = -g
   LINK_LIBRARIES = C:/Users/JuanC/.conan2/p/b/gladf04f32c5f2434/p/lib/libglad.a  C:/Users/JuanC/.conan2/p/b/glfw15a5d86652532/p/lib/libglfw3.a  -lgdi32  -lopengl32  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   LINK_PATH = -LC:/Users/JuanC/.conan2/p/b/gladf04f32c5f2434/p/lib   -LC:/Users/JuanC/.conan2/p/b/glfw15a5d86652532/p/lib

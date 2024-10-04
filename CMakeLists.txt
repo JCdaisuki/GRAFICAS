@@ -5,7 +5,11 @@ set(CMAKE_CXX_STANDARD 20)
 
 file( GLOB IMGUI imgui/*cpp)
 
-add_executable(GRAFICAS main.cpp Renderer.cpp Renderer.h ${IMGUI} GUI.cpp GUI.h)
+add_executable(GRAFICAS main.cpp Renderer.cpp Renderer.h ${IMGUI} GUI.cpp GUI.h
+        ShaderProgram.cpp
+        ShaderProgram.h
+        ShaderObject.cpp
+        ShaderObject.h)
 
 find_package(glad)
 target_link_libraries(GRAFICAS glad::glad)
