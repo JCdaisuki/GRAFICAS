@@ -5,6 +5,9 @@
 * @author Juan Carlos González Martínez
  */
 
+#ifndef Gui_h
+#define Gui_h
+
 namespace PAG
 {
     class GUI
@@ -50,3 +53,5 @@ namespace PAG
             ~GUI();
     };
 }
+
+#endif

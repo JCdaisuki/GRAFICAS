@@ -4,11 +4,19 @@
 
 #include <glad/glad.h>
 
-#include "ShaderObject.h"
 #include "ShaderProgram.h"
 
 namespace PAG
 {
+    void ShaderProgram::AsignarShaders(std::string rutaFuenteGLSL)
+    {
+        vertexShader = new ShaderObject(GL_VERTEX_SHADER);
+        fragmentShader = new ShaderObject(GL_FRAGMENT_SHADER);
+
+        vertexShader->LoadShader(rutaFuenteGLSL + "-vs.glsl");
+        fragmentShader->LoadShader(rutaFuenteGLSL + "-fs.glsl");
+    }
+
     void ShaderProgram::CreaShaderProgram()
     {
         idSP = glCreateProgram ();
@@ -18,24 +26,24 @@ namespace PAG
             throw std::runtime_error ("Error al crear el Shader Program");
         }
 
-        glAttachShader ( idSP, idVS );
-        glAttachShader ( idSP, idFS );
+        glAttachShader ( idSP, vertexShader->GetId() );
+        glAttachShader ( idSP, fragmentShader->GetId() );
         glLinkProgram ( idSP );
 
         GLint resultadoCompilacion;
-        glGetShaderiv ( idVS, GL_COMPILE_STATUS, &resultadoCompilacion );
+        glGetShaderiv ( vertexShader->GetId(), GL_COMPILE_STATUS, &resultadoCompilacion );
 
         if ( resultadoCompilacion == GL_FALSE ) // Ha habido un error en la compilación.
         {
             GLint tamMsj = 0;
             std::string mensaje = "";
-            glGetShaderiv ( idVS, GL_INFO_LOG_LENGTH, &tamMsj );
+            glGetShaderiv ( vertexShader->GetId(), GL_INFO_LOG_LENGTH, &tamMsj );
 
             if ( tamMsj > 0 )
             {
                 GLchar* mensajeFormatoC = new GLchar[tamMsj];
                 GLint datosEscritos = 0;
-                glGetShaderInfoLog (idVS , tamMsj, &datosEscritos, mensajeFormatoC );
+                glGetShaderInfoLog (vertexShader->GetId() , tamMsj, &datosEscritos, mensajeFormatoC );
                 mensaje.assign ( mensajeFormatoC );
                 delete[] mensajeFormatoC;
                 mensajeFormatoC = nullptr;
@@ -43,6 +51,13 @@ namespace PAG
                 throw std::runtime_error ( mensaje );
             }
         }
+    }
+
+    void ShaderProgram::RefrescarVentana()
+    {
+        glUseProgram ( idSP );
+        glBindVertexArray ( idVAO );
+        glBindBuffer ( GL_ELEMENT_ARRAY_BUFFER, idIBO );
     }
 
     void ShaderProgram::CreaModelo()

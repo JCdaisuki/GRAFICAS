@@ -8,24 +8,30 @@
 
 namespace PAG
 {
-    void ShaderObject::LoadShader(std::string rutaFuenteGLSL , GLenum type)
+    ShaderObject::ShaderObject(GLenum t)
+    {
+        id = 0;
+        type = t;
+    }
+
+    int ShaderObject::GetId()
+    {
+        return id;
+    }
+
+    GLenum ShaderObject::GetType()
+    {
+        return type;
+    }
+
+    void ShaderObject::LoadShader(std::string rutaFuenteGLSL)
     {
         //Creamos el objeto Shader
-        int id = glCreateShader(type);
+        id = glCreateShader(type);
 
         if(id == 0)
         {
             throw std::runtime_error ("Error al crear Shader");
-        }
-
-        //Asignamos el id del shader a su atributo correspondiente
-        if(type == GL_VERTEX_SHADER)
-        {
-            idVS = id;
-        }
-        else if (type == GL_FRAGMENT_SHADER)
-        {
-            idFS = id;
         }
 
         //Tratamos de abrir el archivo que contiene el Shader

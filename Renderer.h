@@ -2,6 +2,9 @@
  * @author Juan Carlos González Martínez
  */
 
+#ifndef Renderer_h
+#define Renderer_h
+
 namespace PAG
 {
     class Renderer
@@ -41,15 +44,8 @@ namespace PAG
             // - Esta función callback será llamada cada vez que se mueva la rueda del ratón sobre el área de dibujo OpenGL.
             static void CambiarColorFondo (float* color);
 
-            // - Esta función permite cargar los shaders a partir de archivos
-            void LoadShader(std::string rutaFuenteGLSL, GLenum type);
-
-            // - Esta función crea, compila y enlaza el shader program
-            void CreaShaderProgram();
-
-            // - Esta función crea el VAO para el modelo a renderizar
-            void CreaModelo();
-
             ~Renderer();
     };
 }
+
+#endif

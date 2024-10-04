@@ -8,10 +8,13 @@
 
 #include "Renderer.h"
 #include "GUI.h"
+#include "ShaderProgram.h"
 
 /**
  * @author Juan Carlos González Martínez
  */
+
+PAG::ShaderProgram shaderProgram;
 
 // - Esta función permite emitir mensajes mediante la ventana mensajes de ImGui
 void EmitirMensaje(GLFWwindow *window, std::string mensaje, bool mostrarMensaje = true)
@@ -37,9 +40,10 @@ void callbackErrorGLFW ( int errno, const char* desc )
 }
 
 // - Esta función callback será llamada cada vez que el área de dibujo OpenGL deba ser redibujada.
-void callbackRefrescoVentana ( GLFWwindow* window )
+void callbackRefrescoVentana ( GLFWwindow* window)
 {
     PAG::Renderer::GetInstancia()->RefrescarVentana();
+    shaderProgram.RefrescarVentana();
 
     PAG::GUI::GetInstancia()->RedibujarVentanas();
 
@@ -102,6 +106,9 @@ int main()
     // Definimos el puntero para guardar la dirección de la ventana de la aplicación y la creamos
     GLFWwindow *window;
 
+    //Creación de los objetos encargados de los shaders
+    PAG::ShaderProgram shaderProgram;
+
     // - Este callback hay que registrarlo ANTES de llamar a glfwInit
     glfwSetErrorCallback ( (GLFWerrorfun) callbackErrorGLFW );
 
@@ -144,7 +151,7 @@ int main()
     }
 
     // - Registramos los callbacks que responderán a los eventos principales
-    glfwSetWindowRefreshCallback ( window, callbackRefrescoVentana );
+    glfwSetWindowRefreshCallback ( window, callbackRefrescoVentana);
     glfwSetFramebufferSizeCallback ( window, callbackModificarTamaño );
     glfwSetKeyCallback ( window, callbackTeclaPulsada );
     glfwSetMouseButtonCallback ( window, callbackAccionRaton );
@@ -159,11 +166,9 @@ int main()
 
     try
     {
-        PAG::Renderer::GetInstancia()->LoadShader("Shaders/pag03-vs.glsl", GL_VERTEX_SHADER);
-        PAG::Renderer::GetInstancia()->LoadShader("Shaders/pag03-fs.glsl", GL_FRAGMENT_SHADER);
-
-        PAG::Renderer::GetInstancia()->CreaShaderProgram();
-        PAG::Renderer::GetInstancia()->CreaModelo();
+        shaderProgram.AsignarShaders("Shaders/pag03");
+        shaderProgram.CreaShaderProgram();
+        shaderProgram.CreaModelo();
     }
     catch (std::exception &e)
     {
