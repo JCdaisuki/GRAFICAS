@@ -20,6 +20,7 @@ PAG::ShaderProgram shaderProgram;
 void EmitirMensaje(GLFWwindow *window, std::string mensaje, bool mostrarMensaje = true)
 {
     PAG::Renderer::GetInstancia()->RefrescarVentana();
+    shaderProgram.Render();
 
     if(!mostrarMensaje)
     {
