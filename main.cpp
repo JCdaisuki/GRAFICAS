@@ -181,7 +181,7 @@ int main()
     }
 
     // - Una vez terminado el ciclo de eventos, liberar recursos, etc.
-    EmitirMensaje(window, "Finishing application pag prueba");;
+    EmitirMensaje(window, "Finishing application pag prueba");
 
     glfwDestroyWindow ( window ); // - Cerramos y destruimos la ventana de la aplicación.
     window = nullptr;
