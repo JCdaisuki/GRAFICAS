@@ -5,6 +5,9 @@
 #ifndef ShaderObject_h
 #define ShaderObject_h
 
+#include <glad/glad.h>
+#include <string>
+
 namespace PAG
 {
     class ShaderObject

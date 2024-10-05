@@ -15,7 +15,7 @@ PAG::Renderer* PAG::Renderer::instancia = nullptr;
 
 namespace PAG
 {
-    PAG::Renderer* PAG::Renderer::GetInstancia ()
+    Renderer* Renderer::GetInstancia ()
     {
         if ( !instancia ) // Lazy initialization: si aún no existe, lo crea
         {

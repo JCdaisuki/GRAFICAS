@@ -8,19 +8,17 @@
 
 #include "Renderer.h"
 #include "GUI.h"
-#include "ShaderProgram.h"
+#include "ShaderManager.h"
 
 /**
  * @author Juan Carlos González Martínez
  */
 
-PAG::ShaderProgram shaderProgram;
-
 // - Esta función permite emitir mensajes mediante la ventana mensajes de ImGui
 void EmitirMensaje(GLFWwindow *window, std::string mensaje, bool mostrarMensaje = true)
 {
     PAG::Renderer::GetInstancia()->RefrescarVentana();
-    shaderProgram.Render();
+    PAG::ShaderManager::GetInstancia()->RefrescarVentana();
 
     if(!mostrarMensaje)
     {
@@ -44,7 +42,7 @@ void callbackErrorGLFW ( int errno, const char* desc )
 void callbackRefrescoVentana ( GLFWwindow* window)
 {
     PAG::Renderer::GetInstancia()->RefrescarVentana();
-    shaderProgram.Render();
+    PAG::ShaderManager::GetInstancia()->RefrescarVentana();
 
     PAG::GUI::GetInstancia()->RedibujarVentanas();
 
@@ -164,7 +162,7 @@ int main()
 
     try
     {
-        shaderProgram.AsignarShaders("");
+        PAG::ShaderManager::GetInstancia()->CreaShaderProgram("Shaders/pag03");
     }
     catch (std::exception &e)
     {

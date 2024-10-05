@@ -2,8 +2,6 @@
 #include <fstream>
 #include <sstream>
 
-#include <glad/glad.h>
-
 #include "ShaderProgram.h"
 
 namespace PAG

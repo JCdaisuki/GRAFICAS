@@ -23,6 +23,8 @@ namespace PAG
         public:
             ShaderProgram() = default;
 
+            int GetIdSP(){ return idSP; };
+
             // - Esta función asigna los vertex y fragment shaders al programa a partir de su ruta
             void AsignarShaders(std::string rutaFuenteGLSL);
 
