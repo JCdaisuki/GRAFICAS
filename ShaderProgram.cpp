@@ -15,6 +15,9 @@ namespace PAG
 
         vertexShader->LoadShader(rutaFuenteGLSL + "-vs.glsl");
         fragmentShader->LoadShader(rutaFuenteGLSL + "-fs.glsl");
+
+        CreaShaderProgram();
+        CreaModelo();
     }
 
     void ShaderProgram::CreaShaderProgram()
@@ -92,6 +95,11 @@ namespace PAG
 
     void ShaderProgram::Render()
     {
+        if(idVAO == 0 || idVBO == 0 || idIBO == 0)
+        {
+            return;;
+        }
+
         // Usar el programa de shaders
         glUseProgram(idSP);
 

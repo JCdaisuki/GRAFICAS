@@ -164,9 +164,7 @@ int main()
 
     try
     {
-        shaderProgram.AsignarShaders("Shaders/pag03");
-        shaderProgram.CreaShaderProgram();
-        shaderProgram.CreaModelo();
+        shaderProgram.AsignarShaders("");
     }
     catch (std::exception &e)
     {
