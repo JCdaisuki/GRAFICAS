@@ -106,9 +106,6 @@ int main()
     // Definimos el puntero para guardar la dirección de la ventana de la aplicación y la creamos
     GLFWwindow *window;
 
-    //Creación de los objetos encargados de los shaders
-    PAG::ShaderProgram shaderProgram;
-
     // - Este callback hay que registrarlo ANTES de llamar a glfwInit
     glfwSetErrorCallback ( (GLFWerrorfun) callbackErrorGLFW );
 

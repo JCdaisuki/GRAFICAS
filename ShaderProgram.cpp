@@ -95,6 +95,8 @@ namespace PAG
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
         glBindVertexArray(0);
+
+        glDrawElements ( GL_TRIANGLES, 3, GL_UNSIGNED_INT, nullptr );
     }
 
     ShaderProgram::~ShaderProgram()
