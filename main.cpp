@@ -43,7 +43,7 @@ void callbackErrorGLFW ( int errno, const char* desc )
 void callbackRefrescoVentana ( GLFWwindow* window)
 {
     PAG::Renderer::GetInstancia()->RefrescarVentana();
-    shaderProgram.RefrescarVentana();
+    shaderProgram.Render();
 
     PAG::GUI::GetInstancia()->RedibujarVentanas();
 

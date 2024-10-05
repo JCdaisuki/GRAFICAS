@@ -29,11 +29,11 @@ namespace PAG
             // - Esat función configura e inicializa el shader program
             void CreaShaderProgram();
 
-            // - Esta función prepara el contexto OpenGL para el dibujo a realizar
-            void RefrescarVentana();
-
             // - Esta función crea el modelo de un triángulo a partir de los datos del shader program
             void CreaModelo();
+
+            // - Esta función dibuja el modelo utilizando el shader program y los datos de los buffers configurados
+            void Render();
 
             ~ShaderProgram();
     };

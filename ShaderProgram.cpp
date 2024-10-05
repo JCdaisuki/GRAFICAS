@@ -53,16 +53,9 @@ namespace PAG
         }
     }
 
-    void ShaderProgram::RefrescarVentana()
-    {
-        glUseProgram ( idSP );
-        glBindVertexArray ( idVAO );
-        glBindBuffer ( GL_ELEMENT_ARRAY_BUFFER, idIBO );
-    }
-
     void ShaderProgram::CreaModelo()
     {
-        //Vértices del triángulo con los colores intercalados (x, y, z, r, g, b)
+        // Vértices del triángulo con los colores intercalados (x, y, z, r, g, b)
         GLfloat verticesYColores[] =
         {
             //Posiciones        //Colores
@@ -76,27 +69,40 @@ namespace PAG
         glGenVertexArrays(1, &idVAO);
         glBindVertexArray(idVAO);
 
-        //VBO para las posiciones y los colores
+        // VBO para las posiciones y los colores
         glGenBuffers(1, &idVBO);
         glBindBuffer(GL_ARRAY_BUFFER, idVBO);
         glBufferData(GL_ARRAY_BUFFER, sizeof(verticesYColores), verticesYColores, GL_STATIC_DRAW);
 
-        //Atributo de posición (0) (Indicamos 3 componentes (x, y, z) y un salto de 6 (Los conjuntos de valores estan separados por 6 componentes))
+        // Atributo de posición (0) (Indicamos 3 componentes (x, y, z) y un salto de 6 (Los conjuntos de valores están separados por 6 componentes))
         glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (void*)0);
         glEnableVertexAttribArray(0);
 
-        //Atributo de color (1) (Indicamos que el desplazamiento del atributo color esta a 3 floats de su posición para empezar en el 4º atributo)
+        // Atributo de color (1) (Indicamos que el desplazamiento del atributo color está a 3 floats de su posición para empezar en el 4º atributo)
         glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (void*)(3 * sizeof(GLfloat)));
         glEnableVertexAttribArray(1);
 
-        //IBO para los índices, común para ambas versiones de VBO
+        // IBO para los índices
         glGenBuffers(1, &idIBO);
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, idIBO);
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
         glBindVertexArray(0);
+    }
 
-        glDrawElements ( GL_TRIANGLES, 3, GL_UNSIGNED_INT, nullptr );
+    void ShaderProgram::Render()
+    {
+        // Usar el programa de shaders
+        glUseProgram(idSP);
+
+        // Vincular el VAO
+        glBindVertexArray(idVAO);
+
+        // Dibujar los elementos
+        glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, nullptr);
+
+        // Desvincular el VAO (opcional)
+        glBindVertexArray(0);
     }
 
     ShaderProgram::~ShaderProgram()
