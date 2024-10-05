@@ -16,9 +16,13 @@ namespace PAG
         public:
             ShaderObject() = default;
             ShaderObject(GLenum t);
+
             int GetId();
             GLenum GetType();
+
+            // - Esta función carga un shader a partir de la ruta especificada
             void LoadShader(std::string rutaFuenteGLSL);
+
             ~ShaderObject();
     };
 }
