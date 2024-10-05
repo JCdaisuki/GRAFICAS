@@ -19,16 +19,16 @@ namespace PAG
         //Buscamos si hay algún ShaderProgram en el vector que no esté siendo utilizado
         for(int i = 0; i < shaderPrograms.size(); i++)
         {
-            if(shaderPrograms[i].GetIdSP() == 0)
+            if(shaderPrograms[i]->GetIdSP() == 0)
             {
-                shaderPrograms[i].AsignarShaders(rutaFuenteGLSL);
+                shaderPrograms[i]->AsignarShaders(rutaFuenteGLSL);
                 return;
             }
         }
 
         //No hay ningún ShaderProgram disponible, creamos uno nuevo y lo añadimos al vector
-        ShaderProgram newShaderProgram;
-        newShaderProgram.AsignarShaders(rutaFuenteGLSL);
+        ShaderProgram* newShaderProgram = new ShaderProgram();
+        newShaderProgram->AsignarShaders(rutaFuenteGLSL);
         shaderPrograms.push_back(newShaderProgram);
     }
 
@@ -36,9 +36,9 @@ namespace PAG
     {
         for(int i = 0; i < shaderPrograms.size(); i++)
         {
-            if(shaderPrograms[i].GetIdSP() != 0)
+            if(shaderPrograms[i]->GetIdSP() != 0)
             {
-                shaderPrograms[i].Render();
+                shaderPrograms[i]->Render();
             }
         }
     }

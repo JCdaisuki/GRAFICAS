@@ -17,16 +17,15 @@ namespace PAG
         private:
             static ShaderManager* instancia;
 
-            std::vector<ShaderProgram> shaderPrograms;
+            std::vector<ShaderProgram*> shaderPrograms;
 
         public:
-            ShaderManager() = default;
-
             static ShaderManager* GetInstancia ();
 
             // - Esta función asigna los shaders de una ruta a un ShaderProgram disponible (o nuevo)
             void CreaShaderProgram(std::string rutaFuenteGLSL);
 
+            // - Esta función renderizará los ShaderPrograms disponibles
             void RefrescarVentana();
 
             ~ShaderManager();
