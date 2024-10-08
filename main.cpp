@@ -25,7 +25,21 @@ void EmitirMensaje(GLFWwindow *window, std::string mensaje, bool mostrarMensaje 
         mensaje = "";
     }
 
-    PAG::GUI::GetInstancia()->RedibujarVentanas(mensaje);
+    try
+    {
+        PAG::GUI::GetInstancia()->RedibujarVentanas(mensaje);
+    }
+    catch (std::string shaderArchivo)
+    {
+        try
+        {
+            PAG::ShaderManager::GetInstancia()->CreaShaderProgram("Shaders/" + shaderArchivo);
+        }
+        catch (std::exception &e)
+        {
+            EmitirMensaje(window, e.what());
+        }
+    }
 
     // Intercambia el buffer en el que se estaba dibujando por el que se muestra
     glfwSwapBuffers ( window );
@@ -159,15 +173,6 @@ int main()
 
     //Mostrar propiedades del contexto 3D
     PAG::GUI::GetInstancia()->RedibujarVentanas(PAG::Renderer::GetInstancia()->MostrarPropiedades());
-
-    try
-    {
-        PAG::ShaderManager::GetInstancia()->CreaShaderProgram("Shaders/pag03");
-    }
-    catch (std::exception &e)
-    {
-        EmitirMensaje(window, e.what());
-    }
     
     // - Ciclo de eventos de la aplicación. La condición de parada es que la ventana principal deba cerrarse, por ejemplo, si el usuario pulsa el  botón de cerrar la ventana (X).
     while ( !glfwWindowShouldClose ( window ) )

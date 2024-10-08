@@ -8,8 +8,6 @@
 
 #include "GUI.h"
 
-#include "Renderer.h"
-
 /**
  * @author Juan Carlos González Martínez
  */
@@ -63,6 +61,11 @@ namespace PAG
         //Se renderiza en pantalla
         ImGui::Render();
         ImGui_ImplOpenGL3_RenderDrawData ( ImGui::GetDrawData() );
+
+        if(shaderArchivo != "")
+        {
+            throw shaderArchivo;
+        }
     }
 
     void GUI::CrearVentanaMensajes(std::string mensaje)
@@ -118,7 +121,6 @@ namespace PAG
         if (ImGui::Button("Load") && buffer != "")
         {
             shaderArchivo = buffer;
-            std::cout << "Shader File: " << shaderArchivo << std::endl;
         }
 
         ImGui::End();
