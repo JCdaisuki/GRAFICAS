@@ -19,6 +19,7 @@ namespace PAG
             //Posicion x e y de las ventanas
             int mx = 10, my = 20;
             int cx = 10, cy = 140;
+            int sx = 10, sy = 370;
 
             //Color de fondo y color seleccionado en la ventana "Fondo"
             float colorFondo[4] = {0.0, 0.0, 0.0, 0.0};
@@ -27,9 +28,14 @@ namespace PAG
             //Vector de mensajes
             std::pmr::vector<std::string> mensajes;
 
+            //Nombre del archivo de shaders a cargar
+            std::string shaderArchivo = "";
+            char buffer[256];
+
             // - Estas funciones crean las ventanas auxiliares dentro de la ventana principal
             void CrearVentanaMensajes(std::string mensaje);
             void CrearVentanaColores();
+            void CrearVentanaShaders();
 
         public:
             // - Getter de instancia

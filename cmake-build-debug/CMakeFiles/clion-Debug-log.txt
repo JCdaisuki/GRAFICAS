@@ -97,6 +97,6 @@ Install finished successfully
 -- Conan: Target declared 'glfw'
 -- CMake-Conan: find_package(opengl_system) found, 'conan install' already ran
 -- Conan: Target declared 'opengl::opengl'
--- Configuring done (2.2s)
+-- Configuring done (2.1s)
 -- Generating done (0.0s)
 -- Build files have been written to: C:/Users/JuanC/Music/CURSO_2425/GRAFICAS/cmake-build-debug

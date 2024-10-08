@@ -4,6 +4,7 @@
 #include "imgui/imgui_impl_glfw.h"
 #include "imgui/imgui_impl_opengl3.h"
 #include "imgui/imgui_impl_opengl3_loader.h"
+#include "imgui/imgui_stdlib.h"
 
 #include "GUI.h"
 
@@ -57,6 +58,7 @@ namespace PAG
 
         CrearVentanaMensajes(mensaje);
         CrearVentanaColores();
+        CrearVentanaShaders();
 
         //Se renderiza en pantalla
         ImGui::Render();
@@ -99,6 +101,24 @@ namespace PAG
         {
             // Color picker completo (RGBA) de ImGui
             ImGui::ColorPicker4("Color:", colorSeleccionado, ImGuiColorEditFlags_PickerHueWheel);
+        }
+
+        ImGui::End();
+    }
+
+    void GUI::CrearVentanaShaders()
+    {
+        ImGui::SetNextWindowPos(ImVec2(sx, sy), ImGuiCond_Once);
+        ImGui::SetNextWindowSize(ImVec2(140, 80), ImGuiCond_Once);
+
+        ImGui::Begin("Cargar Shader");
+
+        ImGui::InputText("##shader", buffer, sizeof(buffer), ImGuiInputTextFlags_AutoSelectAll);
+
+        if (ImGui::Button("Load") && buffer != "")
+        {
+            shaderArchivo = buffer;
+            std::cout << "Shader File: " << shaderArchivo << std::endl;
         }
 
         ImGui::End();
