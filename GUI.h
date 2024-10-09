@@ -46,6 +46,8 @@ namespace PAG
             void SetMensajeX(int newMX){ mx = newMX;}
             void SetMensajeY(int newMY){ my = newMY;}
 
+            void ResetShaderArchivo(){shaderArchivo = "";}
+
             void InicializarImGui(GLFWwindow* window);
 
             //- Esta función redibuja la interfaz cada vez que se refresque la imagen

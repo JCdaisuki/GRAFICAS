@@ -26,21 +26,21 @@ namespace PAG
 
     void ShaderObject::LoadShader(std::string rutaFuenteGLSL)
     {
-        //Creamos el objeto Shader
-        id = glCreateShader(type);
-
-        if(id == 0)
-        {
-            throw std::runtime_error ("Error al crear Shader");
-        }
-
         //Tratamos de abrir el archivo que contiene el Shader
         std::ifstream archivoShader;
         archivoShader.open(rutaFuenteGLSL);
 
-        if ( !archivoShader.is_open () )
+        if ( !archivoShader.is_open() )
         {
             throw std::runtime_error ("Error al abrir el archivo " + rutaFuenteGLSL);
+        }
+
+        //Creamos el objeto Shader
+        id = glCreateShader(type); //CREADO DESPUES DE TRATAR DE ABRIR EL ARCHIVO(?)
+
+        if(id == 0)
+        {
+            throw std::runtime_error ("Error al crear Shader");
         }
 
         //Obtenemos el código fuente del Shader a partir del archivo

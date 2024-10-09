@@ -1,5 +1,8 @@
 #include "ShaderManager.h"
 
+#include <fstream>
+#include <iostream>
+
 PAG::ShaderManager* PAG::ShaderManager::instancia = nullptr;
 
 namespace PAG
@@ -16,6 +19,11 @@ namespace PAG
 
     void ShaderManager::CreaShaderProgram(std::string rutaFuenteGLSL)
     {
+        if(rutaFuenteGLSL == "")
+        {
+            return;
+        }
+
         //Buscamos si hay algún ShaderProgram en el vector que no esté siendo utilizado
         for(int i = 0; i < shaderPrograms.size(); i++)
         {

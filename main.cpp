@@ -37,6 +37,7 @@ void EmitirMensaje(GLFWwindow *window, std::string mensaje, bool mostrarMensaje 
         }
         catch (std::exception &e)
         {
+            PAG::GUI::GetInstancia()->ResetShaderArchivo();
             EmitirMensaje(window, e.what());
         }
     }
@@ -58,7 +59,22 @@ void callbackRefrescoVentana ( GLFWwindow* window)
     PAG::Renderer::GetInstancia()->RefrescarVentana();
     PAG::ShaderManager::GetInstancia()->RefrescarVentana();
 
-    PAG::GUI::GetInstancia()->RedibujarVentanas();
+    try
+    {
+        PAG::GUI::GetInstancia()->RedibujarVentanas();
+    }
+    catch (std::string shaderArchivo)
+    {
+        try
+        {
+            PAG::ShaderManager::GetInstancia()->CreaShaderProgram("Shaders/" + shaderArchivo);
+        }
+        catch (std::exception &e)
+        {
+            PAG::GUI::GetInstancia()->ResetShaderArchivo();
+            EmitirMensaje(window, e.what());
+        }
+    }
 
     // - GLFW usa un doble buffer para que no haya parpadeo.
     // Esta orden intercambia el buffer back (que se ha estado dibujando) por el que se mostraba hasta ahora front. Debe ser la última orden de este callback
