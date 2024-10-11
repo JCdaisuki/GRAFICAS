@@ -8,6 +8,11 @@ namespace PAG
 {
     class Camera
     {
+        private:
+            static Camera* instancia;
+
+        public:
+            static Camera* GetInstancia ();
 
     };
 }

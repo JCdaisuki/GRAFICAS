@@ -17,7 +17,7 @@ PAG::GUI* PAG::GUI::instancia = nullptr;
 
 namespace PAG
 {
-    PAG::GUI* PAG::GUI::GetInstancia ()
+    GUI* GUI::GetInstancia ()
     {
         if ( !instancia )
         {
