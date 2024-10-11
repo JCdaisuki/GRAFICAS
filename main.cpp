@@ -9,6 +9,7 @@
 #include "Renderer.h"
 #include "GUI.h"
 #include "ShaderManager.h"
+#include "Camera.h"
 
 /**
  * @author Juan Carlos González Martínez
@@ -114,8 +115,7 @@ void callbackAccionRaton ( GLFWwindow *window, int button, int action, int mods 
 
 void callbackModificarTamaño(GLFWwindow *window, int width, int height )
 {
-    PAG::Renderer* instancia = PAG::Renderer::GetInstancia();
-    instancia->ModificarTamaño(width, height);
+    PAG::Renderer::GetInstancia()->ModificarTamaño(width, height);
 
     EmitirMensaje(window, "Resize callback called", false);
 }
@@ -154,6 +154,10 @@ int main()
 
     // - Tamaño, título de la ventana, en ventana y no en pantalla completa, sin compartir recursos con otras ventanas.
     window = glfwCreateWindow ( 1024, 576, "PAG Introduction", nullptr, nullptr );
+
+    // Asignamos el tamaño del viewport a la cámara
+    PAG::Camera::GetInstancia()->setAncho(1024);
+    PAG::Camera::GetInstancia()->setAlto(576);
 
     // - Comprobamos si la creación de la ventana ha tenido éxito.
     if ( window == nullptr )
