@@ -134,7 +134,7 @@ list(PREPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR})
 # The Conan local "generators" folder, where this toolchain is saved.
 list(PREPEND CMAKE_PREFIX_PATH ${CMAKE_CURRENT_LIST_DIR} )
 list(PREPEND CMAKE_LIBRARY_PATH "C:/Users/JuanC/.conan2/p/b/glfw15a5d86652532/p/lib" "C:/Users/JuanC/.conan2/p/b/gladf04f32c5f2434/p/lib")
-list(PREPEND CMAKE_INCLUDE_PATH "C:/Users/JuanC/.conan2/p/b/glfw15a5d86652532/p/include" "C:/Users/JuanC/.conan2/p/b/gladf04f32c5f2434/p/include")
+list(PREPEND CMAKE_INCLUDE_PATH "C:/Users/JuanC/.conan2/p/glmc7261f667dea4/p/include" "C:/Users/JuanC/.conan2/p/b/glfw15a5d86652532/p/include" "C:/Users/JuanC/.conan2/p/b/gladf04f32c5f2434/p/include")
 set(CONAN_RUNTIME_LIB_DIRS "C:/Users/JuanC/.conan2/p/b/glfw15a5d86652532/p/bin" "C:/Users/JuanC/.conan2/p/b/gladf04f32c5f2434/p/bin" )
 
 

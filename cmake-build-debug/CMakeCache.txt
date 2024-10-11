@@ -275,6 +275,9 @@ glad_DIR:PATH=C:/Users/JuanC/Music/CURSO_2425/GRAFICAS/cmake-build-debug/conan/b
 //The directory containing a CMake configuration file for glfw3.
 glfw3_DIR:PATH=C:/Users/JuanC/Music/CURSO_2425/GRAFICAS/cmake-build-debug/conan/build/Debug/generators
 
+//The directory containing a CMake configuration file for glm.
+glm_DIR:PATH=C:/Users/JuanC/Music/CURSO_2425/GRAFICAS/cmake-build-debug/conan/build/Debug/generators
+
 //The directory containing a CMake configuration file for opengl_system.
 opengl_system_DIR:PATH=C:/Users/JuanC/Music/CURSO_2425/GRAFICAS/cmake-build-debug/conan/build/Debug/generators
 
