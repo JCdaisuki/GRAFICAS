@@ -1,8 +1,8 @@
-
-
 #ifndef CAMERA_H
 #define CAMERA_H
 
+#include <glm/glm.hpp>
+#include <glm/ext/matrix_clip_space.hpp>
 
 namespace PAG
 {
@@ -20,6 +20,7 @@ namespace PAG
             float zNear = 0.1;
             float zFar = 100;
 
+            glm::mat4 matrizProyeccion;
         public:
             static Camera* GetInstancia();
 
@@ -27,6 +28,8 @@ namespace PAG
 
             void setAlto(int a){alto = a;}
             void setAncho(int a){ancho = a;}
+
+            void Zoom(float angulo);
     };
 }
 

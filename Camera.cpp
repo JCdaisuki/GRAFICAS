@@ -1,5 +1,3 @@
-#include <glm/glm.hpp>
-
 #include "Camera.h"
 
 
@@ -16,4 +14,10 @@ namespace PAG
 
         return instancia;
     }
+
+    void Camera::Zoom(float angulo)
+    {
+        matrizProyeccion = glm::perspective(glm::radians(angVision + angulo), (float)(ancho / alto), zNear, zFar);
+    }
+
 }
