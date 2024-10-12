@@ -20,6 +20,7 @@ namespace PAG
             int mx = 10, my = 20;
             int cx = 10, cy = 140;
             int sx = 10, sy = 370;
+            int cax = 620, cay = 20;
 
             //Color de fondo y color seleccionado en la ventana "Fondo"
             float colorFondo[4] = {0.0, 0.0, 0.0, 0.0};
@@ -36,6 +37,7 @@ namespace PAG
             void CrearVentanaMensajes(std::string mensaje);
             void CrearVentanaColores();
             void CrearVentanaShaders();
+            void CrearVentanaCamera();
 
         public:
             // - Getter de instancia

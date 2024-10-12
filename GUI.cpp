@@ -58,6 +58,7 @@ namespace PAG
         CrearVentanaMensajes(mensaje);
         CrearVentanaColores();
         CrearVentanaShaders();
+        CrearVentanaCamera();
 
         //Se renderiza en pantalla
         ImGui::Render();
@@ -122,6 +123,42 @@ namespace PAG
         if (ImGui::Button("Load") && buffer != "")
         {
             shaderArchivo = buffer;
+        }
+
+        ImGui::End();
+    }
+
+    void GUI::CrearVentanaCamera()
+    {
+        ImGui::SetNextWindowPos(ImVec2(cax, cay), ImGuiCond_Once);
+        ImGui::SetNextWindowSize(ImVec2(200, 180), ImGuiCond_Once);
+
+        ImGui::Begin("Camera");
+
+        ImGui::Text("Movement");
+
+        if (ImGui::BeginMenu("Select Movement"))
+        {
+            if (ImGui::MenuItem("Zoom"))
+            {
+            }
+            if (ImGui::MenuItem("Pan"))
+            {
+            }
+            if (ImGui::MenuItem("Tilt"))
+            {
+            }
+            if (ImGui::MenuItem("Dolly"))
+            {
+            }
+            if (ImGui::MenuItem("Crane"))
+            {
+            }
+            if (ImGui::MenuItem("Orbit"))
+            {
+            }
+            
+            ImGui::EndMenu();
         }
 
         ImGui::End();
