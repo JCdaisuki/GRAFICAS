@@ -3,6 +3,7 @@
 
 #include <glm/glm.hpp>
 #include <glm/ext/matrix_clip_space.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 
 namespace PAG
 {
@@ -11,23 +12,32 @@ namespace PAG
         private:
             static Camera* instancia;
 
-            glm::vec3 posicion;
-            glm::vec3 target = glm::vec3(0.0f, 0.0f, 0.0f); //Asignamos el origen como punto al que mira
+            glm::vec3 posicion = glm::vec3(0, 0, 5);
+            glm::vec3 target = glm::vec3(0, 0, 0); //Asignamos el origen como punto al que mira
+            glm::vec3 up = glm::vec3(0, 1, 0);
+
+            // Sistema de coordenadas local
+            glm::vec3 u;
+            glm::vec3 v;
+            glm::vec3 n;
 
             float angVision = 45; //Ángulo de vision en horizontal
-            int alto = 0; //Alto y ancho del viewport
-            int ancho = 0;
+            int alto = 576; //Alto y ancho del viewport
+            int ancho = 1024;
             float zNear = 0.1;
             float zFar = 100;
 
-            glm::mat4 matrizProyeccion;
+            glm::mat4 viewMatrix;
+            glm::mat4 projectionMatrix;
         public:
             static Camera* GetInstancia();
 
-            Camera() = default;
+            Camera();
 
-            void setAlto(int a){alto = a;}
-            void setAncho(int a){ancho = a;}
+            void SetAltoAncho(int alt, int anch){alto = alt; ancho = anch;}
+
+            glm::mat4 GetViewMatrix();
+            glm::mat4 GetProjectionMatrix();
 
             void Zoom(float angulo);
     };

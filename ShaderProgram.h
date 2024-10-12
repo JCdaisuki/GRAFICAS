@@ -5,6 +5,8 @@
 #ifndef shaderProgram_h
 #define shaderProgram_h
 
+#include <glm/fwd.hpp>
+
 #include "ShaderObject.h"
 
 namespace PAG
@@ -20,6 +22,11 @@ namespace PAG
             ShaderObject *vertexShader;
             ShaderObject *fragmentShader;
 
+            GLint viewLoc; // Ubicaciones de los uniformes
+            GLint projLoc;
+
+            void SetViewMatrix(const glm::mat4& view);
+            void SetProjectionMatrix(const glm::mat4& projection);
         public:
             ShaderProgram() = default;
 

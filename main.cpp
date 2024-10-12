@@ -155,10 +155,6 @@ int main()
     // - Tamaño, título de la ventana, en ventana y no en pantalla completa, sin compartir recursos con otras ventanas.
     window = glfwCreateWindow ( 1024, 576, "PAG Introduction", nullptr, nullptr );
 
-    // Asignamos el tamaño del viewport a la cámara
-    PAG::Camera::GetInstancia()->setAncho(1024);
-    PAG::Camera::GetInstancia()->setAlto(576);
-
     // - Comprobamos si la creación de la ventana ha tenido éxito.
     if ( window == nullptr )
     {
@@ -169,6 +165,11 @@ int main()
 
     // - Hace que el contexto OpenGL asociado a la ventana que acabamos de crear pase a ser el contexto actual de OpenGL para las siguientes llamadas a la biblioteca
     glfwMakeContextCurrent ( window );
+
+    std::cout << 1 << std::endl;
+    // Asignamos el tamaño del viewport a la cámara
+    PAG::Camera::GetInstancia()->SetAltoAncho(576, 1024);
+    std::cout << 2 << std::endl;
 
     // - Ahora inicializamos GLAD.
     if ( !gladLoadGLLoader ( (GLADloadproc) glfwGetProcAddress ) )
