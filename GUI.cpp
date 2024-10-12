@@ -1,17 +1,8 @@
-#include <iostream>
-#include <filesystem>
-
-#include "imgui/imgui.h"
-#include "imgui/imgui_impl_glfw.h"
-#include "imgui/imgui_impl_opengl3.h"
-#include "imgui/imgui_impl_opengl3_loader.h"
-#include "imgui/imgui_stdlib.h"
-
-#include "GUI.h"
-
 /**
  * @author Juan Carlos González Martínez
  */
+
+#include "GUI.h"
 
 PAG::GUI* PAG::GUI::instancia = nullptr;
 
@@ -141,6 +132,8 @@ namespace PAG
         {
             if (ImGui::MenuItem("Zoom"))
             {
+                menuSeleccionado = "Zoom";
+                movementText = "Angle";
             }
             if (ImGui::MenuItem("Pan"))
             {
@@ -157,8 +150,16 @@ namespace PAG
             if (ImGui::MenuItem("Orbit"))
             {
             }
-            
+
             ImGui::EndMenu();
+        }
+
+        ImGui::Text(movementText);
+
+        if(menuSeleccionado == "Zoom")
+        {
+            ImGui::SliderInt("##Zoom", &zoom, -100, 100);
+            Camera::GetInstancia()->Zoom(-zoom);
         }
 
         ImGui::End();

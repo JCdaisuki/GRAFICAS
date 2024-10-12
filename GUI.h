@@ -1,12 +1,22 @@
-#include <vector>
-#include <GLFW/glfw3.h>
-
 /**
 * @author Juan Carlos González Martínez
  */
 
 #ifndef Gui_h
 #define Gui_h
+
+#include <iostream>
+#include <vector>
+#include <filesystem>
+
+#include "imgui/imgui.h"
+#include "imgui/imgui_impl_glfw.h"
+#include "imgui/imgui_impl_opengl3.h"
+#include "imgui/imgui_impl_opengl3_loader.h"
+#include "imgui/imgui_stdlib.h"
+#include <GLFW/glfw3.h>
+
+#include "Camera.h"
 
 namespace PAG
 {
@@ -39,6 +49,10 @@ namespace PAG
             void CrearVentanaShaders();
             void CrearVentanaCamera();
 
+            //Auxiliares del Menu de Cámara
+            std::string menuSeleccionado = "";
+            char* movementText = "";
+            int zoom = 0;
         public:
             // - Getter de instancia
             static GUI* GetInstancia ();
