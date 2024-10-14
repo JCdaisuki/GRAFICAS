@@ -137,6 +137,8 @@ namespace PAG
             }
             if (ImGui::MenuItem("Pan"))
             {
+                menuSeleccionado = "Pan";
+                movementText = "Direction";
             }
             if (ImGui::MenuItem("Tilt"))
             {
@@ -160,6 +162,19 @@ namespace PAG
         {
             ImGui::SliderInt("##Zoom", &zoom, -100, 100);
             Camera::GetInstancia()->Zoom(-zoom);
+        }
+        else if(menuSeleccionado == "Pan")
+        {
+            if (ImGui::Button("<- Left"))
+            {
+                //Camara pan <-
+            }
+            ImGui::SameLine(); // Colocar el siguiente botón en la misma línea
+
+            if (ImGui::Button("Right ->"))
+            {
+                //Camara pan ->
+            }
         }
 
         ImGui::End();
