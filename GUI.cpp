@@ -142,6 +142,8 @@ namespace PAG
             }
             if (ImGui::MenuItem("Tilt"))
             {
+                menuSeleccionado = "Tilt";
+                movementText = "Direction";
             }
             if (ImGui::MenuItem("Dolly"))
             {
@@ -167,13 +169,26 @@ namespace PAG
         {
             if (ImGui::Button("<- Left"))
             {
-                //Camara pan <-
+                Camera::GetInstancia()->Pan(-1);
             }
             ImGui::SameLine(); // Colocar el siguiente botón en la misma línea
 
             if (ImGui::Button("Right ->"))
             {
-                //Camara pan ->
+                Camera::GetInstancia()->Pan(1);
+            }
+        }
+        else if(menuSeleccionado == "Tilt")
+        {
+            if (ImGui::Button("^ Up ^"))
+            {
+                Camera::GetInstancia()->Tilt(-1);
+            }
+            ImGui::SameLine();
+
+            if (ImGui::Button("v Down v"))
+            {
+                Camera::GetInstancia()->Tilt(1);
             }
         }
 

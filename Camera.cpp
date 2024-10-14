@@ -42,4 +42,35 @@ namespace PAG
     {
         projectionMatrix = glm::perspective(glm::radians(angVision + angulo), (float)(ancho / alto), zNear, zFar);
     }
+
+    void Camera::Pan(float angulo) //NO FUNCIONA!!!!
+    {
+        //ROTAR LA CAMARA LOS ANGULOS EN V
+        glm::mat4 rotacion = glm::rotate(glm::mat4(1.0f), glm::radians(angulo), v);
+
+        //Rotar el vector n y actualizar el punto al que mira la cámara
+        n = glm::normalize(glm::vec3(rotacion * glm::vec4(n, 0.0f)));
+        target += n;
+
+        //A LO MEJOR EL ERROR ES QUE SE TOQUETEAN LOS OTROS??
+        u = glm::normalize(glm::cross(up, n));
+        v = glm::normalize(glm::cross(n, u));
+
+        //Actualizar la matriz de vista
+        viewMatrix = glm::lookAt(posicion, target, up);
+    }
+
+    void Camera::Tilt(float angulo)
+    {
+        //MISMO CODIGO QUE PAN PERO ROTANDO EL EJE U
+        glm::mat4 rotacion = glm::rotate(glm::mat4(1.0f), glm::radians(angulo), u);
+
+        n = glm::normalize(glm::vec3(rotacion * glm::vec4(n, 0.0f)));
+        target += n;
+
+        u = glm::normalize(glm::cross(up, n));
+        v = glm::normalize(glm::cross(n, u));
+
+        viewMatrix = glm::lookAt(posicion, target, up);
+    }
 }

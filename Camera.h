@@ -40,6 +40,8 @@ namespace PAG
             glm::mat4 GetProjectionMatrix();
 
             void Zoom(float angulo);
+            void Pan(float angulo);
+            void Tilt(float angulo);
     };
 }
 
