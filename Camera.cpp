@@ -10,9 +10,9 @@ namespace PAG
 {
     Camera::Camera()
     {
-        n = glm::normalize(posicion - target); // Forward
-        u = glm::normalize(glm::cross(up, n)); // Right
-        v = glm::cross(n, u); // True Up
+        n = glm::normalize(posicion - target);
+        u = glm::normalize(glm::cross(up, n));
+        v = glm::cross(n, u);
 
         viewMatrix = glm::lookAt(posicion, target, up);
         projectionMatrix = glm::perspective(glm::radians(angVision), (float)(ancho/alto), zNear, zFar);
@@ -52,10 +52,6 @@ namespace PAG
         n = glm::normalize(glm::vec3(rotacion * glm::vec4(n, 0.0f)));
         target += n;
 
-        //A LO MEJOR EL ERROR ES QUE SE TOQUETEAN LOS OTROS??
-        u = glm::normalize(glm::cross(up, n));
-        v = glm::normalize(glm::cross(n, u));
-
         //Actualizar la matriz de vista
         viewMatrix = glm::lookAt(posicion, target, up);
     }
@@ -67,9 +63,6 @@ namespace PAG
 
         n = glm::normalize(glm::vec3(rotacion * glm::vec4(n, 0.0f)));
         target += n;
-
-        u = glm::normalize(glm::cross(up, n));
-        v = glm::normalize(glm::cross(n, u));
 
         viewMatrix = glm::lookAt(posicion, target, up);
     }
