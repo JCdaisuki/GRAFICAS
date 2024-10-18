@@ -17,7 +17,7 @@ namespace PAG
             glm::vec3 target = glm::vec3(0, 0, 0); //Asignamos el origen como punto al que mira
             glm::vec3 up = glm::vec3(0, 1, 0);
 
-            // Sistema de coordenadas local
+            //Sistema de coordenadas local
             glm::vec3 u;
             glm::vec3 v;
             glm::vec3 n;
@@ -30,6 +30,9 @@ namespace PAG
 
             glm::mat4 viewMatrix;
             glm::mat4 projectionMatrix;
+
+            // - Función auxiliar que permite recalcular el sistema de coordenadas y la viewMatrix tras cada movimiento de cámara
+            void RecalcularValores();
         public:
             static Camera* GetInstancia();
 

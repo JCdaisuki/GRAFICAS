@@ -51,12 +51,7 @@ namespace PAG
         //Aplicar la transformación al punto lookAt para actualizar el target
         target = glm::vec3(transformacion * glm::vec4(target, 1.0f));
 
-        //Recalcular los valores del sistema de coordenadas
-        n = glm::normalize(target - posicion);
-        u = glm::normalize(glm::cross(up, n));
-        v = glm::normalize(glm::cross(n, u));
-
-        viewMatrix = glm::lookAt(posicion, target, up);
+        RecalcularValores();
     }
 
     void Camera::Tilt(float angulo)
@@ -70,11 +65,7 @@ namespace PAG
 
         target = glm::vec3(transformacion * glm::vec4(target, 1.0f));
 
-        n = glm::normalize(target - posicion);
-        u = glm::normalize(glm::cross(up, n));
-        v = glm::normalize(glm::cross(n, u));
-
-        viewMatrix = glm::lookAt(posicion, target, up);
+        RecalcularValores();
     }
 
     //Nota: Aunque pan y tilt puedan parecer iguales a dolly, si hacemos zoom podmeos ver que pan y tilt estan rotando!
@@ -106,10 +97,17 @@ namespace PAG
         posicion += movimiento;
         target += movimiento;
 
+        RecalcularValores();
+    }
+
+    void Camera::RecalcularValores()
+    {
+        //Recalcular los valores del sistema de coordenadas
         n = glm::normalize(target - posicion);
         u = glm::normalize(glm::cross(up, n));
         v = glm::normalize(glm::cross(n, u));
 
+        //Actualizar matriz de vista
         viewMatrix = glm::lookAt(posicion, target, up);
     }
 }
