@@ -40,19 +40,26 @@ namespace PAG
 
     void Camera::Zoom(float angulo)
     {
-        projectionMatrix = glm::perspective(glm::radians(angVision + angulo), (float)(ancho / alto), zNear, zFar);
+        projectionMatrix = glm::perspective(glm::radians(angVision + angulo), ((float)ancho / (float)alto), zNear, zFar);
     }
 
-    void Camera::Pan(float angulo) //NO FUNCIONA!!!!
+    void Camera::Pan(float angulo)
     {
-        //ROTAR LA CAMARA LOS ANGULOS EN V
+        glm::mat4 moverAlOrigen = glm::translate(glm::mat4(1.0f), -posicion);
         glm::mat4 rotacion = glm::rotate(glm::mat4(1.0f), glm::radians(angulo), v);
+        glm::mat4 moverAOriginal = glm::translate(glm::mat4(1.0f), posicion);
 
-        //Rotar el vector n y actualizar el punto al que mira la cámara
-        n = glm::normalize(glm::vec3(rotacion * glm::vec4(n, 0.0f)));
-        target += n;
+        //Combinar las transformaciones: mover al origen, rotar y luego mover de vuelta a la posición inicial
+        glm::mat4 transformacion = moverAOriginal * rotacion * moverAlOrigen;
 
-        //Actualizar la matriz de vista
+        //Aplicar la transformación al punto lookAt para actualizar el target
+        target = glm::vec3(transformacion * glm::vec4(target, 1.0f));
+
+        //Recalcular los valores del sistema de coordenadas
+        n = glm::normalize(target - posicion);
+        u = glm::normalize(glm::cross(up, n));
+        v = glm::normalize(glm::cross(n, u));
+
         viewMatrix = glm::lookAt(posicion, target, up);
     }
 
