@@ -199,22 +199,24 @@ namespace PAG
         }
         else if(menuSeleccionado == "Dolly")
         {
-            if (ImGui::Button("Up", ImVec2(40, 20)))
+            ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 27);
+            if (ImGui::Button("^ Back ^"))
             {
             }
 
-            if (ImGui::Button("Left", ImVec2(40, 20)))
+            if (ImGui::Button("<- Left"))
             {
             }
 
             ImGui::SameLine();
 
-            if (ImGui::Button("Right", ImVec2(40, 20)))
+            if (ImGui::Button("Right ->"))
             {
 
             }
 
-            if (ImGui::Button("Down", ImVec2(40, 20)))
+            ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 27);
+            if (ImGui::Button("v Front v"))
             {
             }
         }
