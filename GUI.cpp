@@ -147,6 +147,8 @@ namespace PAG
             }
             if (ImGui::MenuItem("Dolly"))
             {
+                menuSeleccionado = "Dolly";
+                movementText = "Direction";
             }
             if (ImGui::MenuItem("Crane"))
             {
@@ -187,11 +189,33 @@ namespace PAG
             {
                 Camera::GetInstancia()->Tilt(1);
             }
+
             ImGui::SameLine();
 
             if (ImGui::Button("v Down v"))
             {
                 Camera::GetInstancia()->Tilt(-1);
+            }
+        }
+        else if(menuSeleccionado == "Dolly")
+        {
+            if (ImGui::Button("Up", ImVec2(40, 20)))
+            {
+            }
+
+            if (ImGui::Button("Left", ImVec2(40, 20)))
+            {
+            }
+
+            ImGui::SameLine();
+
+            if (ImGui::Button("Right", ImVec2(40, 20)))
+            {
+
+            }
+
+            if (ImGui::Button("Down", ImVec2(40, 20)))
+            {
             }
         }
 
