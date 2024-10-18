@@ -1,6 +1,7 @@
 #ifndef CAMERA_H
 #define CAMERA_H
 
+#include <string>
 #include <glm/glm.hpp>
 #include <glm/ext/matrix_clip_space.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -42,6 +43,7 @@ namespace PAG
             void Zoom(float angulo);
             void Pan(float angulo);
             void Tilt(float angulo);
+            void Dolly(const std::string& direccion, float distancia);
     };
 }
 

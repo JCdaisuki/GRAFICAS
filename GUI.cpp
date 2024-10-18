@@ -202,22 +202,25 @@ namespace PAG
             ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 27);
             if (ImGui::Button("^ Back ^"))
             {
+                Camera::GetInstancia()->Dolly("back", 0.1);
             }
 
             if (ImGui::Button("<- Left"))
             {
+                Camera::GetInstancia()->Dolly("left", 0.1);
             }
 
             ImGui::SameLine();
 
             if (ImGui::Button("Right ->"))
             {
-
+                Camera::GetInstancia()->Dolly("right", 0.1);
             }
 
             ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 27);
             if (ImGui::Button("v Front v"))
             {
+                Camera::GetInstancia()->Dolly("front", 0.1);
             }
         }
 

@@ -1,9 +1,5 @@
 #include "Camera.h"
 
-#include <iostream>
-#include <ostream>
-
-
 PAG::Camera* PAG::Camera::instancia = nullptr;
 
 namespace PAG
@@ -73,6 +69,42 @@ namespace PAG
         glm::mat4 transformacion = moverAOriginal * rotacion * moverAlOrigen;
 
         target = glm::vec3(transformacion * glm::vec4(target, 1.0f));
+
+        n = glm::normalize(target - posicion);
+        u = glm::normalize(glm::cross(up, n));
+        v = glm::normalize(glm::cross(n, u));
+
+        viewMatrix = glm::lookAt(posicion, target, up);
+    }
+
+    //Nota: Aunque pan y tilt puedan parecer iguales a dolly, si hacemos zoom podmeos ver que pan y tilt estan rotando!
+
+    void Camera::Dolly(const std::string& direccion, float distancia)
+    {
+        // Normalizar la distancia
+        glm::vec3 movimiento(0.0f);
+
+        //Calcular el movimiento en función de la dirección introducida
+        if (direccion == "front")
+        {
+            movimiento = n * distancia;
+        }
+        else if (direccion == "left")
+        {
+            movimiento = -u * distancia;
+        }
+        else if (direccion == "right")
+        {
+            movimiento = u * distancia;
+        }
+        else if (direccion == "back")
+        {
+            movimiento = -n * distancia;
+        }
+
+        //Actualizar la posición de la cámara y el punto al que se mira
+        posicion += movimiento;
+        target += movimiento;
 
         n = glm::normalize(target - posicion);
         u = glm::normalize(glm::cross(up, n));
