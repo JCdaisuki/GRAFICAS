@@ -65,11 +65,18 @@ namespace PAG
 
     void Camera::Tilt(float angulo)
     {
-        //MISMO CODIGO QUE PAN PERO ROTANDO EL EJE U
+        //Mismo funcionamiento que Pan() excepto que la rotación es sobre el eje u
+        glm::mat4 moverAlOrigen = glm::translate(glm::mat4(1.0f), -posicion);
         glm::mat4 rotacion = glm::rotate(glm::mat4(1.0f), glm::radians(angulo), u);
+        glm::mat4 moverAOriginal = glm::translate(glm::mat4(1.0f), posicion);
 
-        n = glm::normalize(glm::vec3(rotacion * glm::vec4(n, 0.0f)));
-        target += n;
+        glm::mat4 transformacion = moverAOriginal * rotacion * moverAlOrigen;
+
+        target = glm::vec3(transformacion * glm::vec4(target, 1.0f));
+
+        n = glm::normalize(target - posicion);
+        u = glm::normalize(glm::cross(up, n));
+        v = glm::normalize(glm::cross(n, u));
 
         viewMatrix = glm::lookAt(posicion, target, up);
     }

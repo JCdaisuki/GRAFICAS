@@ -182,13 +182,13 @@ namespace PAG
         {
             if (ImGui::Button("^ Up ^"))
             {
-                Camera::GetInstancia()->Tilt(-1);
+                Camera::GetInstancia()->Tilt(1);
             }
             ImGui::SameLine();
 
             if (ImGui::Button("v Down v"))
             {
-                Camera::GetInstancia()->Tilt(1);
+                Camera::GetInstancia()->Tilt(-1);
             }
         }
 
