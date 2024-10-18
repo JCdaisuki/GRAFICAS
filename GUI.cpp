@@ -158,6 +158,9 @@ namespace PAG
             ImGui::EndMenu();
         }
 
+        ImGui::Separator();
+        ImGui::Text(menuSeleccionado.c_str());
+        ImGui::Separator();
         ImGui::Text(movementText);
 
         if(menuSeleccionado == "Zoom")
