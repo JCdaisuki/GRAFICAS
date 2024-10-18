@@ -47,6 +47,7 @@ namespace PAG
             void Pan(float angulo);
             void Tilt(float angulo);
             void Dolly(const std::string& direccion, float distancia);
+
     };
 }
 

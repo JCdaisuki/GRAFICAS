@@ -152,6 +152,8 @@ namespace PAG
             }
             if (ImGui::MenuItem("Crane"))
             {
+                menuSeleccionado = "Crane";
+                movementText = "Direction";
             }
             if (ImGui::MenuItem("Orbit"))
             {
@@ -221,6 +223,18 @@ namespace PAG
             if (ImGui::Button("v Front v"))
             {
                 Camera::GetInstancia()->Dolly("front", 0.1);
+            }
+        }
+        else if(menuSeleccionado == "Crane")
+        {
+            if (ImGui::Button("^ Up ^"))
+            {
+            }
+
+            ImGui::SameLine();
+
+            if (ImGui::Button("v Down v"))
+            {
             }
         }
 

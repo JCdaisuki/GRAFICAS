@@ -72,7 +72,6 @@ namespace PAG
 
     void Camera::Dolly(const std::string& direccion, float distancia)
     {
-        // Normalizar la distancia
         glm::vec3 movimiento(0.0f);
 
         //Calcular el movimiento en función de la dirección introducida
@@ -99,6 +98,8 @@ namespace PAG
 
         RecalcularValores();
     }
+
+
 
     void Camera::RecalcularValores()
     {
