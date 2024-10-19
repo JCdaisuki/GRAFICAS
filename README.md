@@ -88,3 +88,5 @@ Como casi todo funcionamiento en esta aplicación, se ha creado una ventana con 
 
 <img src="https://i.imgur.com/J6PGli9.png">
 
+### Diagrama UML
+<img src="https://i.imgur.com/E9w16BT.png">
