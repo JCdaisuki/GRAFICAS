@@ -157,6 +157,8 @@ namespace PAG
             }
             if (ImGui::MenuItem("Orbit"))
             {
+                menuSeleccionado = "Orbit";
+                movementText = "Latitude";
             }
 
             ImGui::EndMenu();
@@ -237,6 +239,30 @@ namespace PAG
             if (ImGui::Button("v Down v"))
             {
                 Camera::GetInstancia()->Crane(-0.1);
+            }
+        }
+        else if(menuSeleccionado == "Orbit")
+        {
+            if (ImGui::Button("^ North ^"))
+            {
+            }
+
+            ImGui::SameLine();
+
+            if (ImGui::Button("v South v"))
+            {
+            }
+
+            ImGui::Text("Longitude");
+
+            if (ImGui::Button("<- West"))
+            {
+            }
+
+            ImGui::SameLine();
+
+            if (ImGui::Button("East ->"))
+            {
             }
         }
 
