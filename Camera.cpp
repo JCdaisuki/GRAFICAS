@@ -135,4 +135,13 @@ namespace PAG
         //Actualizar matriz de vista
         viewMatrix = glm::lookAt(posicion, target, up);
     }
+
+    Camera::~Camera()
+    {
+        if (instancia)
+        {
+            delete instancia;
+            instancia = nullptr;
+        }
+    }
 }
