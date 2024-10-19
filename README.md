@@ -83,3 +83,8 @@ Implementarlo supone únicamente sumar al eje Y de la posición actual y al punt
 Como en otras rotaciones, moveremos la cámara al punto de origen, aplicaremos la rotación correspondiente (vertical u horizontal) y volveremos al punto original; 
 esta vez debemos actualizar la posición de la cámara en base a la transformación realizada para simular el movimiento de órbita.
 
+### Instrucciones de funcionamiento
+Como casi todo funcionamiento en esta aplicación, se ha creado una ventana con imgui que permite controlar estos movimientos:
+
+<img src="https://i.imgur.com/J6PGli9.png">
+
