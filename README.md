@@ -75,7 +75,9 @@ Para implementarlo debemos mover la cámara al punto de origen, realizar la rota
 - **Dolly**: Permite mover la cámara en 3 dimensiones, hacia delante, atrás, derecha e izquierda como si estuviese posada sobre unos raíles.
 Para su implementación se modifica su posición y el punto al que mira añadiendo al eje del movimiento la distancia movida.
 
-<img src="https://dhscomtech.wordpress.com/wp-content/uploads/2012/02/tilt_pan_dolly.jpg">
+<p align="center">
+  <img src="https://dhscomtech.wordpress.com/wp-content/uploads/2012/02/tilt_pan_dolly.jpg">
+</p>
 
 - **Crane**: Supone una traslación de la cámara en el eje vértical Y, similar a Tilt con la excepción de que la cámara no rotará sino que continuará mirando al frente.
 Implementarlo supone únicamente sumar al eje Y de la posición actual y al punto que se mira la distancia a recorrer.
