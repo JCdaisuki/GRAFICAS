@@ -58,3 +58,10 @@ debe este comportamiento?**
 
 Los puntos dentro de la ventana se basan en un sistema de coordenadas, donde (0,0) indica el centro de la ventana, al redimensionarse este centro "cambia" de posición.
 Sin embargo, las coordenadas de los vértices del triangulo permanecen constantes, por lo que aunque se redimensione la ventana, el triángulo tratará de mantener sus coordenadas, dandonos el efecto de que varía aunque no sea así.
+
+
+## Practica 4
+<img src="https://i.imgur.com/h38xcu4.png">
+
+
+## Practica 5
