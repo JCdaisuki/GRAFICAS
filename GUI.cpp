@@ -229,12 +229,14 @@ namespace PAG
         {
             if (ImGui::Button("^ Up ^"))
             {
+                Camera::GetInstancia()->Crane(0.1);
             }
 
             ImGui::SameLine();
 
             if (ImGui::Button("v Down v"))
             {
+                Camera::GetInstancia()->Crane(-0.1);
             }
         }
 

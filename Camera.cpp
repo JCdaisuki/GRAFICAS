@@ -99,6 +99,16 @@ namespace PAG
         RecalcularValores();
     }
 
+    void Camera::Crane(float distancia)
+    {
+        //Mover la cámara en el eje Y
+        posicion.y += distancia;
+
+        //Actualizar el punto al que se mira
+        target.y += distancia;
+
+        RecalcularValores();
+    }
 
 
     void Camera::RecalcularValores()
