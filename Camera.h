@@ -48,6 +48,7 @@ namespace PAG
             void Tilt(float angulo);
             void Dolly(const std::string& direccion, float distancia);
             void Crane(float distancia);
+            void Orbit(float latitud, float longitud);
     };
 }
 

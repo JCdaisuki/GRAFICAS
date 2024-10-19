@@ -101,15 +101,29 @@ namespace PAG
 
     void Camera::Crane(float distancia)
     {
-        //Mover la cámara en el eje Y
+        //Mover la cámara y el punto al que se mira en el eje Y
         posicion.y += distancia;
-
-        //Actualizar el punto al que se mira
         target.y += distancia;
 
         RecalcularValores();
     }
 
+    void Camera::Orbit(float latitud, float longitud)
+    {
+        //Calcular las matrices de rotación paralos ejes u y v
+        glm::mat4 moverAlOrigen = glm::translate(glm::mat4(1.0f), -posicion);
+        glm::mat4 rotacionLatitud = glm::rotate(glm::mat4(1.0f), glm::radians(latitud), u);
+        glm::mat4 rotacionLongitud = glm::rotate(glm::mat4(1.0f), glm::radians(longitud), v);
+        glm::mat4 moverAOriginal = glm::translate(glm::mat4(1.0f), posicion);
+
+        glm::mat4 transformacion = moverAOriginal * rotacionLongitud * rotacionLatitud * moverAlOrigen;
+
+        //Aplicar la transformación a la posición de la cámara
+        glm::vec3 direccion = glm::vec3(transformacion * glm::vec4(posicion - target, 0.0f));
+        posicion = target + direccion; //Actualizar la posición de la cámara
+
+        RecalcularValores();
+    }
 
     void Camera::RecalcularValores()
     {

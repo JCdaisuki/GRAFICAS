@@ -245,24 +245,28 @@ namespace PAG
         {
             if (ImGui::Button("^ North ^"))
             {
+                Camera::GetInstancia()->Orbit(10, 0);
             }
 
             ImGui::SameLine();
 
             if (ImGui::Button("v South v"))
             {
+                Camera::GetInstancia()->Orbit(-10, 0);
             }
 
             ImGui::Text("Longitude");
 
             if (ImGui::Button("<- West"))
             {
+                Camera::GetInstancia()->Orbit(0, 10);
             }
 
             ImGui::SameLine();
 
             if (ImGui::Button("East ->"))
             {
+                Camera::GetInstancia()->Orbit(0, -10);
             }
         }
 
