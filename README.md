@@ -65,3 +65,21 @@ Sin embargo, las coordenadas de los vértices del triangulo permanecen constante
 
 
 ## Practica 5
+Para la implementación de la cámara en nuestro programa hemos empleado una nueva clase *Camera* que realizará los siguientes movimientos:
+
+- **Zoom**: Supone aumentar o disminuir el tamaño del objeto.
+No implica ningún movimiento de la cámara, sino ajustar el ángulo de visión de la cámara a un valor menor o mayor dependiendo de si queremos disminuir o ampliar el objeto.
+- **Pan**: Una rotación de la cámara en el eje horizontal, La cámara rota en su posición actual para cambiar el punto al que mira.
+Para implementarlo debemos mover la cámara al punto de origen, realizar la rotación y devolverla a su punto original
+- **Tilt**: El funcionamiento es igual al movimiento *Pan* con la excepción a que la rotación se produce en el eje vertical.
+- **Dolly**: Permite mover la cámara en 3 dimensiones, hacia delante, atrás, derecha e izquierda como si estuviese posada sobre unos raíles.
+Para su implementación se modifica su posición y el punto al que mira añadiendo al eje del movimiento la distancia movida.
+
+<img src="https://dhscomtech.wordpress.com/wp-content/uploads/2012/02/tilt_pan_dolly.jpg">
+
+- **Crane**: Supone una traslación de la cámara en el eje vértical Y, similar a Tilt con la excepción de que la cámara no rotará sino que continuará mirando al frente.
+Implementarlo supone únicamente sumar al eje Y de la posición actual y al punto que se mira la distancia a recorrer.
+- **Orbit**: Como su nombre indica, simularemos la órbita de la cámara alrededor del punto al que se mira.
+Como en otras rotaciones, moveremos la cámara al punto de origen, aplicaremos la rotación correspondiente (vertical u horizontal) y volveremos al punto original; 
+esta vez debemos actualizar la posición de la cámara en base a la transformación realizada para simular el movimiento de órbita.
+
