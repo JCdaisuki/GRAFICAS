@@ -1,7 +1,7 @@
 # GRAFICAS
  Prácticas de Programación de aplicaciones gráficas (13313011)
 
-## Practica 1
+## Práctica 1
 Crearemos el namespace *PAG* que incluirá la clase *Renderer*. <br>
 La clase *Renderer* contiene métodos que realizan las funciones de los callbacks. <br>
 Sin embargo, GLFW no puede registrar funciones de clases, esto se debe a que está escrito en C y, por tanto, no tiene soporte para las clases ni los métodos de C++. <br>
@@ -12,7 +12,7 @@ A continuación se muestra un UML que representa el namespace *PAG* con la clase
 <img src="https://i.imgur.com/ELmKFPj.png">
 
 
-## Practica 2
+## Práctica 2
 Empleando la biblioteca ImGui he creado 2 sub-ventanas que se crearan dentro de la ventana principal:
     
 - **Mensajes**: Permite mostrar mensajes en lugar de emplear *std::cout*.
@@ -26,7 +26,7 @@ Dado que para seleccionar un nuevo color debemos pulsar con el ratón, emplearem
 si se ha pulsado sobre un nuevo color, en caso positivo, se actualizara el fondo.
 
 
-## Practica 3
+## Práctica 3
 Para el desarrollo de esta practica emplearemos las siguientes funciones en la clase Renderer:
  - **LoadShader()**: Recibiendo la ruta de un archivo que contiene un tipo de Shader, se encargará de leer las propiedades del shader a partir del archivo y crearlo, almacendo su id como una propiedad de Renderer.
  - **CreaShaderProgram()**: Empleando los ids de los shaders cargados, crea y configura un programa de Shaders en OpenGL.
@@ -60,11 +60,11 @@ Los puntos dentro de la ventana se basan en un sistema de coordenadas, donde (0,
 Sin embargo, las coordenadas de los vértices del triangulo permanecen constantes, por lo que aunque se redimensione la ventana, el triángulo tratará de mantener sus coordenadas, dandonos el efecto de que varía aunque no sea así.
 
 
-## Practica 4
+## Práctica 4
 <img src="https://i.imgur.com/h38xcu4.png">
 
 
-## Practica 5
+## Práctica 5
 Para la implementación de la cámara en nuestro programa hemos empleado una nueva clase *Camera* que realizará los siguientes movimientos:
 
 - **Zoom**: Supone aumentar o disminuir el tamaño del objeto.
