@@ -51,46 +51,82 @@ os=Windows
 
 
 ======== Computing dependency graph ========
-glm/1.0.1: Not found in local cache, looking in remotes...
-glm/1.0.1: Checking remote: conancenter
-glm/1.0.1: Downloaded recipe revision 94392c53a527f7d830119b84fe80c754
 Graph root
     conanfile.py: C:/Users/JuanC/Music/CURSO_2425/GRAFICAS\conanfile.py
 Requirements
+    assimp/5.4.2#3a758d9dee613eada11efa0597f7a06b - Cache
+    bzip2/1.0.8#d00dac990f08d991998d624be81a9526 - Cache
+    clipper/6.4.2#8b2db6cabf546e0e937d75dd8b0d4b6d - Cache
+    draco/1.5.6#c4fd529402e7954b0ed2305a386b0973 - Cache
     glad/0.1.36#c926453afdd9d5f72cc4ee6a8fff7d73 - Cache
     glfw/3.3.8#eaa2d6de4e064b2c92ad7fc4ac255141 - Cache
-    glm/1.0.1#94392c53a527f7d830119b84fe80c754 - Downloaded (conancenter)
+    glm/1.0.1#94392c53a527f7d830119b84fe80c754 - Cache
+    kuba-zip/0.3.0#cac9d58fac5e8d16395edbdcda39cd7c - Cache
+    minizip/1.2.13#75d20b6a37ef70126334467f61acadde - Cache
+    openddl-parser/0.5.1#1ed71b6fc636be990a506c802bf64831 - Cache
     opengl/system#4df6fecde4084386beded3ed0e56e4ea - Cache
+    poly2tri/cci.20130502#6f2ab4d3b3c07dc8d0b6282c14521b22 - Cache
+    pugixml/1.14#c6afdcf73d71858303d8260b0d76ff91 - Cache
+    rapidjson/cci.20230929#8dc0392af2b3aaea7312095f0ba53467 - Cache
+    stb/cci.20230920#ed79bd361e974a99137f214efb117eef - Cache
+    utfcpp/4.0.1#e879ce0ad3e77ff6e04713ada5549655 - Cache
+    zlib/1.3.1#f52e03ae3d251dec704634230cd806a2 - Cache
+Build requirements
+    cmake/3.30.5#540068cc37f1d21b42b729c82d6bcb29 - Cache
+Resolved version ranges
+    cmake/[>=3.22 <4]: cmake/3.30.5
+    zlib/[>=1.2.11 <2]: zlib/1.3.1
 
 ======== Computing necessary packages ========
 Requirements
+    assimp/5.4.2#3a758d9dee613eada11efa0597f7a06b:3902357a7f4df1787f1ec80a15490004c0bdb6f7#3d8538623f820f8c1e1fc268d7c30138 - Cache
+    bzip2/1.0.8#d00dac990f08d991998d624be81a9526:2449118e33a88024cb4bc94dbbc617d96223b745#397237c9b73afd913abce325fe218508 - Cache
+    clipper/6.4.2#8b2db6cabf546e0e937d75dd8b0d4b6d:d238a9ba87303a7e5b7a6f56481b37b8c6f62843#377496d6f85c563c1260b72c55ed41ce - Cache
+    draco/1.5.6#c4fd529402e7954b0ed2305a386b0973:605a758379a5ea3f914c1c6e1894a53cb3b94ad9#ee11194b384917b24251063650043f49 - Cache
     glad/0.1.36#c926453afdd9d5f72cc4ee6a8fff7d73:4288fece81e0215a1bc8330481c6aa713dbdb219#c3366df12ad8f411cf46f12bd9b5acad - Cache
     glfw/3.3.8#eaa2d6de4e064b2c92ad7fc4ac255141:8017d78d70cd810fbc93ef6c919368c5a0f66568#eff8a38d71c0692c21439d9d55ed1cd7 - Cache
-    glm/1.0.1#94392c53a527f7d830119b84fe80c754:da39a3ee5e6b4b0d3255bfef95601890afd80709#2bbcd0ae421fb99e8713dabae8437299 - Download (conancenter)
+    glm/1.0.1#94392c53a527f7d830119b84fe80c754:da39a3ee5e6b4b0d3255bfef95601890afd80709#2bbcd0ae421fb99e8713dabae8437299 - Cache
+    kuba-zip/0.3.0#cac9d58fac5e8d16395edbdcda39cd7c:f60e50a74ab05a616895712be87aa8c9377863ad#55f999757f1a3acd83acd4eddbf6684e - Cache
+    minizip/1.2.13#75d20b6a37ef70126334467f61acadde:81336e2e4e13faf90b2b433cb6e37ecb7b617910#d75cd860e0bcf7d72fadf9667458bfaa - Cache
+    openddl-parser/0.5.1#1ed71b6fc636be990a506c802bf64831:d238a9ba87303a7e5b7a6f56481b37b8c6f62843#f98659d52778c91e06ce18b6a0bf2328 - Cache
     opengl/system#4df6fecde4084386beded3ed0e56e4ea:da39a3ee5e6b4b0d3255bfef95601890afd80709#0ba8627bd47edc3a501e8f0eb9a79e5e - Cache
+    poly2tri/cci.20130502#6f2ab4d3b3c07dc8d0b6282c14521b22:d238a9ba87303a7e5b7a6f56481b37b8c6f62843#554fa7cb2dc96034bce3cd4612517527 - Cache
+    pugixml/1.14#c6afdcf73d71858303d8260b0d76ff91:61811c4047c1f24d4965bf398377408437ce6399#35685bc48fd511c6a63a1b15f024551e - Cache
+    zlib/1.3.1#f52e03ae3d251dec704634230cd806a2:f60e50a74ab05a616895712be87aa8c9377863ad#b901fc625c9c0e7ccacdd6a1cec9008a - Cache
+Build requirements
+Skipped binaries
+    rapidjson/cci.20230929, stb/cci.20230920, utfcpp/4.0.1, cmake/3.30.5
 
 ======== Installing packages ========
-
--------- Downloading 1 package --------
-glm/1.0.1: Retrieving package da39a3ee5e6b4b0d3255bfef95601890afd80709 from remote 'conancenter' 
-glm/1.0.1: Package installed da39a3ee5e6b4b0d3255bfef95601890afd80709
-glm/1.0.1: Downloaded package revision 2bbcd0ae421fb99e8713dabae8437299
-glad/0.1.36: Already installed! (1 of 4)
-opengl/system: Already installed! (3 of 4)
-glfw/3.3.8: Already installed! (4 of 4)
+bzip2/1.0.8: Already installed! (1 of 14)
+clipper/6.4.2: Already installed! (2 of 14)
+draco/1.5.6: Already installed! (3 of 14)
+glad/0.1.36: Already installed! (4 of 14)
+glm/1.0.1: Already installed! (5 of 14)
+kuba-zip/0.3.0: Already installed! (6 of 14)
+openddl-parser/0.5.1: Already installed! (7 of 14)
+opengl/system: Already installed! (8 of 14)
+poly2tri/cci.20130502: Already installed! (9 of 14)
+pugixml/1.14: Already installed! (10 of 14)
+zlib/1.3.1: Already installed! (11 of 14)
+glfw/3.3.8: Already installed! (12 of 14)
+minizip/1.2.13: Already installed! (13 of 14)
+assimp/5.4.2: Already installed! (14 of 14)
 WARN: deprecated: Usage of deprecated Conan 1.X features that will be removed in Conan 2.X:
+WARN: deprecated:     'cpp_info.names' used in: glfw/3.3.8, kuba-zip/0.3.0, bzip2/1.0.8, zlib/1.3.1, clipper/6.4.2, openddl-parser/0.5.1
+WARN: deprecated:     'cpp_info.build_modules' used in: bzip2/1.0.8, glfw/3.3.8
+WARN: deprecated:     'env_info' used in: bzip2/1.0.8
 WARN: deprecated:     'cpp_info.filenames' used in: opengl/system, glfw/3.3.8
-WARN: deprecated:     'cpp_info.names' used in: glfw/3.3.8
-WARN: deprecated:     'cpp_info.build_modules' used in: glfw/3.3.8
 
 ======== Finalizing install (deploy, generators) ========
 conanfile.py: Writing generators to C:\Users\JuanC\Music\CURSO_2425\GRAFICAS\cmake-build-debug\conan\build\Debug\generators
 conanfile.py: Generator 'CMakeDeps' calling 'generate()'
 conanfile.py: CMakeDeps necessary find_package() and targets for your CMakeLists.txt
+    find_package(assimp)
     find_package(glm)
     find_package(glfw3)
     find_package(glad)
-    target_link_libraries(... glm::glm glfw glad::glad)
+    target_link_libraries(... assimp::assimp glm::glm glfw glad::glad)
 conanfile.py: Calling generate()
 conanfile.py: Generators folder: C:\Users\JuanC\Music\CURSO_2425\GRAFICAS\cmake-build-debug\conan\build\Debug\generators
 conanfile.py: CMakeToolchain generated: conan_toolchain.cmake
@@ -110,6 +146,27 @@ Install finished successfully
 -- Conan: Target declared 'opengl::opengl'
 -- CMake-Conan: find_package(glm) found, 'conan install' already ran
 -- Conan: Target declared 'glm::glm'
--- Configuring done (3.1s)
+-- CMake-Conan: find_package(assimp) found, 'conan install' already ran
+-- Conan: Target declared 'assimp::assimp'
+-- CMake-Conan: find_package(minizip) found, 'conan install' already ran
+-- Conan: Target declared 'minizip::minizip'
+-- CMake-Conan: find_package(BZip2) found, 'conan install' already ran
+-- Conan: Target declared 'BZip2::BZip2'
+-- Conan: Including build module from 'C:/Users/JuanC/.conan2/p/b/bzip2b6728b784e6d8/p/lib/cmake/conan-official-bzip2-variables.cmake'
+-- CMake-Conan: find_package(ZLIB) found, 'conan install' already ran
+-- Conan: Target declared 'ZLIB::ZLIB'
+-- CMake-Conan: find_package(pugixml) found, 'conan install' already ran
+-- Conan: Target declared 'pugixml::pugixml'
+-- CMake-Conan: find_package(zip) found, 'conan install' already ran
+-- Conan: Target declared 'zip::zip'
+-- CMake-Conan: find_package(poly2tri) found, 'conan install' already ran
+-- Conan: Target declared 'poly2tri::poly2tri'
+-- CMake-Conan: find_package(draco) found, 'conan install' already ran
+-- Conan: Target declared 'draco::draco'
+-- CMake-Conan: find_package(clipper) found, 'conan install' already ran
+-- Conan: Target declared 'clipper::clipper'
+-- CMake-Conan: find_package(openddlparser) found, 'conan install' already ran
+-- Conan: Target declared 'openddlparser::openddlparser'
+-- Configuring done (1.8s)
 -- Generating done (0.0s)
 -- Build files have been written to: C:/Users/JuanC/Music/CURSO_2425/GRAFICAS/cmake-build-debug

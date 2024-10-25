@@ -14,6 +14,9 @@
 # EXTERNAL cache entries
 ########################
 
+//The directory containing a CMake configuration file for BZip2.
+BZip2_DIR:PATH=C:/Users/JuanC/Music/CURSO_2425/GRAFICAS/cmake-build-debug/conan/build/Debug/generators
+
 //Path to a program.
 CMAKE_ADDR2LINE:FILEPATH=C:/Program Files/JetBrains/CLion 2024.2.1/bin/mingw/bin/addr2line.exe
 
@@ -266,8 +269,20 @@ GRAFICAS_IS_TOP_LEVEL:STATIC=ON
 //Value Computed by CMake
 GRAFICAS_SOURCE_DIR:STATIC=C:/Users/JuanC/Music/CURSO_2425/GRAFICAS
 
+//The directory containing a CMake configuration file for ZLIB.
+ZLIB_DIR:PATH=C:/Users/JuanC/Music/CURSO_2425/GRAFICAS/cmake-build-debug/conan/build/Debug/generators
+
 //Path to a program.
 _cmake_program:FILEPATH=C:/Program Files/CMake/bin/cmake.exe
+
+//The directory containing a CMake configuration file for assimp.
+assimp_DIR:PATH=C:/Users/JuanC/Music/CURSO_2425/GRAFICAS/cmake-build-debug/conan/build/Debug/generators
+
+//The directory containing a CMake configuration file for clipper.
+clipper_DIR:PATH=C:/Users/JuanC/Music/CURSO_2425/GRAFICAS/cmake-build-debug/conan/build/Debug/generators
+
+//The directory containing a CMake configuration file for draco.
+draco_DIR:PATH=C:/Users/JuanC/Music/CURSO_2425/GRAFICAS/cmake-build-debug/conan/build/Debug/generators
 
 //The directory containing a CMake configuration file for glad.
 glad_DIR:PATH=C:/Users/JuanC/Music/CURSO_2425/GRAFICAS/cmake-build-debug/conan/build/Debug/generators
@@ -278,8 +293,23 @@ glfw3_DIR:PATH=C:/Users/JuanC/Music/CURSO_2425/GRAFICAS/cmake-build-debug/conan/
 //The directory containing a CMake configuration file for glm.
 glm_DIR:PATH=C:/Users/JuanC/Music/CURSO_2425/GRAFICAS/cmake-build-debug/conan/build/Debug/generators
 
+//The directory containing a CMake configuration file for minizip.
+minizip_DIR:PATH=C:/Users/JuanC/Music/CURSO_2425/GRAFICAS/cmake-build-debug/conan/build/Debug/generators
+
+//The directory containing a CMake configuration file for openddlparser.
+openddlparser_DIR:PATH=C:/Users/JuanC/Music/CURSO_2425/GRAFICAS/cmake-build-debug/conan/build/Debug/generators
+
 //The directory containing a CMake configuration file for opengl_system.
 opengl_system_DIR:PATH=C:/Users/JuanC/Music/CURSO_2425/GRAFICAS/cmake-build-debug/conan/build/Debug/generators
+
+//The directory containing a CMake configuration file for poly2tri.
+poly2tri_DIR:PATH=C:/Users/JuanC/Music/CURSO_2425/GRAFICAS/cmake-build-debug/conan/build/Debug/generators
+
+//The directory containing a CMake configuration file for pugixml.
+pugixml_DIR:PATH=C:/Users/JuanC/Music/CURSO_2425/GRAFICAS/cmake-build-debug/conan/build/Debug/generators
+
+//The directory containing a CMake configuration file for zip.
+zip_DIR:PATH=C:/Users/JuanC/Music/CURSO_2425/GRAFICAS/cmake-build-debug/conan/build/Debug/generators
 
 
 ########################
