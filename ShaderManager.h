@@ -28,6 +28,8 @@ namespace PAG
             // - Esta función renderizará los ShaderPrograms disponibles
             void RefrescarVentana();
 
+            ShaderProgram &GetShaderProgram(int index);
+
             ~ShaderManager();
     };
 }

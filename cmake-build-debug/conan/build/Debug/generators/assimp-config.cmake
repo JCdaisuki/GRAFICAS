@@ -25,7 +25,7 @@ foreach(_DEPENDENCY ${assimp_FIND_DEPENDENCY_NAMES} )
     endif()
 endforeach()
 
-set(assimp_VERSION_STRING "5.4.2")
+set(assimp_VERSION_STRING "5.1.6")
 set(assimp_INCLUDE_DIRS ${assimp_INCLUDE_DIRS_DEBUG} )
 set(assimp_INCLUDE_DIR ${assimp_INCLUDE_DIRS_DEBUG} )
 set(assimp_LIBRARIES ${assimp_LIBRARIES_DEBUG} )

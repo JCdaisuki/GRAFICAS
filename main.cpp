@@ -10,6 +10,7 @@
 #include "GUI.h"
 #include "ShaderManager.h"
 #include "Camera.h"
+#include "ModelManager.h"
 
 /**
  * @author Juan Carlos González Martínez
@@ -30,17 +31,34 @@ void EmitirMensaje(GLFWwindow *window, std::string mensaje, bool mostrarMensaje 
     {
         PAG::GUI::GetInstancia()->RedibujarVentanas(mensaje);
     }
-    catch (std::string shaderArchivo)
+    catch (std::string archivo)
     {
-        try
+        if(PAG::GUI::GetInstancia()->GetIsShader())
         {
-            PAG::ShaderManager::GetInstancia()->CreaShaderProgram("Shaders/" + shaderArchivo);
+            try
+            {
+                PAG::ShaderManager::GetInstancia()->CreaShaderProgram("Shaders/" + archivo);
+            }
+            catch (std::exception &e)
+            {
+                PAG::GUI::GetInstancia()->ResetShaderArchivo();
+                EmitirMensaje(window, e.what());
+            }
         }
-        catch (std::exception &e)
+        else
         {
-            PAG::GUI::GetInstancia()->ResetShaderArchivo();
-            EmitirMensaje(window, e.what());
+            try
+            {
+                PAG::ModelManager::GetInstancia()->CreaModelo("Modelos3D/" + archivo + ".obj");
+            }
+            catch (std::exception &e)
+            {
+                PAG::GUI::GetInstancia()->ResetModelArchivo();
+                EmitirMensaje(window, e.what());
+            }
         }
+
+        PAG::GUI::GetInstancia()->LimpiarRutas();
     }
 
     // Intercambia el buffer en el que se estaba dibujando por el que se muestra

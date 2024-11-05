@@ -19,7 +19,7 @@ set(openddlparser_FIND_MODE "NO_MODULE")
 
 ########### VARIABLES #######################################################################
 #############################################################################################
-set(assimp_PACKAGE_FOLDER_DEBUG "C:/Users/JuanC/.conan2/p/b/assim749c0f7909727/p")
+set(assimp_PACKAGE_FOLDER_DEBUG "C:/Users/JuanC/.conan2/p/b/assim57883126c71e9/p")
 set(assimp_BUILD_MODULES_PATHS_DEBUG )
 
 

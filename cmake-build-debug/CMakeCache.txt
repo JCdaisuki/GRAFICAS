@@ -269,6 +269,9 @@ GRAFICAS_IS_TOP_LEVEL:STATIC=ON
 //Value Computed by CMake
 GRAFICAS_SOURCE_DIR:STATIC=C:/Users/JuanC/Music/CURSO_2425/GRAFICAS
 
+//The directory containing a CMake configuration file for PugiXML.
+PugiXML_DIR:PATH=C:/Users/JuanC/Music/CURSO_2425/GRAFICAS/cmake-build-debug/conan/build/Debug/generators
+
 //The directory containing a CMake configuration file for ZLIB.
 ZLIB_DIR:PATH=C:/Users/JuanC/Music/CURSO_2425/GRAFICAS/cmake-build-debug/conan/build/Debug/generators
 

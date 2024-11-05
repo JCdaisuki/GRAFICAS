@@ -25,7 +25,7 @@ foreach(_DEPENDENCY ${clipper_FIND_DEPENDENCY_NAMES} )
     endif()
 endforeach()
 
-set(clipper_VERSION_STRING "6.4.2")
+set(clipper_VERSION_STRING "4.10.0")
 set(clipper_INCLUDE_DIRS ${clipper_INCLUDE_DIRS_DEBUG} )
 set(clipper_INCLUDE_DIR ${clipper_INCLUDE_DIRS_DEBUG} )
 set(clipper_LIBRARIES ${clipper_LIBRARIES_DEBUG} )

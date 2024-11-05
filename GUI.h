@@ -39,15 +39,21 @@ namespace PAG
             //Vector de mensajes
             std::pmr::vector<std::string> mensajes;
 
-            //Nombre del archivo de shaders a cargar
-            std::string shaderArchivo = "";
-            char buffer[256];
+            char bufferShader[256];
+            std::string shaderArchivo = ""; //Nombre del archivo de shaders a cargar
+
+
+            char bufferModel[256];
+            std::string modelArchivo = ""; //Nombre del archivo del modelo a cargar
+
+            bool isShader; //Este booleano permitirá saber si el archivo lanzado es de un shader o un modelo
 
             // - Estas funciones crean las ventanas auxiliares dentro de la ventana principal
             void CrearVentanaMensajes(std::string mensaje);
             void CrearVentanaColores();
             void CrearVentanaShaders();
             void CrearVentanaCamera();
+            void CrearVentanaModels();
 
             //Auxiliares del Menu de Cámara
             std::string menuSeleccionado = "";
@@ -58,11 +64,14 @@ namespace PAG
             static GUI* GetInstancia ();
             float* GetColorFondo();
 
+            bool GetIsShader(){return isShader;}
+
             //Setters de las posiciones x e y de la ventana mensajes
             void SetMensajeX(int newMX){ mx = newMX;}
             void SetMensajeY(int newMY){ my = newMY;}
 
             void ResetShaderArchivo(){shaderArchivo = "";}
+            void ResetModelArchivo(){modelArchivo = "";}
 
             void InicializarImGui(GLFWwindow* window);
 
@@ -71,6 +80,8 @@ namespace PAG
 
             // - Esta función comprueba si se ha seleccionado un nuevo color en la ventana "Fondo"
             bool CambioColor();
+
+            void LimpiarRutas();
 
             void FinalizarImGui();
 

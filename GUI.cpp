@@ -50,6 +50,7 @@ namespace PAG
         CrearVentanaColores();
         CrearVentanaShaders();
         CrearVentanaCamera();
+        CrearVentanaModels();
 
         //Se renderiza en pantalla
         ImGui::Render();
@@ -57,7 +58,14 @@ namespace PAG
 
         if(shaderArchivo != "")
         {
+            isShader = true;
             throw shaderArchivo;
+        }
+
+        if(modelArchivo != "")
+        {
+            isShader = false;
+            throw modelArchivo;
         }
     }
 
@@ -109,11 +117,11 @@ namespace PAG
 
         ImGui::Begin("Cargar Shader");
 
-        ImGui::InputText("##shader", buffer, sizeof(buffer), ImGuiInputTextFlags_AutoSelectAll);
+        ImGui::InputText("##shader", bufferShader, sizeof(bufferShader), ImGuiInputTextFlags_AutoSelectAll);
 
-        if (ImGui::Button("Load") && buffer != "")
+        if (ImGui::Button("Load") && bufferShader != "")
         {
-            shaderArchivo = buffer;
+            shaderArchivo = bufferShader;
         }
 
         ImGui::End();
@@ -273,6 +281,23 @@ namespace PAG
         ImGui::End();
     }
 
+    void GUI::CrearVentanaModels()
+    {
+        ImGui::SetNextWindowPos(ImVec2(sx, sy + 85), ImGuiCond_Once);
+        ImGui::SetNextWindowSize(ImVec2(140, 80), ImGuiCond_Once);
+
+        ImGui::Begin("Cargar Modelo");
+
+        ImGui::InputText("##modelo", bufferModel, sizeof(bufferModel), ImGuiInputTextFlags_AutoSelectAll);
+
+        if (ImGui::Button("Load") && bufferModel != "")
+        {
+            modelArchivo = bufferModel;
+        }
+
+        ImGui::End();
+    }
+
     bool GUI::CambioColor()
     {
         for(int i = 0; i < 4; i++)
@@ -290,6 +315,12 @@ namespace PAG
             }
         }
         return false;
+    }
+
+    void GUI::LimpiarRutas()
+    {
+        bufferShader[0] = '\0';
+        bufferModel[0] = '\0';
     }
 
     void GUI::FinalizarImGui()

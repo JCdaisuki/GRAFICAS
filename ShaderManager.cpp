@@ -51,9 +51,24 @@ namespace PAG
         }
     }
 
-    ShaderManager::~ShaderManager()
+    ShaderProgram &ShaderManager::GetShaderProgram(int index)
     {
-        shaderPrograms.clear();
+        return *shaderPrograms[index];
     }
 
+    ShaderManager::~ShaderManager()
+    {
+        if (instancia)
+        {
+            delete instancia;
+            instancia = nullptr;
+        }
+
+        for(int i = 0; i < shaderPrograms.size(); i++)
+        {
+            delete shaderPrograms[i];
+        }
+
+        shaderPrograms.clear();
+    }
 }

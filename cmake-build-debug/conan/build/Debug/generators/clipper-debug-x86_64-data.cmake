@@ -11,7 +11,7 @@ endif()
 
 ########### VARIABLES #######################################################################
 #############################################################################################
-set(clipper_PACKAGE_FOLDER_DEBUG "C:/Users/JuanC/.conan2/p/b/clippc5cbbc5085fcc/p")
+set(clipper_PACKAGE_FOLDER_DEBUG "C:/Users/JuanC/.conan2/p/b/clipp9e5eb52f22ef7/p")
 set(clipper_BUILD_MODULES_PATHS_DEBUG )
 
 

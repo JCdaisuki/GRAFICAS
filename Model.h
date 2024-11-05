@@ -3,61 +3,59 @@
 
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
-#include <assimp/postprocess.h>
 
-#include <iostream>
-#include <vector>
-#include <glm/vec2.hpp>
 #include <glm/vec3.hpp>
-#include "imgui/imgui_impl_opengl3_loader.h"
 #include <glad/glad.h>
+#include <glm/glm.hpp>
+#include <glm/fwd.hpp>
+
+#include <vector>
+#include <string>
+#include <GL/gl.h>
 
 namespace PAG
 {
-    class ShaderProgram;
-
     class Model
     {
-        struct Vertex {
-            glm::vec3 Position;
-            glm::vec3 Normal;
-            glm::vec2 TexCoords;
-        };
-
         private:
-
-            class Mesh
+            struct Vertex
             {
-                public:
-                    // mesh data
-                    std::vector<Vertex>       vertices;
-                    std::vector<unsigned int> indices;
-
-                    Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices);
-                    void Draw(ShaderProgram &shader);
-                private:
-                    //  render data
-                    unsigned int VAO, VBO, EBO;
-
-                    void setupMesh();
+                glm::vec3 Position;
+                glm::vec3 Normal;
             };
 
-            // model data
-            std::vector<Mesh> meshes;
-            std::string directory;
+            // Datos de la malla
+            std::vector<Vertex> vertices;
+            std::vector<unsigned int> indices;
 
+            GLuint idSP;
+            GLuint VAO;
+            GLuint VBO;
+            GLuint IBO;
+
+            glm::mat4 modelMatrix = glm::mat4(1.0f);
+
+            GLint viewLoc;
+            GLint projLoc;
+
+            // Configura los buffers de la malla
+            void setupMesh();
+
+            // Carga el modelo desde un archivo utilizando Assimp
             void loadModel(std::string path);
+
+            // Procesa un nodo del árbol de Assimp y carga la primera malla encontrada
             void processNode(aiNode *node, const aiScene *scene);
-            Mesh processMesh(aiMesh *mesh, const aiScene *scene);
+
+            // Procesa una malla de Assimp y llena los datos de vértices e índices
+            void processMesh(aiMesh *mesh, const aiScene *scene);
 
         public:
-            Model(char *path)
-            {
-                loadModel(path);
-            }
-            void Draw(ShaderProgram &shader);
-    };
+            Model(char *path);
 
+            // Dibuja el modelo
+            void Draw();
+    };
 }
 
-#endif //MODEL_H
+#endif // MODEL_H
