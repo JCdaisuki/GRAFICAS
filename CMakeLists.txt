@@ -12,14 +12,11 @@ add_executable(GRAFICAS main.cpp Renderer.cpp Renderer.h ${IMGUI}
         ShaderProgram.h
         ShaderObject.cpp
         ShaderObject.h
-        ShaderManager.cpp
-        ShaderManager.h
         Camera.cpp
         Camera.h
         Model.cpp
         Model.h
-        ModelManager.cpp
-        ModelManager.h)
+)
 
 find_package(glad)
 target_link_libraries(GRAFICAS glad::glad "-static")

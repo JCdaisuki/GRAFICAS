@@ -109,7 +109,7 @@ glfw/3.3.8: Already installed! (12 of 14)
 minizip/1.2.13: Already installed! (13 of 14)
 assimp/5.1.6: Already installed! (14 of 14)
 WARN: deprecated: Usage of deprecated Conan 1.X features that will be removed in Conan 2.X:
-WARN: deprecated:     'cpp_info.names' used in: openddl-parser/0.5.1, clipper/4.10.0, glfw/3.3.8, kuba-zip/0.3.0, zlib/1.3.1, bzip2/1.0.8
+WARN: deprecated:     'cpp_info.names' used in: zlib/1.3.1, glfw/3.3.8, clipper/4.10.0, kuba-zip/0.3.0, bzip2/1.0.8, openddl-parser/0.5.1
 WARN: deprecated:     'cpp_info.build_modules' used in: bzip2/1.0.8, glfw/3.3.8
 WARN: deprecated:     'env_info' used in: bzip2/1.0.8
 WARN: deprecated:     'cpp_info.filenames' used in: opengl/system, glfw/3.3.8
@@ -163,6 +163,6 @@ Install finished successfully
 -- Conan: Target declared 'clipper::clipper'
 -- CMake-Conan: find_package(openddlparser) found, 'conan install' already ran
 -- Conan: Target declared 'openddlparser::openddlparser'
--- Configuring done (1.6s)
+-- Configuring done (2.0s)
 -- Generating done (0.0s)
 -- Build files have been written to: C:/Users/JuanC/Music/CURSO_2425/GRAFICAS/cmake-build-debug

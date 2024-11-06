@@ -33,21 +33,28 @@ namespace PAG
     }
 
     std::string Renderer::MostrarPropiedades()
-    {
-        std::string propiedades =
-            "Propiedades del Contexto 3D:\n" +
-            std::string(" - Tarjeta Gráfica: ") + reinterpret_cast<const char*>(glGetString(GL_RENDERER)) + "\n" +
-            std::string(" - Fabricante de Tarjeta Gráfica: ") + reinterpret_cast<const char*>(glGetString(GL_VENDOR)) + "\n" +
-            std::string(" - Versión de OpenGL: ") + reinterpret_cast<const char*>(glGetString(GL_VERSION)) + "\n" +
-            std::string(" - Versión de GLSL: ") + reinterpret_cast<const char*>(glGetString(GL_SHADING_LANGUAGE_VERSION)) + "\n\n";
+    {   std::stringstream ss;
+        ss << "Propiedades del Contexto 3D:\n"
+           << " - Tarjeta Gráfica: " << glGetString(GL_RENDERER) << "\n"
+           << " - Fabricante de Tarjeta Gráfica: " << glGetString(GL_VENDOR) << "\n"
+           << " - Versión de OpenGL: " << glGetString(GL_VERSION) << "\n"
+           << " - Versión de GLSL: " << glGetString(GL_SHADING_LANGUAGE_VERSION) << "\n\n";
 
-        return propiedades;
+        return ss.str();
     }
 
     void Renderer::RefrescarVentana ()
     {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glPolygonMode ( GL_FRONT_AND_BACK, GL_FILL );
+
+        for(int i = 0; i < shaderPrograms.size(); i++)
+        {
+            if(shaderPrograms[i]->GetIdSP() != 0)
+            {
+                shaderPrograms[i]->Render();
+            }
+        }
     }
 
     void Renderer::ModificarTamaño (int width, int height )
@@ -64,6 +71,35 @@ namespace PAG
         glClear(GL_COLOR_BUFFER_BIT);
     }
 
+    void Renderer::CreaShaderProgram ( std::string rutaFuenteGLSL )
+    {
+        for(int i = 0; i < shaderPrograms.size(); i++)
+        {
+            if(shaderPrograms[i]->GetIdSP() == 0)
+            {
+                shaderPrograms[i]->AsignarShaders(rutaFuenteGLSL);
+                return;
+            }
+        }
+
+        //No hay ningún ShaderProgram disponible, creamos uno nuevo y lo añadimos al vector
+        ShaderProgram* newShaderProgram = new ShaderProgram();
+        newShaderProgram->AsignarShaders(rutaFuenteGLSL);
+        shaderPrograms.push_back(newShaderProgram);
+    }
+
+    void Renderer::CreaModelo(std::string rutaModelo)
+    {
+        std::ifstream archivo(rutaModelo);
+        if (!archivo.good())
+        {
+            throw std::runtime_error("Error: No se encontró el archivo del modelo en " + rutaModelo);
+        }
+
+        Model* newModel = new Model(rutaModelo.data());
+        models.push_back(newModel);
+    }
+
     Renderer::~Renderer()
     {
         if (instancia)
@@ -71,5 +107,17 @@ namespace PAG
             delete instancia;
             instancia = nullptr;
         }
+
+        for(int i = 0; i < models.size(); i++)
+        {
+            delete models[i];
+        }
+        models.clear();
+
+        for(int i = 0; i < shaderPrograms.size(); i++)
+        {
+            delete shaderPrograms[i];
+        }
+        shaderPrograms.clear();
     }
 }

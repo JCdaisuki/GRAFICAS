@@ -4,6 +4,18 @@
 
 #include "GUI.h"
 
+#include <iostream>
+#include <vector>
+#include <filesystem>
+
+#include "imgui/imgui.h"
+#include "imgui/imgui_impl_glfw.h"
+#include "imgui/imgui_impl_opengl3.h"
+#include "imgui/imgui_stdlib.h"
+#include <GLFW/glfw3.h>
+
+#include "Camera.h"
+
 PAG::GUI* PAG::GUI::instancia = nullptr;
 
 namespace PAG
@@ -37,7 +49,7 @@ namespace PAG
         ImGui_ImplOpenGL3_Init ();
     }
 
-    void GUI::RedibujarVentanas(std::string mensaje)
+    std::string GUI::RedibujarVentanas()
     {
         //Se prepara un nuevo frame para OpenGL y GLFW
         ImGui_ImplOpenGL3_NewFrame();
@@ -46,30 +58,36 @@ namespace PAG
         //Inicia un nuevo frame de ImGui que permite agregar controles en la interfaz gráfica.
         ImGui::NewFrame();
 
-        CrearVentanaMensajes(mensaje);
+        CrearVentanaMensajes();
         CrearVentanaColores();
         CrearVentanaShaders();
         CrearVentanaCamera();
         CrearVentanaModels();
 
-        //Se renderiza en pantalla
-        ImGui::Render();
-        ImGui_ImplOpenGL3_RenderDrawData ( ImGui::GetDrawData() );
-
         if(shaderArchivo != "")
         {
             isShader = true;
-            throw shaderArchivo;
+            return shaderArchivo;
         }
 
         if(modelArchivo != "")
         {
             isShader = false;
-            throw modelArchivo;
+            return modelArchivo;
         }
+
+        return "";
     }
 
-    void GUI::CrearVentanaMensajes(std::string mensaje)
+    void GUI::finalizaRedibujarVentanas ()
+    {
+            //Se renderiza en pantalla
+            ImGui::Render();
+            ImGui_ImplOpenGL3_RenderDrawData ( ImGui::GetDrawData() );
+    }
+
+
+    void GUI::CrearVentanaMensajes()
     {
         //Establecemos la posición y tamaño de la ventana
         ImGui::SetNextWindowPos(ImVec2(mx, my), ImGuiCond_Once);
@@ -80,11 +98,6 @@ namespace PAG
         {
             //Escalamos el texto
             ImGui::SetWindowFontScale(1.0f);
-
-            if(mensaje != "") //Emplearemos un string vacio para indicar no hay ningún mensaje nuevo
-            {
-                mensajes.push_back(mensaje);
-            }
 
             for(int i = 0; i < mensajes.size(); i++)
             {
@@ -175,7 +188,7 @@ namespace PAG
         ImGui::Separator();
         ImGui::Text(menuSeleccionado.c_str());
         ImGui::Separator();
-        ImGui::Text(movementText);
+        ImGui::Text(movementText.c_str());
 
         if(menuSeleccionado == "Zoom")
         {
@@ -320,7 +333,10 @@ namespace PAG
     void GUI::LimpiarRutas()
     {
         bufferShader[0] = '\0';
+        shaderArchivo = "";
+
         bufferModel[0] = '\0';
+        modelArchivo = "";
     }
 
     void GUI::FinalizarImGui()
@@ -328,6 +344,11 @@ namespace PAG
         ImGui_ImplOpenGL3_Shutdown();
         ImGui_ImplGlfw_Shutdown();
         ImGui::DestroyContext ();
+    }
+
+    void GUI::addMensaje ( std::string mensaje )
+    {
+        mensajes.push_back(mensaje);
     }
 
     GUI::~GUI()

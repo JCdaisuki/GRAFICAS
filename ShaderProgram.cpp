@@ -5,7 +5,8 @@
 
 #include "Camera.h"
 
-namespace PAG {
+namespace PAG
+{
     void ShaderProgram::AsignarShaders(std::string rutaFuenteGLSL)
     {
         vertexShader = new ShaderObject(GL_VERTEX_SHADER);

@@ -5,18 +5,11 @@
 #ifndef Gui_h
 #define Gui_h
 
-#include <iostream>
+#include <string>
 #include <vector>
 #include <filesystem>
 
-#include "imgui/imgui.h"
-#include "imgui/imgui_impl_glfw.h"
-#include "imgui/imgui_impl_opengl3.h"
-#include "imgui/imgui_impl_opengl3_loader.h"
-#include "imgui/imgui_stdlib.h"
 #include <GLFW/glfw3.h>
-
-#include "Camera.h"
 
 namespace PAG
 {
@@ -37,11 +30,10 @@ namespace PAG
             float colorSeleccionado[4] = {0.0, 0.0, 0.0, 0.0};
 
             //Vector de mensajes
-            std::pmr::vector<std::string> mensajes;
+            std::vector<std::string> mensajes;
 
             char bufferShader[256];
             std::string shaderArchivo = ""; //Nombre del archivo de shaders a cargar
-
 
             char bufferModel[256];
             std::string modelArchivo = ""; //Nombre del archivo del modelo a cargar
@@ -49,7 +41,7 @@ namespace PAG
             bool isShader; //Este booleano permitirá saber si el archivo lanzado es de un shader o un modelo
 
             // - Estas funciones crean las ventanas auxiliares dentro de la ventana principal
-            void CrearVentanaMensajes(std::string mensaje);
+            void CrearVentanaMensajes();
             void CrearVentanaColores();
             void CrearVentanaShaders();
             void CrearVentanaCamera();
@@ -57,8 +49,9 @@ namespace PAG
 
             //Auxiliares del Menu de Cámara
             std::string menuSeleccionado = "";
-            char* movementText = "";
+            std::string movementText = "";
             int zoom = 0;
+
         public:
             // - Getter de instancia
             static GUI* GetInstancia ();
@@ -76,7 +69,8 @@ namespace PAG
             void InicializarImGui(GLFWwindow* window);
 
             //- Esta función redibuja la interfaz cada vez que se refresque la imagen
-            void RedibujarVentanas(std::string mensaje = "");
+            std::string RedibujarVentanas();
+            void finalizaRedibujarVentanas ();
 
             // - Esta función comprueba si se ha seleccionado un nuevo color en la ventana "Fondo"
             bool CambioColor();
@@ -84,6 +78,8 @@ namespace PAG
             void LimpiarRutas();
 
             void FinalizarImGui();
+
+           void addMensaje ( std::string mensaje );
 
             ~GUI();
     };

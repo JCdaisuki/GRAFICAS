@@ -31,9 +31,7 @@ namespace PAG
             GLuint idSP;
             GLuint VAO;
             GLuint VBO;
-            GLuint IBO;
-
-            glm::mat4 modelMatrix = glm::mat4(1.0f);
+            GLuint EBO;
 
             GLint viewLoc;
             GLint projLoc;
@@ -48,7 +46,7 @@ namespace PAG
             void processNode(aiNode *node, const aiScene *scene);
 
             // Procesa una malla de Assimp y llena los datos de vértices e índices
-            void processMesh(aiMesh *mesh, const aiScene *scene);
+            void processMesh(aiMesh *mesh);
 
         public:
             Model(char *path);

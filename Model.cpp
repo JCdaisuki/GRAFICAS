@@ -20,20 +20,6 @@ namespace PAG
 
     void Model::Draw()
     {
-        glBegin(GL_TRIANGLES);
-
-        glMatrixMode(GL_PROJECTION);
-        glLoadIdentity();
-
-        glMatrixMode(GL_MODELVIEW);
-        glLoadIdentity();
-
-        glMatrixMode(GL_PROJECTION);
-        glLoadMatrixf(&Camera::GetInstancia()->GetProjectionMatrix()[0][0]);
-
-        glMatrixMode(GL_MODELVIEW);
-        glLoadMatrixf(&Camera::GetInstancia()->GetViewMatrix()[0][0]);
-        
         glBindVertexArray(VAO);
         glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
         glBindVertexArray(0);
@@ -43,15 +29,16 @@ namespace PAG
     {
         glGenVertexArrays(1, &VAO);
         glGenBuffers(1, &VBO);
-        glGenBuffers(1, &IBO);
+        glGenBuffers(1, &EBO);
 
         glBindVertexArray(VAO);
         glBindBuffer(GL_ARRAY_BUFFER, VBO);
 
         glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), &vertices[0], GL_STATIC_DRAW);
 
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IBO);
-        glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), &indices[0], GL_STATIC_DRAW);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int),
+                     &indices[0], GL_STATIC_DRAW);
 
         // vertex positions
         glEnableVertexAttribArray(0);
@@ -61,8 +48,6 @@ namespace PAG
         glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Normal));
 
         glBindVertexArray(0);
-
-        idSP = glCreateProgram();
     }
 
     void Model::loadModel(std::string path)
@@ -80,15 +65,19 @@ namespace PAG
 
     void Model::processNode(aiNode *node, const aiScene *scene)
     {
-        for(int i = 0; i < node->mNumMeshes; i++)
+        for(unsigned int i = 0; i < node->mNumMeshes; i++)
         {
-            std::cout<<"procesando mesh"<< std::endl;
             aiMesh *mesh = scene->mMeshes[node->mMeshes[i]];
-            processMesh(mesh, scene);
+            processMesh(mesh);
+        }
+
+        for(unsigned int i = 0; i < node->mNumChildren; i++)
+        {
+            processNode(node->mChildren[i], scene);
         }
     }
 
-    void Model::processMesh(aiMesh *mesh, const aiScene *scene)
+    void Model::processMesh(aiMesh *mesh)
     {
         vertices.clear();
         indices.clear();
@@ -114,8 +103,10 @@ namespace PAG
         for(int i = 0; i < mesh->mNumFaces; i++)
         {
             aiFace face = mesh->mFaces[i];
-            for(unsigned int j = 0; j < face.mNumIndices; j++)
+            for(int j = 0; j < face.mNumIndices; j++)
+            {
                 indices.push_back(face.mIndices[j]);
+            }
         }
     }
 }
