@@ -29,14 +29,14 @@ namespace PAG
     {
         glGenVertexArrays(1, &VAO);
         glGenBuffers(1, &VBO);
-        glGenBuffers(1, &EBO);
+        glGenBuffers(1, &IBO);
 
         glBindVertexArray(VAO);
         glBindBuffer(GL_ARRAY_BUFFER, VBO);
 
         glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), &vertices[0], GL_STATIC_DRAW);
 
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, IBO);
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int),
                      &indices[0], GL_STATIC_DRAW);
 
@@ -109,4 +109,23 @@ namespace PAG
             }
         }
     }
+
+    Model::~Model()
+    {
+        if (VBO != 0)
+        {
+            glDeleteBuffers(1, &VBO);
+        }
+
+        if (VAO != 0)
+        {
+            glDeleteVertexArrays(1, &VAO);
+        }
+
+        if (IBO != 0)
+        {
+            glDeleteBuffers(1, &IBO);
+        }
+    }
+
 }

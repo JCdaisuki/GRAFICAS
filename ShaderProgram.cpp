@@ -16,7 +16,6 @@ namespace PAG
         fragmentShader->LoadShader(rutaFuenteGLSL + "-fs.glsl");
 
         CreaShaderProgram();
-        CreaModelo();
     }
 
     void ShaderProgram::CreaShaderProgram()
@@ -68,62 +67,6 @@ namespace PAG
         }
     }
 
-    void ShaderProgram::CreaModelo()
-    {
-        // Vértices del triángulo con los colores intercalados (x, y, z, r, g, b)
-        GLfloat verticesYColores[] =
-        {
-            //Posiciones        //Colores
-            -.5f, -.5f, .0f,    1.0f, 0.0f, 0.0f,
-             .5f, -.5f, .0f,    0.0f, 1.0f, 0.0f,
-             .0f,  .5f, .0f,    0.0f, 0.0f, 1.0f
-        };
-
-        GLuint indices[] = { 0, 1, 2 };
-
-        glGenVertexArrays(1, &idVAO);
-        glBindVertexArray(idVAO);
-
-        // VBO para las posiciones y los colores
-        glGenBuffers(1, &idVBO);
-        glBindBuffer(GL_ARRAY_BUFFER, idVBO);
-        glBufferData(GL_ARRAY_BUFFER, sizeof(verticesYColores), verticesYColores, GL_STATIC_DRAW);
-
-        // Atributo de posición (0)
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (void*)0);
-        glEnableVertexAttribArray(0);
-
-        // Atributo de color (1)
-        glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (void*)(3 * sizeof(GLfloat)));
-        glEnableVertexAttribArray(1);
-
-        // IBO para los índices
-        glGenBuffers(1, &idIBO);
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, idIBO);
-        glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
-
-        glBindVertexArray(0);
-    }
-
-    void ShaderProgram::Render()
-    {
-        if(idVAO == 0 || idVBO == 0 || idIBO == 0)
-        {
-            return;
-        }
-
-        glUseProgram(idSP);
-
-        SetViewMatrix(Camera::GetInstancia()->GetViewMatrix());
-        SetProjectionMatrix(Camera::GetInstancia()->GetProjectionMatrix());
-
-        glBindVertexArray(idVAO);
-
-        glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, nullptr);
-
-        glBindVertexArray(0);
-    }
-
     void ShaderProgram::SetViewMatrix(const glm::mat4& view)
     {
         if (viewLoc != -1)
@@ -147,21 +90,6 @@ namespace PAG
         if (idSP != 0)
         {
             glDeleteProgram(idSP);
-        }
-
-        if (idVBO != 0)
-        {
-            glDeleteBuffers(1, &idVBO);
-        }
-
-        if (idIBO != 0)
-        {
-            glDeleteBuffers(1, &idIBO);
-        }
-
-        if (idVAO != 0)
-        {
-            glDeleteVertexArrays(1, &idVAO);
         }
 
         if (vertexShader)

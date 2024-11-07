@@ -28,13 +28,10 @@ namespace PAG
             std::vector<Vertex> vertices;
             std::vector<unsigned int> indices;
 
-            GLuint idSP;
+            GLuint indexSP;
             GLuint VAO;
             GLuint VBO;
-            GLuint EBO;
-
-            GLint viewLoc;
-            GLint projLoc;
+            GLuint IBO;
 
             // Configura los buffers de la malla
             void setupMesh();
@@ -53,6 +50,13 @@ namespace PAG
 
             // Dibuja el modelo
             void Draw();
+
+            void setIndexSP ( GLuint idx ){ indexSP = idx; };
+            GLuint getIndexSP (){ return indexSP; };
+            GLuint getIdVAO () { return VAO;};
+            GLuint getNumIndices () { return indices.size();};
+
+            ~Model();
     };
 }
 

@@ -5,11 +5,7 @@
 #include <glad/glad.h>
 
 #include "Renderer.h"
-
-
-/**
- * @author Juan Carlos González Martínez
- */
+#include "Camera.h"
 
 PAG::Renderer* PAG::Renderer::instancia = nullptr;
 
@@ -33,7 +29,8 @@ namespace PAG
     }
 
     std::string Renderer::MostrarPropiedades()
-    {   std::stringstream ss;
+    {
+        std::stringstream ss;
         ss << "Propiedades del Contexto 3D:\n"
            << " - Tarjeta Gráfica: " << glGetString(GL_RENDERER) << "\n"
            << " - Fabricante de Tarjeta Gráfica: " << glGetString(GL_VENDOR) << "\n"
@@ -48,12 +45,20 @@ namespace PAG
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glPolygonMode ( GL_FRONT_AND_BACK, GL_FILL );
 
-        for(int i = 0; i < shaderPrograms.size(); i++)
+        for(int i = 0; i < models.size(); i++)
         {
-            if(shaderPrograms[i]->GetIdSP() != 0)
-            {
-                shaderPrograms[i]->Render();
-            }
+            ShaderProgram* aux = shaderPrograms[models[i]->getIndexSP()];
+            GLuint idSP = aux->GetIdSP();
+            glUseProgram(idSP);
+
+            aux->SetViewMatrix(Camera::GetInstancia()->GetViewMatrix());
+            aux->SetProjectionMatrix(Camera::GetInstancia()->GetProjectionMatrix());
+
+            glBindVertexArray(models[i]->getIdVAO());
+
+            glDrawElements(GL_TRIANGLES, models[i]->getNumIndices(), GL_UNSIGNED_INT, nullptr);
+
+            glBindVertexArray(0);
         }
     }
 
@@ -86,6 +91,12 @@ namespace PAG
         ShaderProgram* newShaderProgram = new ShaderProgram();
         newShaderProgram->AsignarShaders(rutaFuenteGLSL);
         shaderPrograms.push_back(newShaderProgram);
+
+        // Chapucilla: vincular el shader program con el último modelo cargado
+        if ( models.size() > 0 )
+        {
+            models[models.size()-1]->setIndexSP ( shaderPrograms.size()-1 );
+        }
     }
 
     void Renderer::CreaModelo(std::string rutaModelo)
@@ -98,6 +109,12 @@ namespace PAG
 
         Model* newModel = new Model(rutaModelo.data());
         models.push_back(newModel);
+
+        // Chapucilla: asignar al modelo el último shader disponible
+        if ( shaderPrograms.size() > 0 )
+        {
+            newModel->setIndexSP ( shaderPrograms.size()-1 );
+        }
     }
 
     Renderer::~Renderer()

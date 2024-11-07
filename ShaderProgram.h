@@ -13,9 +13,6 @@ namespace PAG
     {
         private:
             GLuint idSP = 0; // Identificador del shader program
-            GLuint idVAO = 0; // Identificador del vertex array object
-            GLuint idVBO = 0; // Identificador del vertex buffer object
-            GLuint idIBO = 0; // Identificador del index buffer object
 
             ShaderObject *vertexShader;
             ShaderObject *fragmentShader;
@@ -23,8 +20,6 @@ namespace PAG
             GLint viewLoc; // Ubicaciones de los uniformes
             GLint projLoc;
 
-            void SetViewMatrix(const glm::mat4& view);
-            void SetProjectionMatrix(const glm::mat4& projection);
         public:
             ShaderProgram() = default;
 
@@ -36,11 +31,8 @@ namespace PAG
             // - Esat función configura e inicializa el shader program
             void CreaShaderProgram();
 
-            // - Esta función crea el modelo de un triángulo a partir de los datos del shader program
-            void CreaModelo();
-
-            // - Esta función dibuja el modelo utilizando el shader program y los datos de los buffers configurados
-            void Render();
+            void SetViewMatrix(const glm::mat4& view);
+            void SetProjectionMatrix(const glm::mat4& projection);
 
             ~ShaderProgram();
     };
