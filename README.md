@@ -92,3 +92,17 @@ Como casi todo funcionamiento en esta aplicación, se ha creado una ventana con 
 
 ### Diagrama UML
 <img src="https://i.imgur.com/E9w16BT.png">
+
+
+## Práctica 6
+Para el desarrollo de esta práctica hemos implemnetado el renderizado de la escena sobre Renderer, eliminando ShaderManager.
+
+Gracias a la nueva clase Model que emplea la librería *Assimp* podremos cargar modelos en la escena, los cuales almacenará Renderer y a los que asignará Shaders para permitir su visibilidad.
+Cada modelo incluirá un entero que se corresponde con la posición de su shader en el contenedor de Renderer.
+
+### Notas de la implementación
+- No será posible crear Shaders mientras no exista algún modelo al que asignarselo.
+- Cada modelo tendrá asignado por defecto el primer shader creado.
+
+### Diagrama UML
+<img src="https://i.imgur.com/moOKbzO.png">
