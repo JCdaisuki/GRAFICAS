@@ -28,7 +28,7 @@ namespace PAG
             std::vector<Vertex> vertices;
             std::vector<unsigned int> indices;
 
-            GLuint indexSP;
+            GLuint indexSP = 0;
             GLuint VAO;
             GLuint VBO;
             GLuint IBO;

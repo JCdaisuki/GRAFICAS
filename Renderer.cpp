@@ -47,18 +47,21 @@ namespace PAG
 
         for(int i = 0; i < models.size(); i++)
         {
-            ShaderProgram* aux = shaderPrograms[models[i]->getIndexSP()];
-            GLuint idSP = aux->GetIdSP();
-            glUseProgram(idSP);
+            if(shaderPrograms.size() > 0)
+            {
+                ShaderProgram* aux = shaderPrograms[models[i]->getIndexSP()];
+                GLuint idSP = aux->GetIdSP();
+                glUseProgram(idSP);
 
-            aux->SetViewMatrix(Camera::GetInstancia()->GetViewMatrix());
-            aux->SetProjectionMatrix(Camera::GetInstancia()->GetProjectionMatrix());
+                aux->SetViewMatrix(Camera::GetInstancia()->GetViewMatrix());
+                aux->SetProjectionMatrix(Camera::GetInstancia()->GetProjectionMatrix());
 
-            glBindVertexArray(models[i]->getIdVAO());
+                glBindVertexArray(models[i]->getIdVAO());
 
-            glDrawElements(GL_TRIANGLES, models[i]->getNumIndices(), GL_UNSIGNED_INT, nullptr);
+                glDrawElements(GL_TRIANGLES, models[i]->getNumIndices(), GL_UNSIGNED_INT, nullptr);
 
-            glBindVertexArray(0);
+                glBindVertexArray(0);
+            }
         }
     }
 
@@ -90,13 +93,19 @@ namespace PAG
         //No hay ningún ShaderProgram disponible, creamos uno nuevo y lo añadimos al vector
         ShaderProgram* newShaderProgram = new ShaderProgram();
         newShaderProgram->AsignarShaders(rutaFuenteGLSL);
-        shaderPrograms.push_back(newShaderProgram);
 
         // Chapucilla: vincular el shader program con el último modelo cargado
         if ( models.size() > 0 )
         {
-            models[models.size()-1]->setIndexSP ( shaderPrograms.size()-1 );
+            models[models.size()-1]->setIndexSP ( shaderPrograms.size() );
         }
+        else
+        {
+            delete newShaderProgram;
+            throw std::runtime_error("No hay ningún modelo cargado");
+        }
+
+        shaderPrograms.push_back(newShaderProgram);
     }
 
     void Renderer::CreaModelo(std::string rutaModelo)
@@ -109,12 +118,6 @@ namespace PAG
 
         Model* newModel = new Model(rutaModelo.data());
         models.push_back(newModel);
-
-        // Chapucilla: asignar al modelo el último shader disponible
-        if ( shaderPrograms.size() > 0 )
-        {
-            newModel->setIndexSP ( shaderPrograms.size()-1 );
-        }
     }
 
     Renderer::~Renderer()
