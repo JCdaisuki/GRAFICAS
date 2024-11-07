@@ -88,13 +88,27 @@ namespace PAG
                 shaderPrograms[i]->AsignarShaders(rutaFuenteGLSL);
                 return;
             }
+
+            if(shaderPrograms[i]->GetRuta() == rutaFuenteGLSL)
+            {
+                models[models.size()-1]->setIndexSP ( i );
+                return;
+            }
         }
 
         //No hay ningún ShaderProgram disponible, creamos uno nuevo y lo añadimos al vector
         ShaderProgram* newShaderProgram = new ShaderProgram();
-        newShaderProgram->AsignarShaders(rutaFuenteGLSL);
 
-        // Chapucilla: vincular el shader program con el último modelo cargado
+        try
+        {
+            newShaderProgram->AsignarShaders(rutaFuenteGLSL);
+        }
+        catch (std::runtime_error error)
+        {
+            delete newShaderProgram;
+            throw error;
+        }
+
         if ( models.size() > 0 )
         {
             models[models.size()-1]->setIndexSP ( shaderPrograms.size() );

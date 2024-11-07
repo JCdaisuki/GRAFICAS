@@ -16,6 +16,7 @@ namespace PAG
         fragmentShader->LoadShader(rutaFuenteGLSL + "-fs.glsl");
 
         CreaShaderProgram();
+        ruta = rutaFuenteGLSL;
     }
 
     void ShaderProgram::CreaShaderProgram()

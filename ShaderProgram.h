@@ -12,6 +12,7 @@ namespace PAG
     class ShaderProgram
     {
         private:
+            std::string ruta;
             GLuint idSP = 0; // Identificador del shader program
 
             ShaderObject *vertexShader;
@@ -24,6 +25,7 @@ namespace PAG
             ShaderProgram() = default;
 
             int GetIdSP(){ return idSP; };
+            std::string GetRuta(){ return ruta; };
 
             // - Esta función asigna los vertex y fragment shaders al programa a partir de su ruta
             void AsignarShaders(std::string rutaFuenteGLSL);
