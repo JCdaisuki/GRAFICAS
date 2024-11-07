@@ -60,9 +60,8 @@ namespace PAG
 
         CrearVentanaMensajes();
         CrearVentanaColores();
-        CrearVentanaShaders();
+        CrearVentanaModelShaders();
         CrearVentanaCamera();
-        CrearVentanaModels();
 
         if(shaderArchivo != "")
         {
@@ -81,9 +80,9 @@ namespace PAG
 
     void GUI::finalizaRedibujarVentanas ()
     {
-            //Se renderiza en pantalla
-            ImGui::Render();
-            ImGui_ImplOpenGL3_RenderDrawData ( ImGui::GetDrawData() );
+        //Se renderiza en pantalla
+        ImGui::Render();
+        ImGui_ImplOpenGL3_RenderDrawData ( ImGui::GetDrawData() );
     }
 
 
@@ -123,16 +122,37 @@ namespace PAG
         ImGui::End();
     }
 
-    void GUI::CrearVentanaShaders()
+    void GUI::CrearVentanaModelShaders()
     {
         ImGui::SetNextWindowPos(ImVec2(sx, sy), ImGuiCond_Once);
-        ImGui::SetNextWindowSize(ImVec2(140, 80), ImGuiCond_Once);
+        ImGui::SetNextWindowSize(ImVec2(180, 180), ImGuiCond_Once);
 
-        ImGui::Begin("Cargar Shader");
+        ImGui::Begin("Modelo y Shader");
 
+        ImGui::Text("Cargar Modelo:");
+        ImGui::InputText("##modelo", bufferModel, sizeof(bufferModel), ImGuiInputTextFlags_AutoSelectAll);
+
+        if (ImGui::Button("Load Modelo") && bufferModel != "")
+        {
+            modelArchivo = bufferModel;
+            nombreModelo = modelArchivo;
+        }
+
+        if(nombreModelo == "")
+        {
+            ImGui::Text("Ningún modelo cargado");
+        }
+        else
+        {
+            ImGui::Text(("Modelo actual: " + nombreModelo).c_str());
+        }
+
+        ImGui::Separator();
+
+        ImGui::Text("Cargar Shader:");
         ImGui::InputText("##shader", bufferShader, sizeof(bufferShader), ImGuiInputTextFlags_AutoSelectAll);
 
-        if (ImGui::Button("Load") && bufferShader != "")
+        if (ImGui::Button("Load Shader") && bufferShader != "")
         {
             shaderArchivo = bufferShader;
         }
@@ -289,23 +309,6 @@ namespace PAG
             {
                 Camera::GetInstancia()->Orbit(0, -10);
             }
-        }
-
-        ImGui::End();
-    }
-
-    void GUI::CrearVentanaModels()
-    {
-        ImGui::SetNextWindowPos(ImVec2(sx, sy + 85), ImGuiCond_Once);
-        ImGui::SetNextWindowSize(ImVec2(140, 80), ImGuiCond_Once);
-
-        ImGui::Begin("Cargar Modelo");
-
-        ImGui::InputText("##modelo", bufferModel, sizeof(bufferModel), ImGuiInputTextFlags_AutoSelectAll);
-
-        if (ImGui::Button("Load") && bufferModel != "")
-        {
-            modelArchivo = bufferModel;
         }
 
         ImGui::End();

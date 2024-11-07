@@ -32,20 +32,20 @@ namespace PAG
             //Vector de mensajes
             std::vector<std::string> mensajes;
 
-            char bufferShader[256];
-            std::string shaderArchivo = ""; //Nombre del archivo de shaders a cargar
-
             char bufferModel[256];
             std::string modelArchivo = ""; //Nombre del archivo del modelo a cargar
+            std::string nombreModelo = "";
+
+            char bufferShader[256];
+            std::string shaderArchivo = ""; //Nombre del archivo de shaders a cargar
 
             bool isShader; //Este booleano permitirá saber si el archivo lanzado es de un shader o un modelo
 
             // - Estas funciones crean las ventanas auxiliares dentro de la ventana principal
             void CrearVentanaMensajes();
             void CrearVentanaColores();
-            void CrearVentanaShaders();
+            void CrearVentanaModelShaders();
             void CrearVentanaCamera();
-            void CrearVentanaModels();
 
             //Auxiliares del Menu de Cámara
             std::string menuSeleccionado = "";
