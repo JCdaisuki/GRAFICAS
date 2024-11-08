@@ -22,7 +22,7 @@ namespace PAG
             //Posicion x e y de las ventanas
             int mx = 10, my = 20;
             int cx = 10, cy = 140;
-            int sx = 10, sy = 370;
+            int sx = 830, sy = 20;
             int cax = 620, cay = 20;
 
             //Color de fondo y color seleccionado en la ventana "Fondo"
@@ -35,6 +35,9 @@ namespace PAG
             char bufferModel[256];
             std::string modelArchivo = ""; //Nombre del archivo del modelo a cargar
             std::string nombreModelo = "";
+
+            int modeloSeleccionado = 0;
+            std::vector<std::string> modelosCargados;
 
             char bufferShader[256];
             std::string shaderArchivo = ""; //Nombre del archivo de shaders a cargar
@@ -75,11 +78,13 @@ namespace PAG
             // - Esta función comprueba si se ha seleccionado un nuevo color en la ventana "Fondo"
             bool CambioColor();
 
+            void modeloCreadoCorrectamente();
+
             void LimpiarRutas();
 
             void FinalizarImGui();
 
-           void addMensaje ( std::string mensaje );
+            void addMensaje ( std::string mensaje );
 
             ~GUI();
     };

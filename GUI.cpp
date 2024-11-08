@@ -125,7 +125,7 @@ namespace PAG
     void GUI::CrearVentanaModelShaders()
     {
         ImGui::SetNextWindowPos(ImVec2(sx, sy), ImGuiCond_Once);
-        ImGui::SetNextWindowSize(ImVec2(180, 180), ImGuiCond_Once);
+        ImGui::SetNextWindowSize(ImVec2(180, 210), ImGuiCond_Once);
 
         ImGui::Begin("Modelo y Shader");
 
@@ -135,8 +135,9 @@ namespace PAG
         if (ImGui::Button("Load Modelo") && bufferModel != "")
         {
             modelArchivo = bufferModel;
-            nombreModelo = modelArchivo;
         }
+
+        ImGui::Separator();
 
         if(nombreModelo == "")
         {
@@ -145,6 +146,26 @@ namespace PAG
         else
         {
             ImGui::Text(("Modelo actual: " + nombreModelo).c_str());
+        }
+
+        if (ImGui::BeginCombo(".", modelosCargados.empty() ? "" : modelosCargados[modeloSeleccionado].c_str()))
+        {
+            for (int i = 0; i < modelosCargados.size(); i++)
+            {
+                bool isSelected = (modeloSeleccionado == i);
+
+                if (ImGui::Selectable(modelosCargados[i].c_str(), isSelected))
+                {
+                    modeloSeleccionado = i;
+                    nombreModelo = modelosCargados[i];
+                }
+
+                if (isSelected)
+                {
+                    ImGui::SetItemDefaultFocus();
+                }
+            }
+            ImGui::EndCombo();
         }
 
         ImGui::Separator();
@@ -158,6 +179,12 @@ namespace PAG
         }
 
         ImGui::End();
+    }
+
+    void GUI::modeloCreadoCorrectamente()
+    {
+        nombreModelo = modelArchivo;
+        modelosCargados.push_back(nombreModelo);
     }
 
     void GUI::CrearVentanaCamera()

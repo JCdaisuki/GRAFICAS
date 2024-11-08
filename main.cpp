@@ -55,6 +55,7 @@ void callbackRefrescoVentana ( GLFWwindow* window)
             {
                 std::string ruta = "Modelos3D/" + archivo + ".obj";
                 PAG::Renderer::GetInstancia()->CreaModelo(ruta);
+                PAG::GUI::GetInstancia()->modeloCreadoCorrectamente();
             }
             catch (std::exception &e)
             {
