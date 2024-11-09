@@ -29,7 +29,21 @@ namespace PAG
         }
 
         glAttachShader(idSP, vertexShader->GetId());
+
+        GLenum error = glGetError();
+        if (error != GL_NO_ERROR)
+        {
+            throw(std::to_string(error));
+        }
+
         glAttachShader(idSP, fragmentShader->GetId());
+
+        error = glGetError();
+        if (error != GL_NO_ERROR)
+        {
+            throw(std::to_string(error));
+        }
+
         glLinkProgram(idSP);
 
         // Verificar el enlace del programa
