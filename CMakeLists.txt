@@ -16,6 +16,8 @@ add_executable(GRAFICAS main.cpp Renderer.cpp Renderer.h ${IMGUI}
         Camera.h
         Model.cpp
         Model.h
+        Material.cpp
+        Material.h
 )
 
 find_package(glad)
