@@ -47,6 +47,8 @@ namespace PAG
 
         for(int i = 0; i < models.size(); i++)
         {
+            glPolygonMode(GL_FRONT_AND_BACK, models[i]->GetPolygonMode());
+
             if(shaderPrograms.size() > 0)
             {
                 ShaderProgram* aux = shaderPrograms[models[i]->getIndexSP()];

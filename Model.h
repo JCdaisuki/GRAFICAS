@@ -17,6 +17,13 @@ namespace PAG
 {
     class Model
     {
+        public:
+            enum class ModoVisualizacion
+            {
+                ModoAlambre,
+                ModoPlano
+            };
+
         private:
             struct Vertex
             {
@@ -32,6 +39,8 @@ namespace PAG
             GLuint VAO;
             GLuint VBO;
             GLuint IBO;
+
+            ModoVisualizacion modoVisualizacion = ModoVisualizacion::ModoPlano;
 
             // Configura los buffers de la malla
             void setupMesh();
@@ -55,6 +64,9 @@ namespace PAG
             GLuint getIndexSP (){ return indexSP; };
             GLuint getIdVAO () { return VAO;};
             GLuint getNumIndices () { return indices.size();};
+
+            void SetModoVisualizacion(ModoVisualizacion modo){ modoVisualizacion = modo; };
+            GLenum GetPolygonMode();
 
             ~Model();
     };

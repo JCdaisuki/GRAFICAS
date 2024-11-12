@@ -110,6 +110,19 @@ namespace PAG
         }
     }
 
+    GLenum Model::GetPolygonMode()
+    {
+        if(modoVisualizacion == ModoVisualizacion::ModoAlambre)
+        {
+            return GL_LINE;
+        }
+
+        if(modoVisualizacion == ModoVisualizacion::ModoPlano)
+        {
+            return GL_FILL;
+        }
+    }
+
     Model::~Model()
     {
         if (VBO != 0)

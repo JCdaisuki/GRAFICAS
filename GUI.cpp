@@ -125,7 +125,7 @@ namespace PAG
     void GUI::CrearVentanaModelShaders()
     {
         ImGui::SetNextWindowPos(ImVec2(sx, sy), ImGuiCond_Once);
-        ImGui::SetNextWindowSize(ImVec2(180, 210), ImGuiCond_Once);
+        ImGui::SetNextWindowSize(ImVec2(180, 250), ImGuiCond_Once);
 
         ImGui::Begin("Modelo y Shader");
 
@@ -166,6 +166,27 @@ namespace PAG
                 }
             }
             ImGui::EndCombo();
+        }
+
+        if(nombreModelo != "")
+        {
+            ImGui::Separator();
+            ImGui::Text("Modo de Visualización");
+
+            if (ImGui::BeginMenu("Select mode"))
+            {
+                if (ImGui::MenuItem("Modo Plano"))
+                {
+
+                }
+
+                if (ImGui::MenuItem("Modo Alambre"))
+                {
+
+                }
+
+                ImGui::EndMenu();
+            }
         }
 
         ImGui::Separator();
