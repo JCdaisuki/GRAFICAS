@@ -5,6 +5,8 @@
 #ifndef shaderProgram_h
 #define shaderProgram_h
 
+#include <glm/glm.hpp>
+
 #include "ShaderObject.h"
 
 namespace PAG

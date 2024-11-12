@@ -2,7 +2,6 @@
 #define ShaderObject_h
 
 #include <glad/glad.h>
-#include <glm/fwd.hpp>
 #include <string>
 
 namespace PAG

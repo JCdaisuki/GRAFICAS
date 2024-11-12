@@ -1,4 +1,3 @@
-#include "Model.h"
 
 #include <fstream>
 #include <iostream>
@@ -7,15 +6,20 @@
 #include <stdexcept>
 #include <glm/ext/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include <glad/glad.h>
 
 #include "Camera.h"
+#include "Model.h"
+
 
 namespace PAG
 {
-    Model::Model(char *path)
+    Model::Model(char *path, std::string modelo)
     {
         loadModel(path);
         setupMesh();
+
+        nombreModelo = modelo;
     }
 
     void Model::Draw()

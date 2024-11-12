@@ -7,9 +7,8 @@
 
 #include <vector>
 
-#include "Model.h"
 #include "ShaderProgram.h"
-
+#include "Model.h"
 
 namespace PAG
 {
@@ -54,7 +53,9 @@ namespace PAG
         static void CambiarColorFondo (float* color);
 
         void CreaShaderProgram ( std::string ruta );
-        void CreaModelo(std::string rutaModelo);
+        void CreaModelo(std::string rutaModelo, std::string nombreModelo);
+
+        Model* GetModelo(std::string nombreModelo);
 
         ~Renderer();
     };

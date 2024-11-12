@@ -2,19 +2,20 @@
  * @author Juan Carlos González Martínez
  */
 
-#include "GUI.h"
-
 #include <iostream>
 #include <vector>
 #include <filesystem>
+
+#include <GLFW/glfw3.h>
 
 #include "imgui/imgui.h"
 #include "imgui/imgui_impl_glfw.h"
 #include "imgui/imgui_impl_opengl3.h"
 #include "imgui/imgui_stdlib.h"
-#include <GLFW/glfw3.h>
-
+#include "Renderer.h"
 #include "Camera.h"
+#include "GUI.h"
+
 
 PAG::GUI* PAG::GUI::instancia = nullptr;
 
@@ -177,12 +178,12 @@ namespace PAG
             {
                 if (ImGui::MenuItem("Modo Plano"))
                 {
-
+                    PAG::Renderer::GetInstancia()->GetModelo(nombreModelo)->SetModoVisualizacion(PAG::Model::ModoVisualizacion::ModoPlano);
                 }
 
                 if (ImGui::MenuItem("Modo Alambre"))
                 {
-
+                    PAG::Renderer::GetInstancia()->GetModelo(nombreModelo)->SetModoVisualizacion(PAG::Model::ModoVisualizacion::ModoAlambre);
                 }
 
                 ImGui::EndMenu();

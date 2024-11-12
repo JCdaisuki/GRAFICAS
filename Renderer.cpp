@@ -51,16 +51,16 @@ namespace PAG
 
             if(shaderPrograms.size() > 0)
             {
-                ShaderProgram* aux = shaderPrograms[models[i]->getIndexSP()];
+                ShaderProgram* aux = shaderPrograms[models[i]->GetIndexSP()];
                 GLuint idSP = aux->GetIdSP();
                 glUseProgram(idSP);
 
                 aux->SetViewMatrix(Camera::GetInstancia()->GetViewMatrix());
                 aux->SetProjectionMatrix(Camera::GetInstancia()->GetProjectionMatrix());
 
-                glBindVertexArray(models[i]->getIdVAO());
+                glBindVertexArray(models[i]->GetIdVAO());
 
-                glDrawElements(GL_TRIANGLES, models[i]->getNumIndices(), GL_UNSIGNED_INT, nullptr);
+                glDrawElements(GL_TRIANGLES, models[i]->GetNumIndices(), GL_UNSIGNED_INT, nullptr);
 
                 glBindVertexArray(0);
             }
@@ -93,7 +93,7 @@ namespace PAG
 
             if(shaderPrograms[i]->GetRuta() == rutaFuenteGLSL)
             {
-                models[models.size()-1]->setIndexSP ( i );
+                models[models.size()-1]->SetIndexSP ( i );
                 return;
             }
         }
@@ -113,7 +113,7 @@ namespace PAG
 
         if ( models.size() > 0 )
         {
-            models[models.size()-1]->setIndexSP ( shaderPrograms.size() );
+            models[models.size()-1]->SetIndexSP ( shaderPrograms.size() );
         }
         else
         {
@@ -124,7 +124,7 @@ namespace PAG
         shaderPrograms.push_back(newShaderProgram);
     }
 
-    void Renderer::CreaModelo(std::string rutaModelo)
+    void Renderer::CreaModelo(std::string rutaModelo, std::string nombreModelo)
     {
         std::ifstream archivo(rutaModelo);
         if (!archivo.good())
@@ -132,8 +132,21 @@ namespace PAG
             throw std::runtime_error("Error: No se encontró el archivo del modelo en " + rutaModelo);
         }
 
-        Model* newModel = new Model(rutaModelo.data());
+        Model* newModel = new Model(rutaModelo.data(), nombreModelo);
         models.push_back(newModel);
+    }
+
+    Model *Renderer::GetModelo(std::string nombreModelo)
+    {
+        for(int i = 0; i < models.size(); i++)
+        {
+            if(models[i]->GetNombreModelo() == nombreModelo)
+            {
+                return models[i];
+            }
+        }
+
+        throw std::runtime_error("Modelo " + nombreModelo + " no encontrado");
     }
 
     Renderer::~Renderer()

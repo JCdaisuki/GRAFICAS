@@ -5,13 +5,12 @@
 #include <assimp/scene.h>
 
 #include <glm/vec3.hpp>
-#include <glad/glad.h>
 #include <glm/glm.hpp>
 #include <glm/fwd.hpp>
+#include <GL/gl.h>
 
 #include <vector>
 #include <string>
-#include <GL/gl.h>
 
 namespace PAG
 {
@@ -30,6 +29,8 @@ namespace PAG
                 glm::vec3 Position;
                 glm::vec3 Normal;
             };
+
+            std::string nombreModelo;
 
             // Datos de la malla
             std::vector<Vertex> vertices;
@@ -55,17 +56,17 @@ namespace PAG
             void processMesh(aiMesh *mesh);
 
         public:
-            Model(char *path);
+            Model(char *path, std::string modelo);
 
             // Dibuja el modelo
             void Draw();
 
-            void setIndexSP ( GLuint idx ){ indexSP = idx; };
-            GLuint getIndexSP (){ return indexSP; };
-            GLuint getIdVAO () { return VAO;};
-            GLuint getNumIndices () { return indices.size();};
-
+            void SetIndexSP ( GLuint idx ){ indexSP = idx; };
             void SetModoVisualizacion(ModoVisualizacion modo){ modoVisualizacion = modo; };
+            std::string GetNombreModelo(){ return nombreModelo; };
+            GLuint GetIndexSP (){ return indexSP; };
+            GLuint GetIdVAO () { return VAO;};
+            GLuint GetNumIndices () { return indices.size();};
             GLenum GetPolygonMode();
 
             ~Model();
