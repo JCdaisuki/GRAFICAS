@@ -7,8 +7,6 @@
 
 #include <string>
 #include <vector>
-#include <filesystem>
-
 #include <GLFW/glfw3.h>
 
 namespace PAG

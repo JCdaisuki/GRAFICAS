@@ -4,6 +4,7 @@
 #include <glm/glm.hpp>
 
 #include "Camera.h"
+#include "imgui/imgui_impl_opengl3_loader.h"
 
 namespace PAG
 {

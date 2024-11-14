@@ -10,7 +10,7 @@ namespace PAG
     {
         private:
             int id = 0;
-            GLenum type = GL_VERTEX_SHADER;
+            GLenum type = GL_VERTEX_SHADER; //ERROR AQUI, DICE QUE REQUIERE GLAD PERO SI LO INCLUYO DICE QUE YA ESTA INCLUIDO
 
         public:
             ShaderObject() = default;
