@@ -52,6 +52,9 @@ namespace PAG
             if(shaderPrograms.size() > 0)
             {
                 ShaderProgram* aux = shaderPrograms[models[i]->GetIndexSP()];
+
+                EstablecerColorModel(models[i]);
+
                 GLuint idSP = aux->GetIdSP();
                 glUseProgram(idSP);
 
@@ -65,6 +68,38 @@ namespace PAG
                 glBindVertexArray(0);
             }
         }
+    }
+
+    void Renderer::EstablecerColorModel(Model* model)
+    {
+        std::string subrutina;
+
+        if(model->GetModoVisualizacion() == Model::ModoVisualizacion::ModoAlambre)
+        {
+            subrutina = "colorNegro";
+        }
+        else if(model->GetModoVisualizacion() == Model::ModoVisualizacion::ModoPlano) //ESTABLECEMOS EL COLOR DIFUSO DEL MATERIAL
+        {
+            subrutina = "colorDifuso";
+
+            GLint location = glGetUniformLocation(model->GetIndexSP(), "colorDifuso");
+
+            if (location == -1)
+            {
+                throw std::runtime_error("No se pudo encontrar 'colorDifuso' en el Shader " + shaderPrograms[model->GetIndexSP()]->GetRuta());
+            }
+
+            glUniform4fv(location, 1, &model->GetMaterial()->getColorDifuso()[0]);
+        }
+
+        GLuint indexSubrutina = glGetSubroutineIndex(model->GetIndexSP(), GL_FRAGMENT_SHADER, subrutina);
+
+        if (indexSubrutina == GL_INVALID_INDEX)
+        {
+            throw std::runtime_error("No se pudo encontrar la subrutina "+ subrutina + " en el Shader " + shaderPrograms[model->GetIndexSP()]->GetRuta());
+        }
+
+        glUniformSubroutinesuiv(GL_FRAGMENT_SHADER, 1, &indexSubrutina);
     }
 
     void Renderer::ModificarTamaño (int width, int height )

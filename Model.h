@@ -73,6 +73,7 @@ namespace PAG
             GLuint GetIdVAO () { return VAO;};
             GLuint GetNumIndices () { return indices.size();};
             Material* GetMaterial(){ return material; };
+            ModoVisualizacion GetModoVisualizacion(){ return modoVisualizacion; };
             GLenum GetPolygonMode();
 
             ~Model();

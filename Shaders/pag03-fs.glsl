@@ -1,9 +1,25 @@
 #version 410
 
-in vec3 colorFragmento;
-out vec4 colorFinal;
+out vec4 colorFragmento;
 
-void main()
+uniform vec4 colorDifuso;
+
+subroutine vec4 calcularColor();
+subroutine uniform calcularColor metodoColorElegido;
+
+subroutine(calcularColor)
+vec4 colorNegro ()
 {
-    colorFinal = vec4(colorFragmento, 1.0);
+    return vec4 ( 0, 0, 0, 1 );
+}
+
+subroutine(calcularColor)
+vec4 colorDifusoMaterial ()
+{
+    return colorDifuso;
+}
+
+void main ()
+{
+    colorFragmento = metodoColorElegido ();
 }

@@ -26,6 +26,7 @@ namespace PAG
         GLuint idVS = 0; // Identificador del vertex shader
         GLuint idFS = 0; // Identificador del fragment shader
 
+        void EstablecerColorModel(Model* model);
     public:
         // - Getter de instancia
         static Renderer* GetInstancia ();

@@ -12,4 +12,3 @@ void main()
     gl_Position = projection * view * vec4(posicion, 1.0);
     colorFragmento = colorVertice;
 }
-
