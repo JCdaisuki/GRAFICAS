@@ -54,6 +54,27 @@ namespace PAG
         const GLchar* fuenteVS = codigoFuenteShader.c_str ();
         glShaderSource ( id, 1, &fuenteVS, nullptr );
         glCompileShader ( id );
+
+        GLint resultadoCompilacion;
+        glGetShaderiv ( id, GL_COMPILE_STATUS, &resultadoCompilacion );
+
+        if ( resultadoCompilacion == GL_FALSE )
+        {
+            GLint tamMsj = 0;
+            std::string mensaje = "";
+            glGetShaderiv ( id, GL_INFO_LOG_LENGTH, &tamMsj );
+            if ( tamMsj > 0 )
+            {
+                GLchar* mensajeFormatoC = new GLchar[tamMsj];
+                GLint datosEscritos = 0;
+                glGetShaderInfoLog ( id, tamMsj, &datosEscritos, mensajeFormatoC );
+                mensaje.assign ( mensajeFormatoC );
+                delete[] mensajeFormatoC;
+                mensajeFormatoC = nullptr;
+
+                throw std::runtime_error("Error al compilar el Shader " + rutaFuenteGLSL + ": " + mensaje);
+            }
+        }
     }
 
     ShaderObject::~ShaderObject()
