@@ -12,6 +12,8 @@
 #include <vector>
 #include <string>
 
+#include "Material.h"
+
 namespace PAG
 {
     class Model
@@ -41,6 +43,8 @@ namespace PAG
             GLuint VBO;
             GLuint IBO;
 
+            Material* material;
+
             ModoVisualizacion modoVisualizacion = ModoVisualizacion::ModoPlano;
 
             // Configura los buffers de la malla
@@ -62,11 +66,13 @@ namespace PAG
             void Draw();
 
             void SetIndexSP ( GLuint idx ){ indexSP = idx; };
+            void SetMaterial (Material* mat){ material = mat; };
             void SetModoVisualizacion(ModoVisualizacion modo){ modoVisualizacion = modo; };
             std::string GetNombreModelo(){ return nombreModelo; };
             GLuint GetIndexSP (){ return indexSP; };
             GLuint GetIdVAO () { return VAO;};
             GLuint GetNumIndices () { return indices.size();};
+            Material* GetMaterial(){ return material; };
             GLenum GetPolygonMode();
 
             ~Model();

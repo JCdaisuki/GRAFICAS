@@ -134,6 +134,13 @@ namespace PAG
 
         Model* newModel = new Model(rutaModelo.data(), nombreModelo);
         models.push_back(newModel);
+
+        //ASIGNAR UN MATERIAL POR DEFECTO (POR AHORA)
+        if(materials.size() == 0)
+        {
+            materials.push_back(new Material());
+        }
+        newModel->SetMaterial(materials[0]);
     }
 
     Model *Renderer::GetModelo(std::string nombreModelo)

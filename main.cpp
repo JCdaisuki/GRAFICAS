@@ -10,10 +10,6 @@
 #include "GUI.h"
 #include "Camera.h"
 
-/**
- * @author Juan Carlos González Martínez
- */
-
 // - Esta función permite emitir mensajes mediante la ventana mensajes de ImGui
 void EmitirMensaje( std::string mensaje )
 {

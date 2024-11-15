@@ -7,6 +7,7 @@
 
 #include <vector>
 
+#include "Material.h"
 #include "ShaderProgram.h"
 #include "Model.h"
 
@@ -20,6 +21,7 @@ namespace PAG
 
         std::vector<Model*> models;
         std::vector<ShaderProgram*> shaderPrograms;
+        std::vector<Material*> materials;
 
         GLuint idVS = 0; // Identificador del vertex shader
         GLuint idFS = 0; // Identificador del fragment shader
