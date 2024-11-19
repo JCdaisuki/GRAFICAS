@@ -95,7 +95,7 @@ Como casi todo funcionamiento en esta aplicación, se ha creado una ventana con 
 
 
 ## Práctica 6
-Para el desarrollo de esta práctica hemos implemnetado el renderizado de la escena sobre Renderer, eliminando ShaderManager.
+Para el desarrollo de esta práctica hemos implementado el renderizado de la escena sobre Renderer, eliminando ShaderManager.
 
 Gracias a la nueva clase Model que emplea la librería *Assimp* podremos cargar modelos en la escena, los cuales almacenará Renderer y a los que asignará Shaders para permitir su visibilidad.
 Cada modelo incluirá un entero que se corresponde con la posición de su shader en el contenedor de Renderer.
@@ -106,3 +106,19 @@ Cada modelo incluirá un entero que se corresponde con la posición de su shader
 
 ### Diagrama UML
 <img src="https://i.imgur.com/moOKbzO.png">
+
+## Práctica 7
+Para el desarrollo de esta práctica hemos creado una nueva clase *Material*, que contendrá las propiedades color ambiente, difuso, especular y exponente especular, que afectarán al modelo al que se asigne.
+Para ello hemos añadido una nueva relación entre *Renderer* y *Material* que permitirá asignar a los modelos distintos materiales, aunque por ahora será únicamente uno configurado por código.
+
+En esta práctica hemos añadido 2 modos de visualización de los modelos:
+- Modo Plano: Al modelo se le asignará el color difuso de su material.
+- Modo Alambre: Solo se visualizarán las aristas del material con un color fijo.
+
+Para el uso de colores en ambos modos hemos añadido el uso subrutinasa nuestro shder *pag03*, que permiten cambiar el color a uno fijo, que en nuestro caso será negro, o al difuso del material, que será a su vez introducido por *Renderer*.
+
+Esta implementación se plasma en la interfaz mediante un menu que permite seleccionar ambos modos de visualización:
+<img src="https://i.imgur.com/z9CGC6E.png">
+
+### Diagrama UML
+<img src="https://i.imgur.com/fGww66J.png">
