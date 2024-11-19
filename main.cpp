@@ -26,8 +26,18 @@ void callbackErrorGLFW ( int errno, const char* desc )
 // - Esta función callback será llamada cada vez que el área de dibujo OpenGL deba ser redibujada.
 void callbackRefrescoVentana ( GLFWwindow* window)
 {
-    std::string archivo = PAG::GUI::GetInstancia()->RedibujarVentanas();
-    PAG::Renderer::GetInstancia()->RefrescarVentana();
+    std::string archivo;
+
+    try
+    {
+        archivo = PAG::GUI::GetInstancia()->RedibujarVentanas();
+        PAG::Renderer::GetInstancia()->RefrescarVentana();
+    }
+    catch ( std::runtime_error e)
+    {
+        EmitirMensaje(e.what());
+    }
+
     PAG::GUI::GetInstancia()->finalizaRedibujarVentanas();
 
     if(archivo != "")

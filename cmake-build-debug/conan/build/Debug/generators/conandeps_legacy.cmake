@@ -4,6 +4,5 @@ message(STATUS "Conan: It is recommended to use explicit find_package() per depe
 find_package(assimp)
 find_package(glm)
 find_package(glfw3)
-find_package(glad)
 
-set(CONANDEPS_LEGACY  assimp::assimp  glm::glm  glfw  glad::glad )
+set(CONANDEPS_LEGACY  assimp::assimp  glm::glm  glfw )

@@ -80,9 +80,9 @@ namespace PAG
         }
         else if(model->GetModoVisualizacion() == Model::ModoVisualizacion::ModoPlano) //ESTABLECEMOS EL COLOR DIFUSO DEL MATERIAL
         {
-            subrutina = "colorDifuso";
+            subrutina = "colorDifusoMaterial";
 
-            GLint location = glGetUniformLocation(model->GetIndexSP(), "colorDifuso");
+            GLint location = glGetUniformLocation(shaderPrograms[model->GetIndexSP()]->GetIdSP(), "colorDifuso");
 
             if (location == -1)
             {
@@ -92,7 +92,7 @@ namespace PAG
             glUniform4fv(location, 1, &model->GetMaterial()->getColorDifuso()[0]);
         }
 
-        GLuint indexSubrutina = glGetSubroutineIndex(model->GetIndexSP(), GL_FRAGMENT_SHADER, subrutina);
+        GLuint indexSubrutina = glGetSubroutineIndex(shaderPrograms[model->GetIndexSP()]->GetIdSP(), GL_FRAGMENT_SHADER, subrutina.c_str());
 
         if (indexSubrutina == GL_INVALID_INDEX)
         {

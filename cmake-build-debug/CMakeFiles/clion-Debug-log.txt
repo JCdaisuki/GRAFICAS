@@ -58,7 +58,6 @@ Requirements
     bzip2/1.0.8#d00dac990f08d991998d624be81a9526 - Cache
     clipper/4.10.0#162645ae35933cfb009ad1be1b6f9b6b - Cache
     draco/1.5.6#c4fd529402e7954b0ed2305a386b0973 - Cache
-    glad/0.1.36#c926453afdd9d5f72cc4ee6a8fff7d73 - Cache
     glfw/3.3.8#eaa2d6de4e064b2c92ad7fc4ac255141 - Cache
     glm/1.0.1#94392c53a527f7d830119b84fe80c754 - Cache
     kuba-zip/0.3.0#cac9d58fac5e8d16395edbdcda39cd7c - Cache
@@ -80,7 +79,6 @@ Requirements
     bzip2/1.0.8#d00dac990f08d991998d624be81a9526:2449118e33a88024cb4bc94dbbc617d96223b745#397237c9b73afd913abce325fe218508 - Cache
     clipper/4.10.0#162645ae35933cfb009ad1be1b6f9b6b:d238a9ba87303a7e5b7a6f56481b37b8c6f62843#51307cc012ba9d1b2f74cea9d3f7e116 - Cache
     draco/1.5.6#c4fd529402e7954b0ed2305a386b0973:605a758379a5ea3f914c1c6e1894a53cb3b94ad9#ee11194b384917b24251063650043f49 - Cache
-    glad/0.1.36#c926453afdd9d5f72cc4ee6a8fff7d73:4288fece81e0215a1bc8330481c6aa713dbdb219#c3366df12ad8f411cf46f12bd9b5acad - Cache
     glfw/3.3.8#eaa2d6de4e064b2c92ad7fc4ac255141:8017d78d70cd810fbc93ef6c919368c5a0f66568#eff8a38d71c0692c21439d9d55ed1cd7 - Cache
     glm/1.0.1#94392c53a527f7d830119b84fe80c754:da39a3ee5e6b4b0d3255bfef95601890afd80709#2bbcd0ae421fb99e8713dabae8437299 - Cache
     kuba-zip/0.3.0#cac9d58fac5e8d16395edbdcda39cd7c:f60e50a74ab05a616895712be87aa8c9377863ad#55f999757f1a3acd83acd4eddbf6684e - Cache
@@ -94,25 +92,24 @@ Skipped binaries
     rapidjson/cci.20230929, stb/cci.20230920, utfcpp/4.0.1
 
 ======== Installing packages ========
-bzip2/1.0.8: Already installed! (1 of 14)
-clipper/4.10.0: Already installed! (2 of 14)
-draco/1.5.6: Already installed! (3 of 14)
-glad/0.1.36: Already installed! (4 of 14)
-glm/1.0.1: Already installed! (5 of 14)
-kuba-zip/0.3.0: Already installed! (6 of 14)
-openddl-parser/0.5.1: Already installed! (7 of 14)
-opengl/system: Already installed! (8 of 14)
-poly2tri/cci.20130502: Already installed! (9 of 14)
-pugixml/1.14: Already installed! (10 of 14)
-zlib/1.3.1: Already installed! (11 of 14)
-glfw/3.3.8: Already installed! (12 of 14)
-minizip/1.2.13: Already installed! (13 of 14)
-assimp/5.1.6: Already installed! (14 of 14)
+bzip2/1.0.8: Already installed! (1 of 13)
+clipper/4.10.0: Already installed! (2 of 13)
+draco/1.5.6: Already installed! (3 of 13)
+glm/1.0.1: Already installed! (4 of 13)
+kuba-zip/0.3.0: Already installed! (5 of 13)
+openddl-parser/0.5.1: Already installed! (6 of 13)
+opengl/system: Already installed! (7 of 13)
+poly2tri/cci.20130502: Already installed! (8 of 13)
+pugixml/1.14: Already installed! (9 of 13)
+zlib/1.3.1: Already installed! (10 of 13)
+glfw/3.3.8: Already installed! (11 of 13)
+minizip/1.2.13: Already installed! (12 of 13)
+assimp/5.1.6: Already installed! (13 of 13)
 WARN: deprecated: Usage of deprecated Conan 1.X features that will be removed in Conan 2.X:
-WARN: deprecated:     'cpp_info.names' used in: clipper/4.10.0, glfw/3.3.8, kuba-zip/0.3.0, bzip2/1.0.8, zlib/1.3.1, openddl-parser/0.5.1
-WARN: deprecated:     'cpp_info.build_modules' used in: bzip2/1.0.8, glfw/3.3.8
+WARN: deprecated:     'cpp_info.names' used in: glfw/3.3.8, bzip2/1.0.8, clipper/4.10.0, openddl-parser/0.5.1, kuba-zip/0.3.0, zlib/1.3.1
+WARN: deprecated:     'cpp_info.build_modules' used in: glfw/3.3.8, bzip2/1.0.8
 WARN: deprecated:     'env_info' used in: bzip2/1.0.8
-WARN: deprecated:     'cpp_info.filenames' used in: opengl/system, glfw/3.3.8
+WARN: deprecated:     'cpp_info.filenames' used in: glfw/3.3.8, opengl/system
 
 ======== Finalizing install (deploy, generators) ========
 conanfile.py: Writing generators to C:\Users\JuanC\Music\CURSO_2425\GRAFICAS\cmake-build-debug\conan\build\Debug\generators
@@ -121,8 +118,7 @@ conanfile.py: CMakeDeps necessary find_package() and targets for your CMakeLists
     find_package(assimp)
     find_package(glm)
     find_package(glfw3)
-    find_package(glad)
-    target_link_libraries(... assimp::assimp glm::glm glfw glad::glad)
+    target_link_libraries(... assimp::assimp glm::glm glfw)
 conanfile.py: Calling generate()
 conanfile.py: Generators folder: C:\Users\JuanC\Music\CURSO_2425\GRAFICAS\cmake-build-debug\conan\build\Debug\generators
 conanfile.py: CMakeToolchain generated: conan_toolchain.cmake
@@ -135,8 +131,6 @@ conanfile.py: Generated aggregated env files: ['conanbuild.bat', 'conanrun.bat']
 Install finished successfully
 -- CMake-Conan: CONAN_GENERATORS_FOLDER=C:/Users/JuanC/Music/CURSO_2425/GRAFICAS/cmake-build-debug/conan/build/Debug/generators
 -- CMake-Conan: CONANFILE=C:/Users/JuanC/Music/CURSO_2425/GRAFICAS/conanfile.py
--- Conan: Target declared 'glad::glad'
--- CMake-Conan: find_package(glfw3) found, 'conan install' already ran
 -- Conan: Target declared 'glfw'
 -- CMake-Conan: find_package(opengl_system) found, 'conan install' already ran
 -- Conan: Target declared 'opengl::opengl'
@@ -163,6 +157,6 @@ Install finished successfully
 -- Conan: Target declared 'clipper::clipper'
 -- CMake-Conan: find_package(openddlparser) found, 'conan install' already ran
 -- Conan: Target declared 'openddlparser::openddlparser'
--- Configuring done (2.3s)
+-- Configuring done (3.2s)
 -- Generating done (0.0s)
 -- Build files have been written to: C:/Users/JuanC/Music/CURSO_2425/GRAFICAS/cmake-build-debug
