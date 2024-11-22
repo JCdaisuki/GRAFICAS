@@ -26,7 +26,15 @@ namespace PAG
         glClearColor ( 0.6, 0.6, 0.6, 1.0 ); // - Establecemos un gris medio como color con el que se borrará el frame buffer.
         glEnable(GL_DEPTH_TEST);
         glEnable ( GL_MULTISAMPLE );
+
+        InicializarLuces();
+    }
+
+    void Renderer::InicializarLuces()
+    {
         glEnable(GL_BLEND);
+
+        //Crea varias luces
     }
 
     std::string Renderer::MostrarPropiedades()
@@ -46,27 +54,39 @@ namespace PAG
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glPolygonMode ( GL_FRONT_AND_BACK, GL_FILL );
 
-        for(int i = 0; i < models.size(); i++)
+        for(int i = 0; i < lights.size(); i++)
         {
-            glPolygonMode(GL_FRONT_AND_BACK, models[i]->GetPolygonMode());
-
-            if(shaderPrograms.size() > 0)
+            if(i == 0)
             {
-                ShaderProgram* aux = shaderPrograms[models[i]->GetIndexSP()];
+                glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+            }
+            else
+            {
+                glBlendFunc(GL_SRC_ALPHA, GL_ONE);
+            }
+            
+            for(int i = 0; i < models.size(); i++)
+            {
+                glPolygonMode(GL_FRONT_AND_BACK, models[i]->GetPolygonMode());
 
-                EstablecerColorModel(models[i]);
+                if(shaderPrograms.size() > 0)
+                {
+                    ShaderProgram* aux = shaderPrograms[models[i]->GetIndexSP()];
 
-                GLuint idSP = aux->GetIdSP();
-                glUseProgram(idSP);
+                    EstablecerColorModel(models[i]);
 
-                aux->SetViewMatrix(Camera::GetInstancia()->GetViewMatrix());
-                aux->SetProjectionMatrix(Camera::GetInstancia()->GetProjectionMatrix());
+                    GLuint idSP = aux->GetIdSP();
+                    glUseProgram(idSP);
 
-                glBindVertexArray(models[i]->GetIdVAO());
+                    aux->SetViewMatrix(Camera::GetInstancia()->GetViewMatrix());
+                    aux->SetProjectionMatrix(Camera::GetInstancia()->GetProjectionMatrix());
 
-                glDrawElements(GL_TRIANGLES, models[i]->GetNumIndices(), GL_UNSIGNED_INT, nullptr);
+                    glBindVertexArray(models[i]->GetIdVAO());
 
-                glBindVertexArray(0);
+                    glDrawElements(GL_TRIANGLES, models[i]->GetNumIndices(), GL_UNSIGNED_INT, nullptr);
+
+                    glBindVertexArray(0);
+                }
             }
         }
     }

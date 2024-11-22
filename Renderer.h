@@ -7,6 +7,7 @@
 
 #include <vector>
 
+#include "Light.h"
 #include "Material.h"
 #include "ShaderProgram.h"
 #include "Model.h"
@@ -19,6 +20,7 @@ namespace PAG
         // Puntero al único objeto
         static Renderer* instancia;
 
+        std::vector<Light*> lights;
         std::vector<Model*> models;
         std::vector<ShaderProgram*> shaderPrograms;
         std::vector<Material*> materials;
@@ -26,6 +28,7 @@ namespace PAG
         GLuint idVS = 0; // Identificador del vertex shader
         GLuint idFS = 0; // Identificador del fragment shader
 
+        void InicializarLuces();
         void EstablecerColorModel(Model* model);
     public:
         // - Getter de instancia
