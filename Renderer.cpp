@@ -26,6 +26,7 @@ namespace PAG
         glClearColor ( 0.6, 0.6, 0.6, 1.0 ); // - Establecemos un gris medio como color con el que se borrará el frame buffer.
         glEnable(GL_DEPTH_TEST);
         glEnable ( GL_MULTISAMPLE );
+        glEnable(GL_BLEND);
     }
 
     std::string Renderer::MostrarPropiedades()

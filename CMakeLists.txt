@@ -21,6 +21,8 @@ add_executable(GRAFICAS glad/src/glad.c ${IMGUI}
         Model.h
         Material.cpp
         Material.h
+        Light.cpp
+        Light.h
 )
 
 target_include_directories(GRAFICAS PUBLIC glad/include)
