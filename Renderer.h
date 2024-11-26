@@ -29,7 +29,9 @@ namespace PAG
         GLuint idFS = 0; // Identificador del fragment shader
 
         void InicializarLuces();
+
         void EstablecerColorModel(Model* model);
+        void EstablecerLucesModel(Model* model, Light::LightType type);
     public:
         // - Getter de instancia
         static Renderer* GetInstancia ();

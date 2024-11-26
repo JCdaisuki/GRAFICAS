@@ -34,7 +34,12 @@ namespace PAG
     {
         glEnable(GL_BLEND);
 
-        //Crea varias luces
+        lights.push_back(new Light(Light::LightType::Ambiente, glm::vec3(0.2f), glm::vec3(0.0f), glm::vec3(0.0f), glm::vec3(0.0f)));
+/*
+        lights.push_back(new Light(Light::LightType::Puntual, glm::vec3(1.0f, 0.5f, 0.3f), glm::vec3(1.0f), glm::vec3(5.0f, 3.0f, 5.0f), glm::vec3(0.0f)));
+        lights.push_back(new Light(Light::LightType::Direccional, glm::vec3(0.8f, 0.8f, 0.8f), glm::vec3(1.0f), glm::vec3(0.0f), glm::vec3(-1.0f, -1.0f, -1.0f)));
+        lights.push_back(new Light(Light::LightType::Foco, glm::vec3(1.0f, 1.0f, 0.8f), glm::vec3(1.0f), glm::vec3(0.0f, 10.0f, 0.0f), glm::vec3(0.0f, -1.0f, 0.0f)));
+*/
     }
 
     std::string Renderer::MostrarPropiedades()
@@ -54,9 +59,15 @@ namespace PAG
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glPolygonMode ( GL_FRONT_AND_BACK, GL_FILL );
 
-        for(int i = 0; i < lights.size(); i++)
+        if(models.empty())
         {
-            if(i == 0)
+            return;
+        }
+
+        for(int l = 0; l < lights.size(); l++)
+        {
+            /*
+            if(l == 0)
             {
                 glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
             }
@@ -64,7 +75,8 @@ namespace PAG
             {
                 glBlendFunc(GL_SRC_ALPHA, GL_ONE);
             }
-            
+            */
+
             for(int i = 0; i < models.size(); i++)
             {
                 glPolygonMode(GL_FRONT_AND_BACK, models[i]->GetPolygonMode());
@@ -74,7 +86,7 @@ namespace PAG
                     ShaderProgram* aux = shaderPrograms[models[i]->GetIndexSP()];
 
                     EstablecerColorModel(models[i]);
-
+                    EstablecerLucesModel(models[i], lights[l]->GetType());
                     GLuint idSP = aux->GetIdSP();
                     glUseProgram(idSP);
 
@@ -121,6 +133,35 @@ namespace PAG
         }
 
         glUniformSubroutinesuiv(GL_FRAGMENT_SHADER, 1, &indexSubrutina);
+    }
+
+    void Renderer::EstablecerLucesModel(Model *model, Light::LightType type)
+    {
+        GLuint indexSubrutinaLight;
+
+        switch (type)
+        {
+            case Light::Ambiente:
+                indexSubrutinaLight = glGetSubroutineIndex(shaderPrograms[model->GetIndexSP()]->GetIdSP(), GL_FRAGMENT_SHADER, "calculateAmbient");
+                break;
+
+            case Light::Puntual:
+                indexSubrutinaLight = glGetSubroutineIndex(shaderPrograms[model->GetIndexSP()]->GetIdSP(), GL_FRAGMENT_SHADER, "calculatePointLight");
+                break;
+
+            case Light::Direccional:
+                indexSubrutinaLight = glGetSubroutineIndex(shaderPrograms[model->GetIndexSP()]->GetIdSP(), GL_FRAGMENT_SHADER, "calculateDirectionalLight");
+                break;
+
+            case Light::Foco:
+                indexSubrutinaLight = glGetSubroutineIndex(shaderPrograms[model->GetIndexSP()]->GetIdSP(), GL_FRAGMENT_SHADER, "calculateSpotLight");
+                break;
+
+            default:
+                return;;
+        }
+
+        glUniformSubroutinesuiv(GL_FRAGMENT_SHADER, 1, &indexSubrutinaLight);
     }
 
     void Renderer::ModificarTamaño (int width, int height )
@@ -220,6 +261,12 @@ namespace PAG
             instancia = nullptr;
         }
 
+        for(int i = 0; i < lights.size(); i++)
+        {
+            delete lights[i];
+        }
+        lights.clear();
+
         for(int i = 0; i < models.size(); i++)
         {
             delete models[i];
@@ -231,5 +278,11 @@ namespace PAG
             delete shaderPrograms[i];
         }
         shaderPrograms.clear();
+
+        for(int i = 0; i < materials.size(); i++)
+        {
+            delete materials[i];
+        }
+        materials.clear();
     }
 }
