@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.29)
 project(GRAFICAS)
 
 set(CMAKE_CXX_STANDARD 20)
+set(BUILD_SHARED_LIBS OFF)
 
 file(GLOB IMGUI imgui/*cpp)
 

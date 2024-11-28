@@ -29,10 +29,13 @@ uniform vec3 spotDirection;
 uniform float spotAngle;
 uniform float spotExponent;
 
-layout(location = 0) out vec4 fragColor;
+out vec4 fragColor;
 
-subroutine void calcularColor();
+subroutine vec4 calcularColor();
 subroutine vec3 calcularLuz();
+
+subroutine uniform calcularColor metodoColorElegido;
+subroutine uniform calcularLuz metodoLuzElegido;
 
 subroutine(calcularLuz)
 vec3 calculateAmbient()
@@ -99,26 +102,23 @@ vec3 calculateSpotLight()
 }
 
 subroutine(calcularColor)
-void colorNegro()
+vec4 colorNegro ()
 {
-    fragColor = vec4(0.0, 0.0, 0.0, 1.0);
+    return vec4 ( 0, 0, 0, 1 );
 }
 
 subroutine(calcularColor)
-void colorDifusoMaterial()
+vec4 colorDifusoMaterial ()
 {
-    fragColor = colorDifuso;
+    return colorDifuso;
 }
-
-subroutine uniform calcularLuz metodoLuzElegido;
-subroutine uniform calcularColor metodoColorElegido;
 
 void main()
 {
     vec3 lighting = metodoLuzElegido();
-    metodoColorElegido();
+    vec4 colorFragmento = metodoColorElegido();
 
-    vec3 finalColor = lighting * fragColor.rgb;
+    vec3 finalColor = lighting * colorFragmento.rgb;
 
-    fragColor = vec4(finalColor, 1.0);
+    fragColor = finalColor;
 }

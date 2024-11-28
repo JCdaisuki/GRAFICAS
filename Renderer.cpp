@@ -25,6 +25,7 @@ namespace PAG
     {
         glClearColor ( 0.6, 0.6, 0.6, 1.0 ); // - Establecemos un gris medio como color con el que se borrará el frame buffer.
         glEnable(GL_DEPTH_TEST);
+        glDepthFunc ( GL_LEQUAL );
         glEnable ( GL_MULTISAMPLE );
 
         InicializarLuces();
@@ -66,7 +67,6 @@ namespace PAG
 
         for(int l = 0; l < lights.size(); l++)
         {
-            /*
             if(l == 0)
             {
                 glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -75,7 +75,6 @@ namespace PAG
             {
                 glBlendFunc(GL_SRC_ALPHA, GL_ONE);
             }
-            */
 
             for(int i = 0; i < models.size(); i++)
             {
