@@ -2,7 +2,7 @@
 
 namespace PAG
 {
-    Material::Material(glm::vec3 colorAmbiente, glm::vec3 colorDifuso, glm::vec3 colorEspecular, float brillo)
+    Material::Material(glm::vec4 colorAmbiente, glm::vec4 colorDifuso, glm::vec4 colorEspecular, float brillo)
     {
         this->colorAmbiente = colorAmbiente;
         this->colorDifuso = colorDifuso;

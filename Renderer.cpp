@@ -84,10 +84,15 @@ namespace PAG
                 {
                     ShaderProgram* aux = shaderPrograms[models[i]->GetIndexSP()];
 
-                    EstablecerColorModel(models[i]);
-                    EstablecerLucesModel(models[i], lights[l]->GetType());
                     GLuint idSP = aux->GetIdSP();
                     glUseProgram(idSP);
+
+                    GLuint indices[] = {0, 0};
+
+                    EstablecerColorModel(models[i], indices);
+                    EstablecerLucesModel(models[i], lights[l]->GetType(), indices);
+
+                    glUniformSubroutinesuiv(GL_FRAGMENT_SHADER, 2, indices);
 
                     aux->SetViewMatrix(Camera::GetInstancia()->GetViewMatrix());
                     aux->SetProjectionMatrix(Camera::GetInstancia()->GetProjectionMatrix());
@@ -102,7 +107,7 @@ namespace PAG
         }
     }
 
-    void Renderer::EstablecerColorModel(Model* model)
+    void Renderer::EstablecerColorModel(Model* model, GLuint* indices)
     {
         std::string subrutina;
 
@@ -124,17 +129,19 @@ namespace PAG
             glUniform4fv(location, 1, &model->GetMaterial()->getColorDifuso()[0]);
         }
 
-        GLuint indexSubrutina = glGetSubroutineIndex(shaderPrograms[model->GetIndexSP()]->GetIdSP(), GL_FRAGMENT_SHADER, subrutina.c_str());
+        GLuint indexImplementacion = glGetSubroutineIndex(shaderPrograms[model->GetIndexSP()]->GetIdSP(), GL_FRAGMENT_SHADER, subrutina.c_str());
 
-        if (indexSubrutina == GL_INVALID_INDEX)
+        if (indexImplementacion == GL_INVALID_INDEX)
         {
-            throw std::runtime_error("No se pudo encontrar la subrutina "+ subrutina + " en el Shader " + shaderPrograms[model->GetIndexSP()]->GetRuta());
+            throw std::runtime_error("No se pudo encontrar la implementación "+ subrutina + " en el Shader " + shaderPrograms[model->GetIndexSP()]->GetRuta());
         }
+        
+        GLuint indexSubrutina = glGetSubroutineUniformLocation ( shaderPrograms[model->GetIndexSP()]->GetIdSP(), GL_FRAGMENT_SHADER, "metodoColorElegido" );
 
-        glUniformSubroutinesuiv(GL_FRAGMENT_SHADER, 1, &indexSubrutina);
+        indices[indexSubrutina] = indexImplementacion;
     }
 
-    void Renderer::EstablecerLucesModel(Model *model, Light::LightType type)
+    void Renderer::EstablecerLucesModel(Model *model, Light::LightType type, GLuint* indices)
     {
         GLuint indexSubrutinaLight;
 
@@ -160,7 +167,7 @@ namespace PAG
                 return;;
         }
 
-        glUniformSubroutinesuiv(GL_FRAGMENT_SHADER, 1, &indexSubrutinaLight);
+        indices[indexSubrutinaLight] = indexSubrutinaLight;
     }
 
     void Renderer::ModificarTamaño (int width, int height )

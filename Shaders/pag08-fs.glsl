@@ -120,5 +120,5 @@ void main()
 
     vec3 finalColor = lighting * colorFragmento.rgb;
 
-    fragColor = finalColor;
+    fragColor = vec4(finalColor, 1.0);
 }
