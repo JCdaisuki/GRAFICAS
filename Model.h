@@ -37,6 +37,7 @@ namespace PAG
             // Datos de la malla
             std::vector<Vertex> vertices;
             std::vector<unsigned int> indices;
+            glm::mat4 modelMatrix = glm::mat4(1.0f);
 
             GLuint indexSP = 0;
             GLuint VAO;
@@ -73,6 +74,7 @@ namespace PAG
             GLuint GetIdVAO () { return VAO;};
             GLuint GetNumIndices () { return indices.size();};
             Material* GetMaterial(){ return material; };
+            glm::mat4 GetModelMatrix(){ return modelMatrix; };
             ModoVisualizacion GetModoVisualizacion(){ return modoVisualizacion; };
             GLenum GetPolygonMode();
 

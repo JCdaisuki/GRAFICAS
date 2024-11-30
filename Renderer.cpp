@@ -82,20 +82,34 @@ namespace PAG
 
                 if(shaderPrograms.size() > 0)
                 {
-                    ShaderProgram* aux = shaderPrograms[models[i]->GetIndexSP()];
+                    ShaderProgram* shaderProgram = shaderPrograms[models[i]->GetIndexSP()];
 
-                    GLuint idSP = aux->GetIdSP();
+                    GLuint idSP = shaderProgram->GetIdSP();
                     glUseProgram(idSP);
 
                     GLuint indices[] = {0, 0};
+                    glm::vec4 color={0,0,0,1};
 
-                    EstablecerColorModel(models[i], indices);
+                    EstablecerColorModel(models[i], indices, color);
                     EstablecerLucesModel(models[i], lights[l]->GetType(), indices);
 
                     glUniformSubroutinesuiv(GL_FRAGMENT_SHADER, 2, indices);
 
-                    aux->SetViewMatrix(Camera::GetInstancia()->GetViewMatrix());
-                    aux->SetProjectionMatrix(Camera::GetInstancia()->GetProjectionMatrix());
+                    if(color != glm::vec4(-1.0f))
+                    {
+                        GLint location = glGetUniformLocation(shaderPrograms[models[i]->GetIndexSP()]->GetIdSP(), "colorDifuso");
+
+                        if (location == -1)
+                        {
+                            throw std::runtime_error("No se pudo encontrar 'colorDifuso' en el Shader " + shaderPrograms[models[i]->GetIndexSP()]->GetRuta());
+                        }
+
+                        glUniform4fv(location, 1, &color[0]);
+                    }
+
+                    shaderProgram->SetProjectionMatrix(Camera::GetInstancia()->GetProjectionMatrix());
+                    shaderProgram->SetViewAndModelMatrix(Camera::GetInstancia()->GetViewMatrix(), models[i]->GetModelMatrix());
+                    shaderProgram->SetNormalMatrix();
 
                     glBindVertexArray(models[i]->GetIdVAO());
 
@@ -107,26 +121,19 @@ namespace PAG
         }
     }
 
-    void Renderer::EstablecerColorModel(Model* model, GLuint* indices)
+    void Renderer::EstablecerColorModel(Model* model, GLuint* indices, glm::vec4& color)
     {
         std::string subrutina;
 
         if(model->GetModoVisualizacion() == Model::ModoVisualizacion::ModoAlambre)
         {
             subrutina = "colorNegro";
+            color = glm::vec4(-1.0f);
         }
         else if(model->GetModoVisualizacion() == Model::ModoVisualizacion::ModoPlano) //ESTABLECEMOS EL COLOR DIFUSO DEL MATERIAL
         {
             subrutina = "colorDifusoMaterial";
-
-            GLint location = glGetUniformLocation(shaderPrograms[model->GetIndexSP()]->GetIdSP(), "colorDifuso");
-
-            if (location == -1)
-            {
-                throw std::runtime_error("No se pudo encontrar 'colorDifuso' en el Shader " + shaderPrograms[model->GetIndexSP()]->GetRuta());
-            }
-
-            glUniform4fv(location, 1, &model->GetMaterial()->getColorDifuso()[0]);
+            color = model->GetMaterial()->getColorDifuso();
         }
 
         GLuint indexImplementacion = glGetSubroutineIndex(shaderPrograms[model->GetIndexSP()]->GetIdSP(), GL_FRAGMENT_SHADER, subrutina.c_str());
@@ -135,7 +142,7 @@ namespace PAG
         {
             throw std::runtime_error("No se pudo encontrar la implementación "+ subrutina + " en el Shader " + shaderPrograms[model->GetIndexSP()]->GetRuta());
         }
-        
+
         GLuint indexSubrutina = glGetSubroutineUniformLocation ( shaderPrograms[model->GetIndexSP()]->GetIdSP(), GL_FRAGMENT_SHADER, "metodoColorElegido" );
 
         indices[indexSubrutina] = indexImplementacion;

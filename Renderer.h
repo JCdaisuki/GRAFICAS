@@ -30,7 +30,7 @@ namespace PAG
 
         void InicializarLuces();
 
-        void EstablecerColorModel(Model* model, GLuint* indices);
+        void EstablecerColorModel(Model* model, GLuint* indices, glm::vec4& color);
         void EstablecerLucesModel(Model* model, Light::LightType type, GLuint* indices);
     public:
         // - Getter de instancia

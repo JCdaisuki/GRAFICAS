@@ -20,8 +20,11 @@ namespace PAG
             ShaderObject *vertexShader;
             ShaderObject *fragmentShader;
 
-            GLint viewLoc; // Ubicaciones de los uniformes
             GLint projLoc;
+            GLint viewprojLoc;
+            GLint normalLoc;
+
+            glm::mat4 viewXprojectionMatrix;
 
         public:
             ShaderProgram() = default;
@@ -35,8 +38,9 @@ namespace PAG
             // - Esat función configura e inicializa el shader program
             void CreaShaderProgram();
 
-            void SetViewMatrix(const glm::mat4& view);
             void SetProjectionMatrix(const glm::mat4& projection);
+            void SetViewAndModelMatrix(const glm::mat4& view, const glm::mat4& model);
+            void SetNormalMatrix();
 
             ~ShaderProgram();
     };
