@@ -127,6 +127,21 @@ namespace PAG
         }
     }
 
+    void Model::Translate(glm::vec3 translation)
+    {
+        modelMatrix = glm::translate(modelMatrix, translation);
+    }
+
+    void Model::Rotate(float angle, glm::vec3 axis)
+    {
+        modelMatrix = glm::rotate(modelMatrix, glm::radians(angle), axis);
+    }
+
+    void Model::Scale(glm::vec3 scale)
+    {
+        modelMatrix = glm::scale(modelMatrix, scale);
+    }
+
     Model::~Model()
     {
         if (VBO != 0)

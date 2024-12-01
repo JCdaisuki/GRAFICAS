@@ -78,6 +78,10 @@ namespace PAG
             ModoVisualizacion GetModoVisualizacion(){ return modoVisualizacion; };
             GLenum GetPolygonMode();
 
+            void Translate(glm::vec3 translation);
+            void Rotate(float angle, glm::vec3 axis);
+            void Scale(glm::vec3 scale);
+
             ~Model();
     };
 }

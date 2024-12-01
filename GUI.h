@@ -47,11 +47,16 @@ namespace PAG
             void CrearVentanaColores();
             void CrearVentanaModelShaders();
             void CrearVentanaCamera();
+            void CrearVentanaModelTrans();
 
             //Auxiliares del Menu de Cámara
             std::string menuSeleccionado = "";
             std::string movementText = "";
             int zoom = 0;
+
+            //Auxiliares del Menu de Transformaciones
+            std::string transformacionSeleccionada = "";
+            std::string ejeSeleccionado = "";
 
         public:
             // - Getter de instancia

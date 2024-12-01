@@ -62,6 +62,7 @@ namespace PAG
         CrearVentanaColores();
         CrearVentanaModelShaders();
         CrearVentanaCamera();
+        CrearVentanaModelTrans();
 
         if(shaderArchivo != "")
         {
@@ -177,12 +178,12 @@ namespace PAG
             {
                 if (ImGui::MenuItem("Modo Plano"))
                 {
-                    PAG::Renderer::GetInstancia()->GetModelo(nombreModelo)->SetModoVisualizacion(PAG::Model::ModoVisualizacion::ModoPlano);
+                    Renderer::GetInstancia()->GetModelo(nombreModelo)->SetModoVisualizacion(PAG::Model::ModoVisualizacion::ModoPlano);
                 }
 
                 if (ImGui::MenuItem("Modo Alambre"))
                 {
-                    PAG::Renderer::GetInstancia()->GetModelo(nombreModelo)->SetModoVisualizacion(PAG::Model::ModoVisualizacion::ModoAlambre);
+                    Renderer::GetInstancia()->GetModelo(nombreModelo)->SetModoVisualizacion(PAG::Model::ModoVisualizacion::ModoAlambre);
                 }
 
                 ImGui::EndMenu();
@@ -358,6 +359,104 @@ namespace PAG
                 Camera::GetInstancia()->Orbit(0, -10);
             }
         }
+
+        ImGui::Separator();
+
+        ImGui::End();
+    }
+
+    void GUI::CrearVentanaModelTrans()
+    {
+        if(nombreModelo == "")
+        {
+            return;
+        }
+
+        ImGui::SetNextWindowPos(ImVec2(sx, sy + 255), ImGuiCond_Once);
+        ImGui::SetNextWindowSize(ImVec2(180, 180), ImGuiCond_Once);
+
+        ImGui::Begin("Transformaciones");
+        ImGui::Text(("Modelo actual: " + nombreModelo).c_str());
+        ImGui::Separator();
+
+        if (ImGui::BeginMenu("Select Transformation"))
+        {
+            if (ImGui::MenuItem("Translation"))
+            {
+                transformacionSeleccionada = "Translation";
+            }
+
+            if (ImGui::MenuItem("Rotation"))
+            {
+                transformacionSeleccionada = "Rotation";
+            }
+
+            if (ImGui::MenuItem("Scale"))
+            {
+                transformacionSeleccionada = "Scale";
+            }
+
+            ImGui::EndMenu();
+        }
+
+        if (ImGui::BeginMenu("Select Axis"))
+        {
+            if (ImGui::MenuItem("X Axis"))
+            {
+                ejeSeleccionado = "X";
+            }
+
+            if (ImGui::MenuItem("Y Axis"))
+            {
+                ejeSeleccionado = "Y";
+            }
+
+            if (ImGui::MenuItem("Z Axis"))
+            {
+                ejeSeleccionado = "Z";
+            }
+
+            ImGui::EndMenu();
+        }
+
+        if(transformacionSeleccionada == "Translation")
+        {
+            if (ImGui::Button("<- "))
+            {
+                if(ejeSeleccionado == "X")
+                {
+                    Renderer::GetInstancia()->GetModelo(nombreModelo)->Translate(glm::vec3(0.1f, 0.0f, 0.0f));
+                }
+                else if(ejeSeleccionado == "Y")
+                {
+                    Renderer::GetInstancia()->GetModelo(nombreModelo)->Translate(glm::vec3(0.0f, 0.1f, 0.0f));
+                }
+                else if(ejeSeleccionado == "Z")
+                {
+                    Renderer::GetInstancia()->GetModelo(nombreModelo)->Translate(glm::vec3(0.0f, 0.0f, 0.1f));
+                }
+            }
+
+            ImGui::SameLine();
+
+            if (ImGui::Button(" ->"))
+            {
+                if(ejeSeleccionado == "X")
+                {
+                    Renderer::GetInstancia()->GetModelo(nombreModelo)->Translate(glm::vec3(-0.1f, 0.0f, 0.0f));
+                }
+                else if(ejeSeleccionado == "Y")
+                {
+                    Renderer::GetInstancia()->GetModelo(nombreModelo)->Translate(glm::vec3(0.0f, -0.1f, 0.0f));
+                }
+                else if(ejeSeleccionado == "Z")
+                {
+                    Renderer::GetInstancia()->GetModelo(nombreModelo)->Translate(glm::vec3(0.0f, 0.0f, -0.1f));
+                }
+            }
+        }
+
+        ImGui::Separator();
 
         ImGui::End();
     }
