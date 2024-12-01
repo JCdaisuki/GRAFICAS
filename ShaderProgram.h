@@ -21,10 +21,10 @@ namespace PAG
             ShaderObject *fragmentShader;
 
             GLint projLoc;
-            GLint viewprojLoc;
+            GLint viewModelLoc;
             GLint normalLoc;
 
-            glm::mat4 viewXprojectionMatrix;
+            glm::mat4 viewXmodelMatrix;
 
         public:
             ShaderProgram() = default;

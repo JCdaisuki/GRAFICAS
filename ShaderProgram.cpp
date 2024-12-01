@@ -1,10 +1,7 @@
-#include "ShaderProgram.h"
 #include <stdexcept>
-#include <iostream>
-#include <glm/glm.hpp>
+#include <glad/glad.h>
 
-#include "Camera.h"
-#include "imgui/imgui_impl_opengl3_loader.h"
+#include "ShaderProgram.h"
 
 namespace PAG
 {
@@ -67,20 +64,20 @@ namespace PAG
             throw std::runtime_error("Uniform 'projection' no encontrado en el shader " + idSP);
         }
 
-        glUniformMatrix4fv(viewprojLoc, 1, GL_FALSE, &projection[0][0]);
+        glUniformMatrix4fv(projLoc, 1, GL_FALSE, &projection[0][0]);
     }
 
     void ShaderProgram::SetViewAndModelMatrix(const glm::mat4& view, const glm::mat4& model)
     {
-        normalLoc = glGetUniformLocation(idSP, "viewXmodelMatrix");
+        viewModelLoc = glGetUniformLocation(idSP, "viewXmodelMatrix");
 
-        if (viewprojLoc == -1)
+        if (viewModelLoc == -1)
         {
             throw std::runtime_error("Uniform 'viewXmodelMatrix' no encontrado en el shader " + idSP);
         }
 
-        viewXprojectionMatrix = view * model;
-        glUniformMatrix4fv(viewprojLoc, 1, GL_FALSE, &viewXprojectionMatrix[0][0]);
+        viewXmodelMatrix = view * model;
+        glUniformMatrix4fv(viewModelLoc, 1, GL_FALSE, &viewXmodelMatrix[0][0]);
     }
 
     void ShaderProgram::SetNormalMatrix()
@@ -92,8 +89,9 @@ namespace PAG
             throw std::runtime_error("Uniform 'normalMatrix' no encontrado en el shader " + idSP);
         }
 
-        glm::mat3 normalMatrix = glm::transpose(glm::inverse(glm::mat3(viewXprojectionMatrix)));
-        glUniformMatrix4fv(viewprojLoc, 1, GL_FALSE, &normalMatrix[0][0]);
+        // glm::mat3 normalMatrix = glm::transpose(glm::inverse(glm::mat3(viewXprojectionMatrix)));
+        glm::mat4 normalMatrix = glm::transpose(glm::inverse ( viewXmodelMatrix ) );
+        glUniformMatrix4fv(normalLoc, 1, GL_FALSE, &normalMatrix[0][0]);
     }
 
     ShaderProgram::~ShaderProgram()
