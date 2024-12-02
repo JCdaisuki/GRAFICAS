@@ -455,6 +455,42 @@ namespace PAG
                 }
             }
         }
+        else if(transformacionSeleccionada == "Rotation")
+        {
+            if (ImGui::Button("<- "))
+            {
+                if(ejeSeleccionado == "X")
+                {
+                    Renderer::GetInstancia()->GetModelo(nombreModelo)->Rotate(5.0f, glm::vec3(1.0f, 0.0f, 0.0f));
+                }
+                else if(ejeSeleccionado == "Y")
+                {
+                    Renderer::GetInstancia()->GetModelo(nombreModelo)->Rotate(5.0f, glm::vec3(0.0f, 1.0f, 0.0f));
+                }
+                else if(ejeSeleccionado == "Z")
+                {
+                    Renderer::GetInstancia()->GetModelo(nombreModelo)->Rotate(5.0f, glm::vec3(0.0f, 0.0f, 1.0f));
+                }
+            }
+
+            ImGui::SameLine();
+
+            if (ImGui::Button(" ->"))
+            {
+                if(ejeSeleccionado == "X")
+                {
+                    Renderer::GetInstancia()->GetModelo(nombreModelo)->Rotate(-5.0f, glm::vec3(1.0f, 0.0f, 0.0f));
+                }
+                else if(ejeSeleccionado == "Y")
+                {
+                    Renderer::GetInstancia()->GetModelo(nombreModelo)->Rotate(-5.0f, glm::vec3(0.0f, 1.0f, 0.0f));
+                }
+                else if(ejeSeleccionado == "Z")
+                {
+                    Renderer::GetInstancia()->GetModelo(nombreModelo)->Rotate(-5.0f, glm::vec3(0.0f, 0.0f, 1.0f));
+                }
+            }
+        }
 
         ImGui::Separator();
 

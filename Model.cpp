@@ -134,7 +134,22 @@ namespace PAG
 
     void Model::Rotate(float angle, glm::vec3 axis)
     {
+        //Calculamos el centro del modelo como la media de los vértices
+        glm::vec3 centro(0.0f);
+
+        if (!vertices.empty())
+        {
+            for (const auto& vertex : vertices)
+            {
+                centro += vertex.Position;
+            }
+            centro /= static_cast<float>(vertices.size());
+        }
+
+        //Movemos el modelo al origen de coordenadas, lo rotamos y lo devolvemos a su posición original
+        modelMatrix = glm::translate(modelMatrix, -centro);
         modelMatrix = glm::rotate(modelMatrix, glm::radians(angle), axis);
+        modelMatrix = glm::translate(modelMatrix, centro);
     }
 
     void Model::Scale(glm::vec3 scale)
