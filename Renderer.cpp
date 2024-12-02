@@ -5,6 +5,9 @@
 #include <glad/glad.h>
 
 #include "Renderer.h"
+
+#include <glm/gtc/type_ptr.inl>
+
 #include "Camera.h"
 
 PAG::Renderer* PAG::Renderer::instancia = nullptr;
@@ -35,7 +38,7 @@ namespace PAG
     {
         glEnable(GL_BLEND);
 
-        lights.push_back(new Light(Light::LightType::Ambiente, glm::vec3(0.2f), glm::vec3(0.0f), glm::vec3(0.0f), glm::vec3(0.0f)));
+        lights.push_back(new Light(Light::LightType::Ambiente, glm::vec3(0.2f), glm::vec3(1.0f), glm::vec3(0.0f), glm::vec3(0.0f)));
         lights.push_back(new Light(Light::LightType::Puntual, glm::vec3(1.0f, 0.5f, 0.3f), glm::vec3(1.0f), glm::vec3(5.0f, 3.0f, 5.0f), glm::vec3(0.0f)));
         lights.push_back(new Light(Light::LightType::Direccional, glm::vec3(0.8f, 0.8f, 0.8f), glm::vec3(1.0f), glm::vec3(0.0f), glm::vec3(-1.0f, -1.0f, -1.0f)));
         lights.push_back(new Light(Light::LightType::Foco, glm::vec3(1.0f, 1.0f, 0.8f), glm::vec3(1.0f), glm::vec3(0.0f, 10.0f, 0.0f), glm::vec3(0.0f, -1.0f, 0.0f)));
@@ -87,8 +90,8 @@ namespace PAG
                     GLuint indices[] = {0, 0};
                     glm::vec4 color={0,0,0,1};
 
-                    EstablecerColorModel(models[i], indices, color);
-                    EstablecerLucesModel(models[i], lights[l]->GetType(), indices);
+                    EstablecerColorModel(models[i], indices, color, shaderProgram->GetIdSP());
+                    EstablecerLucesModel(models[i], lights[l], indices, shaderProgram->GetIdSP());
 
                     glUniformSubroutinesuiv(GL_FRAGMENT_SHADER, 2, indices);
 
@@ -118,9 +121,14 @@ namespace PAG
         }
     }
 
-    void Renderer::EstablecerColorModel(Model* model, GLuint* indices, glm::vec4& color)
+    void Renderer::EstablecerColorModel(Model* model, GLuint* indices, glm::vec4& color, GLuint idSP)
     {
         std::string subrutina;
+
+        glUniform3fv(glGetUniformLocation(idSP, "Ka"), 1, glm::value_ptr(model->GetMaterial()->getColorAmbiente()));
+        glUniform3fv(glGetUniformLocation(idSP, "Kd"), 1, glm::value_ptr(model->GetMaterial()->getColorDifuso()));
+        glUniform3fv(glGetUniformLocation(idSP, "Ks"), 1, glm::value_ptr(model->GetMaterial()->getColorEspecular()));
+        glUniform1f(glGetUniformLocation(idSP, "ns"), model->GetMaterial()->getBrillo());
 
         if(model->GetModoVisualizacion() == Model::ModoVisualizacion::ModoAlambre)
         {
@@ -145,30 +153,42 @@ namespace PAG
         indices[indexSubrutina] = indexImplementacion;
     }
 
-    void Renderer::EstablecerLucesModel(Model *model, Light::LightType type, GLuint* indices)
+    void Renderer::EstablecerLucesModel(Model *model, Light *light, GLuint* indices, GLuint idSP)
     {
         GLuint indexSubrutinaLight;
 
-        switch (type)
+        if(light->GetType() == Light::Ambiente)
         {
-            case Light::Ambiente:
-                indexSubrutinaLight = glGetSubroutineIndex(shaderPrograms[model->GetIndexSP()]->GetIdSP(), GL_FRAGMENT_SHADER, "calculateAmbient");
-                break;
-
-            case Light::Puntual:
-                indexSubrutinaLight = glGetSubroutineIndex(shaderPrograms[model->GetIndexSP()]->GetIdSP(), GL_FRAGMENT_SHADER, "calculatePointLight");
-                break;
-
-            case Light::Direccional:
-                indexSubrutinaLight = glGetSubroutineIndex(shaderPrograms[model->GetIndexSP()]->GetIdSP(), GL_FRAGMENT_SHADER, "calculateDirectionalLight");
-                break;
-
-            case Light::Foco:
-                indexSubrutinaLight = glGetSubroutineIndex(shaderPrograms[model->GetIndexSP()]->GetIdSP(), GL_FRAGMENT_SHADER, "calculateSpotLight");
-                break;
-
-            default:
-                return;;
+            glUniform3fv(glGetUniformLocation(idSP, "Ia"), 1, glm::value_ptr(light->GetColorDifuso()));
+            indexSubrutinaLight = glGetSubroutineIndex(shaderPrograms[model->GetIndexSP()]->GetIdSP(), GL_FRAGMENT_SHADER, "calculateAmbient");
+        }
+        else if(light->GetType() == Light::Puntual)
+        {
+            glUniform3fv(glGetUniformLocation(idSP, "lightPosition"), 1, glm::value_ptr(light->GetPosicion()));
+            glUniform3fv(glGetUniformLocation(idSP, "Id"), 1, glm::value_ptr(light->GetColorDifuso()));
+            glUniform3fv(glGetUniformLocation(idSP, "Is"), 1, glm::value_ptr(light->GetColorEspecular()));
+            indexSubrutinaLight = glGetSubroutineIndex(shaderPrograms[model->GetIndexSP()]->GetIdSP(), GL_FRAGMENT_SHADER, "calculatePointLight");
+        }
+        else if(light->GetType() == Light::Direccional)
+        {
+            glUniform3fv(glGetUniformLocation(idSP, "lightDirection"), 1, glm::value_ptr(light->GetDireccion()));
+            glUniform3fv(glGetUniformLocation(idSP, "Id"), 1, glm::value_ptr(light->GetColorDifuso()));
+            glUniform3fv(glGetUniformLocation(idSP, "Is"), 1, glm::value_ptr(light->GetColorEspecular()));
+            indexSubrutinaLight = glGetSubroutineIndex(shaderPrograms[model->GetIndexSP()]->GetIdSP(), GL_FRAGMENT_SHADER, "calculateDirectionalLight");
+        }
+        else if(light->GetType() == Light::Foco)
+        {
+            glUniform3fv(glGetUniformLocation(idSP, "Id"), 1, glm::value_ptr(light->GetColorDifuso()));
+            glUniform3fv(glGetUniformLocation(idSP, "Is"), 1, glm::value_ptr(light->GetColorEspecular()));
+            glUniform3fv(glGetUniformLocation(idSP, "spotPosition"), 1, glm::value_ptr(light->GetPosicion()));
+            glUniform3fv(glGetUniformLocation(idSP, "spotDirection"), 1, glm::value_ptr(light->GetDireccion()));
+            glUniform1f(glGetUniformLocation(idSP, "spotAngle"), light->GetSpotAngle());
+            glUniform1f(glGetUniformLocation(idSP, "spotExponent"), light->GetSpotExponent());
+            indexSubrutinaLight = glGetSubroutineIndex(shaderPrograms[model->GetIndexSP()]->GetIdSP(), GL_FRAGMENT_SHADER, "calculateSpotLight");
+        }
+        else
+        {
+            throw std::runtime_error("El tipo de luz seleccionado no es válido.");
         }
 
         indices[indexSubrutinaLight] = indexSubrutinaLight;

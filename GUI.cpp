@@ -373,7 +373,7 @@ namespace PAG
         }
 
         ImGui::SetNextWindowPos(ImVec2(sx, sy + 255), ImGuiCond_Once);
-        ImGui::SetNextWindowSize(ImVec2(180, 180), ImGuiCond_Once);
+        ImGui::SetNextWindowSize(ImVec2(180, 150), ImGuiCond_Once);
 
         ImGui::Begin("Transformaciones");
         ImGui::Text(("Modelo actual: " + nombreModelo).c_str());
@@ -539,8 +539,6 @@ namespace PAG
                 }
             }
         }
-
-        ImGui::Separator();
 
         ImGui::End();
     }
