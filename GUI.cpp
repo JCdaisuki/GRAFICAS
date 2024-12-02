@@ -419,6 +419,18 @@ namespace PAG
             ImGui::EndMenu();
         }
 
+        ImGui::Separator();
+
+        if(transformacionSeleccionada != "")
+        {
+            ImGui::Text(transformacionSeleccionada.c_str());
+        }
+
+        if(ejeSeleccionado != "")
+        {
+            ImGui::Text(("Axis: " + ejeSeleccionado).c_str());
+        }
+
         if(transformacionSeleccionada == "Translation")
         {
             if (ImGui::Button("<- "))
@@ -488,6 +500,42 @@ namespace PAG
                 else if(ejeSeleccionado == "Z")
                 {
                     Renderer::GetInstancia()->GetModelo(nombreModelo)->Rotate(-5.0f, glm::vec3(0.0f, 0.0f, 1.0f));
+                }
+            }
+        }
+        else if(transformacionSeleccionada == "Scale")
+        {
+            if (ImGui::Button(" - "))
+            {
+                if (ejeSeleccionado == "X")
+                {
+                    Renderer::GetInstancia()->GetModelo(nombreModelo)->Scale(glm::vec3(0.9f, 1.0f, 1.0f));
+                }
+                else if (ejeSeleccionado == "Y")
+                {
+                    Renderer::GetInstancia()->GetModelo(nombreModelo)->Scale(glm::vec3(1.0f, 0.9f, 1.0f));
+                }
+                else if (ejeSeleccionado == "Z")
+                {
+                    Renderer::GetInstancia()->GetModelo(nombreModelo)->Scale(glm::vec3(1.0f, 1.0f, 0.9f));
+                }
+            }
+
+            ImGui::SameLine();
+
+            if (ImGui::Button(" + "))
+            {
+                if (ejeSeleccionado == "X")
+                {
+                    Renderer::GetInstancia()->GetModelo(nombreModelo)->Scale(glm::vec3(1.1f, 1.0f, 1.0f));
+                }
+                else if (ejeSeleccionado == "Y")
+                {
+                    Renderer::GetInstancia()->GetModelo(nombreModelo)->Scale(glm::vec3(1.0f, 1.1f, 1.0f));
+                }
+                else if (ejeSeleccionado == "Z")
+                {
+                    Renderer::GetInstancia()->GetModelo(nombreModelo)->Scale(glm::vec3(1.0f, 1.0f, 1.1f));
                 }
             }
         }
