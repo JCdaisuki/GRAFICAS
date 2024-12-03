@@ -118,7 +118,27 @@ En esta práctica hemos añadido 2 modos de visualización de los modelos:
 Para el uso de colores en ambos modos hemos añadido el uso subrutinasa nuestro shder *pag03*, que permiten cambiar el color a uno fijo, que en nuestro caso será negro, o al difuso del material, que será a su vez introducido por *Renderer*.
 
 Esta implementación se plasma en la interfaz mediante un menu que permite seleccionar ambos modos de visualización:
+
 <img src="https://i.imgur.com/z9CGC6E.png">
 
 ### Diagrama UML
 <img src="https://i.imgur.com/fGww66J.png">
+
+## Práctica 8
+Para el desarrollo de esta práctica se ha creado la nueva clase *Light* que contiene y controla la configuración de 4 tipos de luces:
+- Luz ambiente.
+- Luz puntual.
+- Luz direccional.
+- Luz de foco.
+
+*Renderer* se encargará de cargar estas luces en escena, que se proyectaran sobre los modelos de la escena gracias al uso de nuevas subrutinas en su shaderProgram.
+
+Asímismo se ha creado un nuevo menú que actua sobre los modelos de la escena, el menu de Transformaciones, que permite realizar las siguientes transformaciones sobre el modelo seleccionado:
+- Translación: Permite el movimiento simple del objeto en la escena.
+- Rotación: Permite rotar el objeto sobre sí mismo, para alcanzar este efecto (Ya que rota sobre el centro de coordenadas) será necesario trasladar el modelo al centro, rotarlo la cantidad definida y devolverlo a su posición original.
+- Escalar: Permite modificar el tamaño del modelo.
+
+<img src="https://i.imgur.com/4EwKrWi.png">
+
+### Diagrama UML
+<img src="https://i.imgur.com/hL8OqxI.png">
