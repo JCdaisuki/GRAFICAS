@@ -40,7 +40,7 @@ namespace PAG
 
         //lights.push_back(new Light(Light::LightType::Ambiente, glm::vec3(1.0f), glm::vec3(1.0f), glm::vec3(0.0f), glm::vec3(0.0f)));
         //lights.push_back(new Light(Light::LightType::Puntual, glm::vec3(1.0f), glm::vec3(1.0f), glm::vec3(5.0f, 3.0f, 5.0f), glm::vec3(0.0f, 0.0f, 0.0f)));
-        lights.push_back(new Light(Light::LightType::Direccional, glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(1.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(0.0f, -1.0f, 0.0f)));
+        lights.push_back(new Light(Light::LightType::Direccional, glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(1.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f)));
         //lights.push_back(new Light(Light::LightType::Foco,glm::vec3(1.0f),glm::vec3(1.0f, 0.0f, 0.0f),glm::vec3(0.0f, 1.0f, 0.0f),glm::vec3(0.0f, -1.0f, 0.0f)));
     }
 
@@ -171,17 +171,19 @@ namespace PAG
         }
         else if(light->GetType() == Light::Direccional)
         {
-            glUniform3fv(glGetUniformLocation(idSP, "lightDirection"), 1, glm::value_ptr(light->GetDireccion()));
+            glm::vec3 direccionLuz = glm::normalize(glm::mat3(Camera::GetInstancia()->GetViewMatrix()) * light->GetDireccion());
+            glUniform3fv(glGetUniformLocation(idSP, "lightDirection"), 1, glm::value_ptr(direccionLuz));
             glUniform3fv(glGetUniformLocation(idSP, "Id"), 1, glm::value_ptr(light->GetColorDifuso()));
             glUniform3fv(glGetUniformLocation(idSP, "Is"), 1, glm::value_ptr(light->GetColorEspecular()));
             indexSubrutinaLight = glGetSubroutineIndex(shaderPrograms[model->GetIndexSP()]->GetIdSP(), GL_FRAGMENT_SHADER, "calculateDirectionalLight");
         }
         else if(light->GetType() == Light::Foco)
         {
+            glm::vec3 direccionLuz = glm::normalize(glm::mat3(Camera::GetInstancia()->GetViewMatrix()) * light->GetDireccion());
             glUniform3fv(glGetUniformLocation(idSP, "Id"), 1, glm::value_ptr(light->GetColorDifuso()));
             glUniform3fv(glGetUniformLocation(idSP, "Is"), 1, glm::value_ptr(light->GetColorEspecular()));
             glUniform3fv(glGetUniformLocation(idSP, "spotPosition"), 1, glm::value_ptr(light->GetPosicion()));
-            glUniform3fv(glGetUniformLocation(idSP, "spotDirection"), 1, glm::value_ptr(light->GetDireccion()));
+            glUniform3fv(glGetUniformLocation(idSP, "spotDirection"), 1, glm::value_ptr(direccionLuz));
             glUniform1f(glGetUniformLocation(idSP, "spotAngle"), light->GetSpotAngle());
             glUniform1f(glGetUniformLocation(idSP, "spotExponent"), light->GetSpotExponent());
             indexSubrutinaLight = glGetSubroutineIndex(shaderPrograms[model->GetIndexSP()]->GetIdSP(), GL_FRAGMENT_SHADER, "calculateSpotLight");
