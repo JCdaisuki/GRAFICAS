@@ -171,7 +171,7 @@ namespace PAG
         }
         else if(light->GetType() == Light::Direccional)
         {
-            glm::vec3 direccionLuz = glm::normalize(glm::mat3(Camera::GetInstancia()->GetViewMatrix()) * light->GetDireccion());
+            glm::vec3 direccionLuz = glm::mat3(Camera::GetInstancia()->GetViewMatrix()) * light->GetDireccion();
             glUniform3fv(glGetUniformLocation(idSP, "lightDirection"), 1, glm::value_ptr(direccionLuz));
             glUniform3fv(glGetUniformLocation(idSP, "Id"), 1, glm::value_ptr(light->GetColorDifuso()));
             glUniform3fv(glGetUniformLocation(idSP, "Is"), 1, glm::value_ptr(light->GetColorEspecular()));
@@ -179,7 +179,7 @@ namespace PAG
         }
         else if(light->GetType() == Light::Foco)
         {
-            glm::vec3 direccionLuz = glm::normalize(glm::mat3(Camera::GetInstancia()->GetViewMatrix()) * light->GetDireccion());
+            glm::vec3 direccionLuz = glm::mat3(Camera::GetInstancia()->GetViewMatrix()) * light->GetDireccion();
             glUniform3fv(glGetUniformLocation(idSP, "Id"), 1, glm::value_ptr(light->GetColorDifuso()));
             glUniform3fv(glGetUniformLocation(idSP, "Is"), 1, glm::value_ptr(light->GetColorEspecular()));
             glUniform3fv(glGetUniformLocation(idSP, "spotPosition"), 1, glm::value_ptr(light->GetPosicion()));
