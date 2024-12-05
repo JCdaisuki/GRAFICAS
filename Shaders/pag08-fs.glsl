@@ -2,7 +2,6 @@
 
 in vec3 fragPosition;
 in vec3 fragNormal;
-in vec3 colorFragmento;
 
 uniform vec4 colorDifuso;
 
@@ -15,7 +14,7 @@ uniform float ns;
 // Luz ambiental
 uniform vec3 Ia;
 
-// Luz puntual
+// Luz puntual (Direccional + Foco)
 uniform vec3 lightPosition;
 uniform vec3 Id;
 uniform vec3 Is;
@@ -110,15 +109,10 @@ vec4 colorNegro ()
 subroutine(calcularColor)
 vec4 colorDifusoMaterial ()
 {
-    return colorDifuso;
+return vec4 ( metodoLuzElegido(), 1.0 );
 }
 
 void main()
 {
-    vec3 lighting = metodoLuzElegido();
-    vec4 colorFragmento = metodoColorElegido();
-
-    vec3 finalColor = lighting * colorFragmento.rgb;
-
-    fragColor = vec4(finalColor, 1.0);
+    fragColor = metodoColorElegido();
 }
