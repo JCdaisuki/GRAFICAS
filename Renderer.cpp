@@ -126,14 +126,14 @@ namespace PAG
             subrutina = "colorDifusoMaterial";
         }
 
-        GLuint indexImplementacion = glGetSubroutineIndex(shaderPrograms[model->GetIndexSP()]->GetIdSP(), GL_FRAGMENT_SHADER, subrutina.c_str());
+        GLuint indexImplementacion = glGetSubroutineIndex(idSP, GL_FRAGMENT_SHADER, subrutina.c_str());
 
         if (indexImplementacion == GL_INVALID_INDEX)
         {
             throw std::runtime_error("No se pudo encontrar la implementación "+ subrutina + " en el Shader " + shaderPrograms[model->GetIndexSP()]->GetRuta());
         }
 
-        GLuint indexSubrutina = glGetSubroutineUniformLocation ( shaderPrograms[model->GetIndexSP()]->GetIdSP(), GL_FRAGMENT_SHADER, "metodoColorElegido" );
+        GLuint indexSubrutina = glGetSubroutineUniformLocation ( idSP, GL_FRAGMENT_SHADER, "metodoColorElegido" );
 
         indices[indexSubrutina] = indexImplementacion;
     }
@@ -145,7 +145,7 @@ namespace PAG
         if(light->GetType() == Light::Ambiente)
         {
             glUniform3fv(glGetUniformLocation(idSP, "Ia"), 1, glm::value_ptr(light->GetColorDifuso()));
-            indexImplementacion = glGetSubroutineIndex(shaderPrograms[model->GetIndexSP()]->GetIdSP(), GL_FRAGMENT_SHADER, "calculateAmbient");
+            indexImplementacion = glGetSubroutineIndex(idSP, GL_FRAGMENT_SHADER, "calculateAmbient");
         }
         else if(light->GetType() == Light::Puntual)
         {
@@ -153,7 +153,7 @@ namespace PAG
             glUniform3fv(glGetUniformLocation(idSP, "lightPosition"), 1, glm::value_ptr(posicionLuz));
             glUniform3fv(glGetUniformLocation(idSP, "Id"), 1, glm::value_ptr(light->GetColorDifuso()));
             glUniform3fv(glGetUniformLocation(idSP, "Is"), 1, glm::value_ptr(light->GetColorEspecular()));
-            indexImplementacion = glGetSubroutineIndex(shaderPrograms[model->GetIndexSP()]->GetIdSP(), GL_FRAGMENT_SHADER, "calculatePointLight");
+            indexImplementacion = glGetSubroutineIndex(idSP, GL_FRAGMENT_SHADER, "calculatePointLight");
         }
         else if(light->GetType() == Light::Direccional)
         {
@@ -161,7 +161,7 @@ namespace PAG
             glUniform3fv(glGetUniformLocation(idSP, "lightDirection"), 1, glm::value_ptr(direccionLuz));
             glUniform3fv(glGetUniformLocation(idSP, "Id"), 1, glm::value_ptr(light->GetColorDifuso()));
             glUniform3fv(glGetUniformLocation(idSP, "Is"), 1, glm::value_ptr(light->GetColorEspecular()));
-            indexImplementacion = glGetSubroutineIndex(shaderPrograms[model->GetIndexSP()]->GetIdSP(), GL_FRAGMENT_SHADER, "calculateDirectionalLight");
+            indexImplementacion = glGetSubroutineIndex(idSP, GL_FRAGMENT_SHADER, "calculateDirectionalLight");
         }
         else if(light->GetType() == Light::Foco)
         {
@@ -173,7 +173,7 @@ namespace PAG
             glUniform3fv(glGetUniformLocation(idSP, "spotDirection"), 1, glm::value_ptr(direccionLuz));
             glUniform1f(glGetUniformLocation(idSP, "spotAngle"), light->GetSpotAngle());
             glUniform1f(glGetUniformLocation(idSP, "spotExponent"), light->GetSpotExponent());
-            indexImplementacion = glGetSubroutineIndex(shaderPrograms[model->GetIndexSP()]->GetIdSP(), GL_FRAGMENT_SHADER, "calculateSpotLight");
+            indexImplementacion = glGetSubroutineIndex(idSP, GL_FRAGMENT_SHADER, "calculateSpotLight");
         }
         else
         {
