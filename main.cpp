@@ -42,7 +42,20 @@ void callbackRefrescoVentana ( GLFWwindow* window)
 
     if(archivo != "")
     {
-        if(PAG::GUI::GetInstancia()->GetIsShader())
+        if(!PAG::GUI::GetInstancia()->GetIsShader() && PAG::GUI::GetInstancia()->GetIsTextura())
+        {
+            try
+            {
+                std::string ruta = "Texturas/" + archivo + ".png";
+                PAG::Renderer::GetInstancia()->CargaTextura(ruta);
+            }
+            catch (std::exception &e)
+            {
+                PAG::GUI::GetInstancia()->ResetTexturaArchivo();
+                EmitirMensaje(e.what());
+            }
+        }
+        else if(PAG::GUI::GetInstancia()->GetIsShader() && !PAG::GUI::GetInstancia()->GetIsTextura())
         {
             try
             {

@@ -273,6 +273,18 @@ namespace PAG
         throw std::runtime_error("Modelo " + nombreModelo + " no encontrado");
     }
 
+    void Renderer::CargaTextura(std::string rutaTextura)
+    {
+        if(models.size() > 0)
+        {
+            models[models.size()-1]->CargarTextura(rutaTextura);
+        }
+        else
+        {
+            throw std::runtime_error("No hay ningún modelo cargado");
+        }
+    }
+
     Renderer::~Renderer()
     {
         if (instancia)

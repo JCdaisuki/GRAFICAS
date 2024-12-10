@@ -40,7 +40,12 @@ namespace PAG
             char bufferShader[256];
             std::string shaderArchivo = ""; //Nombre del archivo de shaders a cargar
 
-            bool isShader; //Este booleano permitirá saber si el archivo lanzado es de un shader o un modelo
+            char bufferTextura[256];
+            std::string texturaArchivo = ""; //Nombre del archivo de la textura a cargar
+
+            //Booleanos que permiten saber si el archivo lanzado es shader, modelo o textura
+            bool isShader;
+            bool isTextura;
 
             // - Estas funciones crean las ventanas auxiliares dentro de la ventana principal
             void CrearVentanaMensajes();
@@ -64,6 +69,7 @@ namespace PAG
             float* GetColorFondo();
 
             bool GetIsShader(){return isShader;}
+            bool GetIsTextura(){return isTextura;}
 
             //Setters de las posiciones x e y de la ventana mensajes
             void SetMensajeX(int newMX){ mx = newMX;}
@@ -71,6 +77,7 @@ namespace PAG
 
             void ResetShaderArchivo(){shaderArchivo = "";}
             void ResetModelArchivo(){modelArchivo = "";}
+            void ResetTexturaArchivo(){texturaArchivo = "";}
 
             void InicializarImGui(GLFWwindow* window);
 

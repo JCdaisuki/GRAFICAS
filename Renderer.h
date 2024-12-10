@@ -62,6 +62,7 @@ namespace PAG
 
         void CreaShaderProgram ( std::string ruta );
         void CreaModelo(std::string rutaModelo, std::string nombreModelo);
+        void CargaTextura(std::string rutaTextura);
 
         Model* GetModelo(std::string nombreModelo);
 

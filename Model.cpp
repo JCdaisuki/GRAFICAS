@@ -11,6 +11,7 @@
 #include "Camera.h"
 #include "Model.h"
 
+#include "lodepng.h"
 
 namespace PAG
 {
@@ -157,6 +158,46 @@ namespace PAG
         modelMatrix = glm::scale(modelMatrix, scale);
     }
 
+    void Model::CargarTextura(std::string rutaTextura)
+    {
+        /** Carga un png de disco https://lodev.org/lodepng */
+        std::vector<unsigned char> imagen; // Los píxeles de la imagen
+        unsigned ancho, alto;
+        unsigned error = lodepng::decode (imagen, ancho, alto, rutaTextura);
+
+        if (error)
+        {
+            std::string mensaje = rutaTextura + " no se pudo cargar";
+            throw std::runtime_error ( mensaje );
+        }
+
+        // La textura se carga del revés, así que vamos a darle la vuelta
+        unsigned char *imgPtr = &imagen[0];
+        int numeroDeComponentesDeColor = 4;
+        int incrementoAncho = ancho * numeroDeComponentesDeColor; // Ancho en bytes
+
+        unsigned char* top = nullptr;
+        unsigned char* bot = nullptr;
+        unsigned char temp = 0;
+
+        for (int i = 0; i < alto / 2; i++)
+        {
+            top = imgPtr + i * incrementoAncho;
+            bot = imgPtr + (alto - i - 1) * incrementoAncho;
+
+            for (int j = 0; j < incrementoAncho; j++)
+            {
+                temp = *top;
+                *top = *bot;
+                *bot = temp;
+                ++top;
+                ++bot;
+            }
+        }
+
+        glTexImage2D ( GL_TEXTURE_2D, 0, GL_RGBA, ancho, alto, 0, GL_RGBA, GL_UNSIGNED_BYTE, imagen.data() );
+    }
+
     Model::~Model()
     {
         if (VBO != 0)
@@ -174,5 +215,4 @@ namespace PAG
             glDeleteBuffers(1, &IBO);
         }
     }
-
 }

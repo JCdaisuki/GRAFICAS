@@ -82,6 +82,8 @@ namespace PAG
             void Rotate(float angle, glm::vec3 axis);
             void Scale(glm::vec3 scale);
 
+            void CargarTextura(std::string rutaTextura);
+
             ~Model();
     };
 }

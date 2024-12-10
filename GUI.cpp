@@ -64,15 +64,24 @@ namespace PAG
         CrearVentanaCamera();
         CrearVentanaModelTrans();
 
+        if(texturaArchivo != "")
+        {
+            isShader = false;
+            isTextura = true;
+            return texturaArchivo;
+        }
+
         if(shaderArchivo != "")
         {
             isShader = true;
+            isTextura = false;
             return shaderArchivo;
         }
 
         if(modelArchivo != "")
         {
             isShader = false;
+            isTextura = false;
             return modelArchivo;
         }
 
@@ -126,9 +135,9 @@ namespace PAG
     void GUI::CrearVentanaModelShaders()
     {
         ImGui::SetNextWindowPos(ImVec2(sx, sy), ImGuiCond_Once);
-        ImGui::SetNextWindowSize(ImVec2(180, 250), ImGuiCond_Once);
+        ImGui::SetNextWindowSize(ImVec2(180, 310), ImGuiCond_Once);
 
-        ImGui::Begin("Modelo y Shader");
+        ImGui::Begin("Modelo, Shader y Textura");
 
         ImGui::Text("Cargar Modelo:");
         ImGui::InputText("##modelo", bufferModel, sizeof(bufferModel), ImGuiInputTextFlags_AutoSelectAll);
@@ -198,6 +207,16 @@ namespace PAG
         if (ImGui::Button("Load Shader") && bufferShader != "")
         {
             shaderArchivo = bufferShader;
+        }
+
+        ImGui::Separator();
+
+        ImGui::Text("Cargar Textura:");
+        ImGui::InputText("##textura", bufferTextura, sizeof(bufferTextura), ImGuiInputTextFlags_AutoSelectAll);
+
+        if (ImGui::Button("Load Texture") && bufferTextura != "")
+        {
+            texturaArchivo = bufferTextura;
         }
 
         ImGui::End();
@@ -372,7 +391,7 @@ namespace PAG
             return;
         }
 
-        ImGui::SetNextWindowPos(ImVec2(sx, sy + 255), ImGuiCond_Once);
+        ImGui::SetNextWindowPos(ImVec2(sx, sy + 315), ImGuiCond_Once);
         ImGui::SetNextWindowSize(ImVec2(180, 150), ImGuiCond_Once);
 
         ImGui::Begin("Transformaciones");
@@ -569,6 +588,9 @@ namespace PAG
 
         bufferModel[0] = '\0';
         modelArchivo = "";
+
+        bufferTextura[0] = '\0';
+        texturaArchivo = "";
     }
 
     void GUI::FinalizarImGui()
