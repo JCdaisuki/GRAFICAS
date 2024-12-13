@@ -65,6 +65,7 @@ namespace PAG
         void CargaTextura(std::string rutaTextura);
 
         Model* GetModelo(std::string nombreModelo);
+        ShaderProgram* GetShaderProgram(int index){return shaderPrograms[index];};
 
         ~Renderer();
     };

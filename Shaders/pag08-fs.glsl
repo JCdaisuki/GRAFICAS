@@ -2,8 +2,10 @@
 
 in vec3 fragPosition;
 in vec3 fragNormal;
+in vec2 fragTexCoord; // Coordenadas de textura desde el vertex shader
 
 uniform vec4 colorDifuso;
+uniform sampler2D texture1; // Textura del material
 
 // Material
 uniform vec3 Ka;
@@ -109,7 +111,18 @@ vec4 colorNegro ()
 subroutine(calcularColor)
 vec4 colorDifusoMaterial ()
 {
-return vec4 ( metodoLuzElegido(), 1.0 );
+    //return vec4 ( metodoLuzElegido(), 1.0 );
+    vec3 luz = metodoLuzElegido(); // Calcular iluminación según el método elegido
+    vec4 texturaColor = texture(texture1, fragTexCoord); // Muestra el color de la textura
+    return vec4(luz, 1.0) * texturaColor; // Combina iluminación con textura
+}
+
+subroutine(calcularColor)
+vec4 colorTexturaMaterial ()
+{
+    vec3 luz = metodoLuzElegido(); // Calcular iluminación según el método elegido
+    vec4 texturaColor = texture(texture1, fragTexCoord); // Muestra el color de la textura
+    return vec4(luz, 1.0) * texturaColor; // Combina iluminación con textura
 }
 
 void main()

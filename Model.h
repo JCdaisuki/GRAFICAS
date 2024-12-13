@@ -60,6 +60,8 @@ namespace PAG
             // Procesa una malla de Assimp y llena los datos de vértices e índices
             void processMesh(aiMesh *mesh);
 
+
+        GLuint textureID;
         public:
             Model(char *path, std::string modelo);
 
@@ -83,6 +85,7 @@ namespace PAG
             void Scale(glm::vec3 scale);
 
             void CargarTextura(std::string rutaTextura);
+            void DibujarTextura(GLuint idSP);
 
             ~Model();
     };

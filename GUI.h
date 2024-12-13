@@ -70,6 +70,7 @@ namespace PAG
 
             bool GetIsShader(){return isShader;}
             bool GetIsTextura(){return isTextura;}
+            std::string GetModeloActual(){return nombreModelo;}
 
             //Setters de las posiciones x e y de la ventana mensajes
             void SetMensajeX(int newMX){ mx = newMX;}

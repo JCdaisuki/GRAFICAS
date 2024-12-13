@@ -9,6 +9,7 @@
 #include <glm/gtc/type_ptr.inl>
 
 #include "Camera.h"
+#include "GUI.h"
 
 PAG::Renderer* PAG::Renderer::instancia = nullptr;
 
@@ -97,6 +98,8 @@ namespace PAG
                     shaderProgram->SetProjectionMatrix(Camera::GetInstancia()->GetProjectionMatrix());
                     shaderProgram->SetViewAndModelMatrix(Camera::GetInstancia()->GetViewMatrix(), models[i]->GetModelMatrix());
                     shaderProgram->SetNormalMatrix();
+
+                    models[i]->DibujarTextura(idSP);
 
                     glBindVertexArray(models[i]->GetIdVAO());
 
@@ -210,7 +213,7 @@ namespace PAG
 
             if(shaderPrograms[i]->GetRuta() == rutaFuenteGLSL)
             {
-                models[models.size()-1]->SetIndexSP ( i );
+                GetModelo(GUI::GetInstancia()->GetModeloActual())->SetIndexSP ( i );
                 return;
             }
         }
@@ -277,7 +280,7 @@ namespace PAG
     {
         if(models.size() > 0)
         {
-            models[models.size()-1]->CargarTextura(rutaTextura);
+            GetModelo(GUI::GetInstancia()->GetModeloActual())->CargarTextura(rutaTextura);
         }
         else
         {
