@@ -63,6 +63,7 @@ namespace PAG
         CrearVentanaModelShaders();
         CrearVentanaCamera();
         CrearVentanaModelTrans();
+        CrearVentanaLuces();
 
         if(texturaArchivo != "")
         {
@@ -137,7 +138,7 @@ namespace PAG
         ImGui::SetNextWindowPos(ImVec2(sx, sy), ImGuiCond_Once);
         ImGui::SetNextWindowSize(ImVec2(180, 310), ImGuiCond_Once);
 
-        ImGui::Begin("Modelo, Shader y Textura");
+        ImGui::Begin("Modelo, Shader, Textura");
 
         ImGui::Text("Cargar Modelo:");
         ImGui::InputText("##modelo", bufferModel, sizeof(bufferModel), ImGuiInputTextFlags_AutoSelectAll);
@@ -579,6 +580,36 @@ namespace PAG
             }
         }
         return false;
+    }
+
+    void GUI::CrearVentanaLuces()
+    {
+        ImGui::SetNextWindowPos(ImVec2(cx, cy + 220), ImGuiCond_Once);
+        ImGui::SetNextWindowSize(ImVec2(200, 125), ImGuiCond_Once);
+
+        ImGui::Begin("Luces");
+
+        for (int i = 0; i < 4; ++i)
+        {
+            std::string textoBoton = lucesNombre[i];
+
+            if (lucesEstado[i])
+            {
+                textoBoton += ": (ON)";
+            }
+            else
+            {
+                textoBoton += ": (OFF)";
+            }
+
+            if (ImGui::Button(textoBoton.c_str()))
+            {
+                lucesEstado[i] = !lucesEstado[i];
+                Renderer::GetInstancia()->GetLight(i)->ChangeOnOff(lucesEstado[i]);
+            }
+        }
+
+        ImGui::End();
     }
 
     void GUI::LimpiarRutas()

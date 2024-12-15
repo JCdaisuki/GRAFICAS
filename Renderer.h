@@ -66,6 +66,7 @@ namespace PAG
 
         Model* GetModelo(std::string nombreModelo);
         ShaderProgram* GetShaderProgram(int index){return shaderPrograms[index];};
+        Light* GetLight(int index){return lights[index];};
 
         ~Renderer();
     };

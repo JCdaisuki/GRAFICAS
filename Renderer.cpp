@@ -143,6 +143,11 @@ namespace PAG
 
     void Renderer::EstablecerLucesModel(Model *model, Light *light, GLuint* indices, GLuint idSP)
     {
+        if(!light->GetIsOn())
+        {
+            return;
+        }
+
         GLuint indexImplementacion;
 
         if(light->GetType() == Light::Ambiente)

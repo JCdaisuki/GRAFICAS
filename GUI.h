@@ -53,6 +53,7 @@ namespace PAG
             void CrearVentanaModelShaders();
             void CrearVentanaCamera();
             void CrearVentanaModelTrans();
+            void CrearVentanaLuces();
 
             //Auxiliares del Menu de Cámara
             std::string menuSeleccionado = "";
@@ -62,6 +63,9 @@ namespace PAG
             //Auxiliares del Menu de Transformaciones
             std::string transformacionSeleccionada = "";
             std::string ejeSeleccionado = "";
+
+            bool lucesEstado[4] = {true, true, true, true};
+            std::string lucesNombre[4] = {"Luz Ambiente", "Luz Puntual", "Luz Direccional", "Luz Foco"};
 
         public:
             // - Getter de instancia

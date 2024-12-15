@@ -26,6 +26,8 @@ namespace PAG
             float spotAngle = 0.5f;
             float spotExponent = 20.0f;
 
+            bool isOn = true;
+
         public:
             Light(LightType type, const glm::vec3 &color_difuso, const glm::vec3 &color_especular,const glm::vec3 &posicion, const glm::vec3 &direccion) : type(type),colorDifuso(color_difuso),colorEspecular(color_especular),posicion(posicion),direccion(direccion) {}
 
@@ -36,6 +38,9 @@ namespace PAG
             glm::vec3 GetDireccion(){return direccion;}
             float GetSpotAngle(){return spotAngle;}
             float GetSpotExponent(){return spotExponent;}
+
+            bool GetIsOn(){return isOn;}
+            void ChangeOnOff(bool status){isOn = status;}
     };
 }
 
