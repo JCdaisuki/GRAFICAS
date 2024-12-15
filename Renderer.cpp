@@ -233,7 +233,7 @@ namespace PAG
 
         if ( models.size() > 0 )
         {
-            models[models.size()-1]->SetIndexSP ( shaderPrograms.size() );
+            GetModelo(GUI::GetInstancia()->GetModeloActual())->SetIndexSP ( shaderPrograms.size() );
         }
         else
         {

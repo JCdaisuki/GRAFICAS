@@ -12,7 +12,7 @@ out vec3 fragNormal;          // Normal del fragmento
 
 layout (location = 2) in vec2 texCoord; // Coordenadas de textura
 
-out vec2 fragTexCoord; // Coordenadas de textura hacia el fragment shader
+out vec2 fragTexCoord; // Coordenadas de textura para el fragment shader
 
 void main()
 {
