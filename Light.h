@@ -24,7 +24,7 @@ namespace PAG
             glm::vec3 direccion;
 
             float spotAngle = 0.5f;
-            float spotExponent = 20.0f;
+            float spotExponent = 200.0f;
 
             bool isOn = true;
 

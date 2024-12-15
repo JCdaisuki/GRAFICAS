@@ -39,10 +39,10 @@ namespace PAG
     {
         glEnable(GL_BLEND);
 
-        lights.push_back(new Light(Light::LightType::Ambiente, glm::vec3(1.0f), glm::vec3(1.0f), glm::vec3(0.0f), glm::vec3(0.0f)));
+        lights.push_back(new Light(Light::LightType::Ambiente, glm::vec3(0.502f, 0.0f, 0.502f), glm::vec3(1.0f), glm::vec3(0.0f), glm::vec3(0.0f)));
         lights.push_back(new Light(Light::LightType::Puntual, glm::vec3(1.0f), glm::vec3(1.0f), glm::vec3(5.0f, 3.0f, 5.0f), glm::vec3(0.0f, 0.0f, 0.0f)));
         lights.push_back(new Light(Light::LightType::Direccional, glm::vec3(1.0f, 0.0f, 0.0f), glm::vec3(1.0f), glm::vec3(0.0f, 1.0f, 0.0f), glm::vec3(0.0f, -1.0f, 0.0f)));
-        lights.push_back(new Light(Light::LightType::Foco,glm::vec3(1.0f),glm::vec3(1.0f, 0.0f, 0.0f),glm::vec3(0.0f, 1.0f, 0.0f),glm::vec3(0.0f, -1.0f, 0.0f)));
+        lights.push_back(new Light(Light::LightType::Foco,glm::vec3(0.0, 0.0, 1.0),glm::vec3(1.0f, 0.0f, 0.0f),glm::vec3(0.0f, 1.0f, 0.0f),glm::vec3(0.0f, -1.0f, 0.0f)));
     }
 
     std::string Renderer::MostrarPropiedades()
@@ -149,6 +149,11 @@ namespace PAG
     {
         if(!light->GetIsOn())
         {
+            if (light->GetType() == Light::Ambiente) //Eliminar información de la luz ambiente en el shader
+            {
+                glUniform3fv(glGetUniformLocation(idSP, "Ia"), 1, glm::value_ptr(glm::vec3(0.0f)));
+            }
+
             return;
         }
 
