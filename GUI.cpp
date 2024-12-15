@@ -196,6 +196,11 @@ namespace PAG
                     Renderer::GetInstancia()->GetModelo(nombreModelo)->SetModoVisualizacion(PAG::Model::ModoVisualizacion::ModoAlambre);
                 }
 
+                if (ImGui::MenuItem("Modo Textura"))
+                {
+                    Renderer::GetInstancia()->GetModelo(nombreModelo)->SetModoVisualizacion(PAG::Model::ModoVisualizacion::ModoTextura);
+                }
+
                 ImGui::EndMenu();
             }
         }

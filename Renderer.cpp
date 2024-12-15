@@ -128,6 +128,10 @@ namespace PAG
         {
             subrutina = "colorDifusoMaterial";
         }
+        else if(model->GetModoVisualizacion() == Model::ModoVisualizacion::ModoTextura)
+        {
+            subrutina = "colorTexturaMaterial";
+        }
 
         GLuint indexImplementacion = glGetSubroutineIndex(idSP, GL_FRAGMENT_SHADER, subrutina.c_str());
 

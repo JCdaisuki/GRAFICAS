@@ -22,7 +22,8 @@ namespace PAG
             enum class ModoVisualizacion
             {
                 ModoAlambre,
-                ModoPlano
+                ModoPlano,
+                ModoTextura
             };
 
         private:

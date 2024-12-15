@@ -111,10 +111,7 @@ vec4 colorNegro ()
 subroutine(calcularColor)
 vec4 colorDifusoMaterial ()
 {
-    //return vec4 ( metodoLuzElegido(), 1.0 );
-    vec3 luz = metodoLuzElegido(); // Calcular iluminación según el método elegido
-    vec4 texturaColor = texture(texture1, fragTexCoord); // Muestra el color de la textura
-    return vec4(luz, 1.0) * texturaColor; // Combina iluminación con textura
+    return vec4 ( metodoLuzElegido(), 1.0 );
 }
 
 subroutine(calcularColor)
