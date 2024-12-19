@@ -51,6 +51,9 @@ namespace PAG
         // vertex normals
         glEnableVertexAttribArray(1);
         glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Normal));
+        // Texture coordinates
+        glEnableVertexAttribArray(2);
+        glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, TexCoords));
 
         glBindVertexArray(0);
     }
@@ -101,6 +104,14 @@ namespace PAG
             vector.y = mesh->mNormals[i].y;
             vector.z = mesh->mNormals[i].z;
             vertex.Normal = vector;
+
+            if ( mesh->mTextureCoords[0] )   //Las coordenadas de textura se cargan solo si existen
+            {
+                glm::vec2 tex;
+                tex.x = mesh->mTextureCoords[0][i].x;
+                tex.y = mesh->mTextureCoords[0][i].y;
+                vertex.TexCoords = tex;
+            }
 
             vertices.push_back(vertex);
         }
