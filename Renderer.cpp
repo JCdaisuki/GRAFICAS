@@ -120,17 +120,22 @@ namespace PAG
         glUniform3fv(glGetUniformLocation(idSP, "Ks"), 1, glm::value_ptr(model->GetMaterial()->getColorEspecular()));
         glUniform1f(glGetUniformLocation(idSP, "ns"), model->GetMaterial()->getBrillo());
 
-        if(model->GetModoVisualizacion() == Model::ModoVisualizacion::ModoAlambre)
+        switch (model->GetModoVisualizacion())
         {
-            subrutina = "colorNegro";
-        }
-        else if(model->GetModoVisualizacion() == Model::ModoVisualizacion::ModoPlano) //ESTABLECEMOS EL COLOR DIFUSO DEL MATERIAL
-        {
-            subrutina = "colorDifusoMaterial";
-        }
-        else if(model->GetModoVisualizacion() == Model::ModoVisualizacion::ModoTextura)
-        {
-            subrutina = "colorTexturaMaterial";
+            case Model::ModoVisualizacion::ModoAlambre:
+                subrutina = "colorNegro";
+                break;
+
+            case Model::ModoVisualizacion::ModoPlano:
+                subrutina = "colorDifusoMaterial";
+                break;
+
+            case Model::ModoVisualizacion::ModoTextura:
+                subrutina = "colorTexturaMaterial";
+                break;
+
+            default:
+                throw std::runtime_error("El modo de visualización del modelo " + model->GetNombreModelo() +" es incorrecto.");
         }
 
         GLuint indexImplementacion = glGetSubroutineIndex(idSP, GL_FRAGMENT_SHADER, subrutina.c_str());

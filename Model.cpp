@@ -122,10 +122,7 @@ namespace PAG
             return GL_LINE;
         }
 
-        if(modoVisualizacion == ModoVisualizacion::ModoPlano)
-        {
-            return GL_FILL;
-        }
+        return GL_FILL;
     }
 
     void Model::Translate(glm::vec3 translation)
