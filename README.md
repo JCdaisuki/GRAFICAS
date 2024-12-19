@@ -142,3 +142,11 @@ Asímismo se ha creado un nuevo menú que actua sobre los modelos de la escena, 
 
 ### Diagrama UML
 <img src="https://i.imgur.com/hL8OqxI.png">
+
+
+## Práctica 9
+Para el desarrollo de esta práctica añadiremos un nuevo modo de visualización: *Modo textura*, que permite visualizar el modelo texturizado con un imagen que se haya cargado.
+Para esto deberemos modificar el shader program de forma que en este nuevo modo de visualización se combinen los cálculos de luz sobre el modelo texturizado, igualmente deberemos comprobar si el modelo contiene coordenadas de texturas al ser cargado, loq ue permite una mejor visualización de ciertas texturas sobre el mismo.
+
+### Diagrama UML
+<img src="https://i.imgur.com/i7op4PI.png">
